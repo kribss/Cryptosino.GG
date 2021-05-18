@@ -203,7 +203,31 @@ contract JackpotGame is VRFConsumerBase {
         return (currentJackpot.jackpotEndTime - now);
     }
 
-    function getJackpotInfo(uint256 _i)
+    function getCurrentJackpotInfo()
+        public
+        view
+        returns (
+            uint256 _index,
+            uint256 _size,
+            uint256 _blockstamp,
+            uint256 _jackpotEndTime,
+            uint256 _ticketIndex,
+            address[] memory _players,
+            address winner
+        )
+    {
+        return (
+            currentJackpot.index,
+            currentJackpot.size,
+            currentJackpot.blockstamp,
+            currentJackpot.jackpotEndTime,
+            currentJackpot.ticketIndex,
+            currentJackpot.players,
+            currentJackpot.winner
+        );
+    }
+
+    function getPriorJackpotInfo(uint256 _i)
         external
         view
         returns (
@@ -247,46 +271,3 @@ contract JackpotGame is VRFConsumerBase {
         pickWinner(randomness);
     }
 }
-
-//PICK WINNER OLD CODE
-//     for (uint256 i = 0; i <= totalTickets; i++) {
-//         uint256[] memory playerArray = playerTickets[currentJackpot
-//             .players[i]];
-//         for (uint256 j = 0; j <= playerArray.length; j++) {
-//             if (playerArray[j] == winningTicket) {
-//                 currentJackpot.winner = payable(currentJackpot.players[i]);
-//                 payable(currentJackpot.winner).transfer(
-//                     (currentJackpot.size * 99) / 100
-//                 );
-//                 jackpotActive = false;
-//                 if (currentJackpot.index % 5 == 0) {
-//                     payable(owner).transfer(address(this).balance);
-//                 }
-//                 index++;
-//                 emit JackpotResult(
-//                     currentJackpot.winner,
-//                     currentJackpot.size
-//                 );
-//             }
-//         }
-//     }
-// }
-//
-// OLD METHOD OF TICKET GENERATION
-// function generateTickets() internal {
-//     uint256 j = 0;
-//     totalTickets = 0;
-//     for (uint256 i = 0; i <= currentJackpot.players.length; i++) {
-//         uint256 percentOfPot = (playerBet[currentJackpot.players[i]] /
-//             currentJackpot.size);
-
-//         for (j; j <= percentOfPot; j++) {
-//             playerTicketArray.push(j);
-//         }
-//         playerTickets[currentJackpot.players[i]] = playerTicketArray;
-
-//         totalTickets += playerTicketArray.length;
-
-//         delete playerTicketArray;
-//     }
-// }
