@@ -1,0 +1,1 @@
+Decentralized jackpot game based upon Ethereum block times and Chainlink VRF
