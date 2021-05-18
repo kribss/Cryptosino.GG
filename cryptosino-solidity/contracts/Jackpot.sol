@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
-
-//TODO
+//TO DO
 //DONE just take 1% cut from final jackpot dispersal
-//give tickets based on .1 matic per ticket
+//DONE give tickets based on .1 matic per ticket
 //end ticket loop once winner is found
 
 pragma solidity 0.6.6;
 
+//import "https://raw.githubusercontent.com/smartcontractkit/chainlink/master/evm-contracts/src/v0.6/VRFConsumerBase.sol";
 import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 
 interface IUniswapV2Router02 {
@@ -131,9 +131,12 @@ contract JackpotGame is VRFConsumerBase {
         );
         currentJackpot.players.push(msg.sender);
         playerBet[msg.sender] = msg.value;
+
+        uint256 tickets = (msg.value / (10**18)) * 10;
+
         for (
             currentJackpot.ticketIndex;
-            currentJackpot.ticketIndex <= msg.value;
+            currentJackpot.ticketIndex < currentJackpot.ticketIndex + tickets;
             currentJackpot.ticketIndex++
         ) {
             ticketToPlayer[currentJackpot.ticketIndex] = msg.sender;
@@ -147,9 +150,11 @@ contract JackpotGame is VRFConsumerBase {
         currentJackpot.size += msg.value;
         playerBet[msg.sender] = msg.value;
 
+        uint256 tickets = (msg.value / (10**18)) * 10;
+
         for (
             currentJackpot.ticketIndex;
-            currentJackpot.ticketIndex <= msg.value;
+            currentJackpot.ticketIndex < currentJackpot.ticketIndex + tickets;
             currentJackpot.ticketIndex++
         ) {
             ticketToPlayer[currentJackpot.ticketIndex] = msg.sender;
@@ -181,7 +186,19 @@ contract JackpotGame is VRFConsumerBase {
     }
 
     function getJackpotCount() external view returns (uint256) {
-        return index;
+        return index + 1;
+    }
+
+    function getTicketOwner(uint256 ticketNumber)
+        external
+        view
+        returns (address)
+    {
+        return ticketToPlayer[ticketNumber];
+    }
+
+    function timeLeftOnCurrentJackpot() external view returns (uint256) {
+        return (currentJackpot.jackpotEndTime - now);
     }
 
     function getJackpotInfo(uint256 _i)
