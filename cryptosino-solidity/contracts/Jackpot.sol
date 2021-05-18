@@ -1,13 +1,14 @@
 // SPDX-License-Identifier: MIT
 //TO DO
 //DONE just take 1% cut from final jackpot dispersal
-//DONE give tickets based on .1 matic per ticket
+//give tickets based on .1 matic per ticket
 //end ticket loop once winner is found
 
 pragma solidity 0.6.6;
 
-//import "https://raw.githubusercontent.com/smartcontractkit/chainlink/master/evm-contracts/src/v0.6/VRFConsumerBase.sol";
 import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
+
+//import "https://raw.githubusercontent.com/smartcontractkit/chainlink/master/evm-contracts/src/v0.6/VRFConsumerBase.sol";
 
 interface IUniswapV2Router02 {
     function swapETHForExactTokens(
@@ -132,11 +133,12 @@ contract JackpotGame is VRFConsumerBase {
         currentJackpot.players.push(msg.sender);
         playerBet[msg.sender] = msg.value;
 
+        uint256 startingTicket = currentJackpot.ticketIndex;
         uint256 tickets = (msg.value / (10**18)) * 10;
 
         for (
             currentJackpot.ticketIndex;
-            currentJackpot.ticketIndex < currentJackpot.ticketIndex + tickets;
+            currentJackpot.ticketIndex < startingTicket + tickets;
             currentJackpot.ticketIndex++
         ) {
             ticketToPlayer[currentJackpot.ticketIndex] = msg.sender;
@@ -150,16 +152,16 @@ contract JackpotGame is VRFConsumerBase {
         currentJackpot.size += msg.value;
         playerBet[msg.sender] = msg.value;
 
+        uint256 startingTicket = currentJackpot.ticketIndex;
         uint256 tickets = (msg.value / (10**18)) * 10;
 
         for (
             currentJackpot.ticketIndex;
-            currentJackpot.ticketIndex < currentJackpot.ticketIndex + tickets;
+            currentJackpot.ticketIndex < startingTicket + tickets;
             currentJackpot.ticketIndex++
         ) {
             ticketToPlayer[currentJackpot.ticketIndex] = msg.sender;
         }
-
         emit PlayerJoin(msg.value, msg.sender);
 
         if (now >= currentJackpot.jackpotEndTime) {
