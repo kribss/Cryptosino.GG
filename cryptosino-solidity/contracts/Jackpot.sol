@@ -95,24 +95,27 @@ contract JackpotGame is VRFConsumerBase {
         }
     }
 
-    /**
-     * Constructor inherits VRFConsumerBase
-     *
-     * Network: Matic
-     * Chainlink VRF Coordinator address: 0x3d2341ADb2D31f1c5530cDC622016af293177AE0
-     * LINK token address:                0xb0897686c545045aFc77CF20eC7A532E3120E0F1
-     * Key Hash: 0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da
-     */
+    //  Network: Matic Mumbai Testnet
+    //  LINK Token:	        0x326C977E6efc84E512bB9C30f76E30c160eD06FB
+    //  VRF Coordinator:	0x8C7382F9D8f56b33781fE506E897a4F1e2d17255
+    //  Key Hash:	        0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4
+    //  Fee:	            0.0001 LINK
+
+    //   Network: Matic
+    //   VRF Coordinator:    0x3d2341ADb2D31f1c5530cDC622016af293177AE0
+    //   LINK token address: 0xb0897686c545045aFc77CF20eC7A532E3120E0F1
+    //   Key Hash:           0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da
+    //   Fee:                0.0001 LINK
 
     constructor()
         public
         VRFConsumerBase(
-            0x3d2341ADb2D31f1c5530cDC622016af293177AE0, // VRF Coordinator
-            0xb0897686c545045aFc77CF20eC7A532E3120E0F1 // Link Token Address
+            0x8C7382F9D8f56b33781fE506E897a4F1e2d17255, // VRF Coordinator
+            0x326C977E6efc84E512bB9C30f76E30c160eD06FB // Link Token Address
         )
     {
         keyHash = 0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4;
-        fee = 0.0001 * 10**18; //0.001 default link oracle fee
+        fee = 0.0001 * 10**18;
         index = 0;
         owner = msg.sender;
     }
@@ -165,7 +168,33 @@ contract JackpotGame is VRFConsumerBase {
         emit PlayerJoin(msg.value, msg.sender, currentJackpot.size);
 
         if (now >= currentJackpot.jackpotEndTime) {
-            getRandomNumber(currentJackpot.players.length);
+            address[] memory path = get_path();
+
+            /*Convert bets. MATIC => WETH => LINK (ERC-20) => LINK (ERC-621) */
+            uint256 amountIn = UNIQuickSwap.getAmountsIn(fee, path)[0];
+            UNIQuickSwap.swapETHForExactTokens{value: amountIn}(
+                fee,
+                path,
+                address(this),
+                block.timestamp + 15
+            );
+            IERC20(0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39).approve(
+                address(PegSwap),
+                fee
+            );
+            PegSwap.swap(
+                fee,
+                0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39,
+                address(LINK)
+            );
+
+            currentJackpot.size -= amountIn;
+
+            bytes32 requestId = requestRandomness(
+                keyHash,
+                fee,
+                block.timestamp
+            );
         }
     }
 
@@ -257,15 +286,13 @@ contract JackpotGame is VRFConsumerBase {
     }
 
     //CHAINLINK VRF FUNCTIONS BELOW
-    function getRandomNumber(uint256 userProvidedSeed)
-        internal
-        returns (bytes32 requestId)
-    {
-        require(
-            LINK.balanceOf(address(this)) >= fee,
-            "Not enough LINK for VRF transaction"
-        );
-        return requestRandomness(keyHash, fee, userProvidedSeed);
+
+    function get_path() internal returns (address[] memory _path) {
+        address[] memory path = new address[](3);
+        path[0] = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270; //WMatic
+        path[1] = 0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619; //WETH
+        path[2] = 0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39; //LINK
+        return path;
     }
 
     function fulfillRandomness(bytes32 requestId, uint256 randomness)
