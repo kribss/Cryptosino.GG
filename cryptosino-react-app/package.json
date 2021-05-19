@@ -13,6 +13,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "deploy-production": "react-scripts build && scp -r ./build/* user@server_ip_address:/var/www/example.com/html",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
