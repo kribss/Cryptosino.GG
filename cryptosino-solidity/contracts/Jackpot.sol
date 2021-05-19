@@ -39,8 +39,8 @@ interface IERC20 {
 
 //author => kribs.eth
 contract JackpotGame is VRFConsumerBase {
-    event NewJackpot(uint256 index, uint256 blockstamp);
-    event PlayerJoin(uint256 bet, address player);
+    event NewJackpot(uint256 index, uint256 blockstamp, uint256 size);
+    event PlayerJoin(uint256 bet, address player, uint256 size);
     event JackpotResult(address winner, uint256 jackpotSize);
 
     // chainlink vrf variables
@@ -134,7 +134,7 @@ contract JackpotGame is VRFConsumerBase {
         playerBet[msg.sender] = msg.value;
 
         uint256 startingTicket = currentJackpot.ticketIndex;
-        uint256 tickets = (msg.value / (10**18)) * 10;
+        uint256 tickets = msg.value / (10**18);
 
         for (
             currentJackpot.ticketIndex;
@@ -143,7 +143,7 @@ contract JackpotGame is VRFConsumerBase {
         ) {
             ticketToPlayer[currentJackpot.ticketIndex] = msg.sender;
         }
-        emit NewJackpot(index, block.timestamp);
+        emit NewJackpot(index, block.timestamp, currentJackpot.size);
     }
 
     function enterJackpot() public payable {
@@ -153,7 +153,7 @@ contract JackpotGame is VRFConsumerBase {
         playerBet[msg.sender] = msg.value;
 
         uint256 startingTicket = currentJackpot.ticketIndex;
-        uint256 tickets = (msg.value / (10**18)) * 10;
+        uint256 tickets = msg.value / (10**18);
 
         for (
             currentJackpot.ticketIndex;
@@ -162,7 +162,7 @@ contract JackpotGame is VRFConsumerBase {
         ) {
             ticketToPlayer[currentJackpot.ticketIndex] = msg.sender;
         }
-        emit PlayerJoin(msg.value, msg.sender);
+        emit PlayerJoin(msg.value, msg.sender, currentJackpot.size);
 
         if (now >= currentJackpot.jackpotEndTime) {
             getRandomNumber(currentJackpot.players.length);
@@ -250,6 +250,10 @@ contract JackpotGame is VRFConsumerBase {
             jackpot.players,
             jackpot.winner
         );
+    }
+
+    function getContractBalance() external view returns (uint256) {
+        return address(this).balance;
     }
 
     //CHAINLINK VRF FUNCTIONS BELOW
