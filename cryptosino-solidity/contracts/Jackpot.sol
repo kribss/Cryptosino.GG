@@ -37,7 +37,7 @@ interface IERC20 {
 }
 
 //author => kribs.eth
-contract Jackpot is VRFConsumerBase {
+contract JackpotGame is VRFConsumerBase {
     event NewJackpot(uint256 index, uint256 blockstamp, uint256 size);
     event PlayerJoin(uint256 bet, address player, uint256 size);
     event JackpotResult(address winner, uint256 jackpotSize);
@@ -234,6 +234,10 @@ contract Jackpot is VRFConsumerBase {
         view
         returns (address)
     {
+        require(
+            currentJackpotStatus == jackpotStatus.Active,
+            " no active jackpot"
+        );
         return ticketToPlayer[ticketNumber];
     }
 
@@ -242,6 +246,10 @@ contract Jackpot is VRFConsumerBase {
     }
 
     function timeLeftOnCurrentJackpot() external view returns (uint256) {
+        require(
+            currentJackpotStatus == jackpotStatus.Active,
+            " no active jackpot"
+        );
         return (currentJackpot.jackpotEndTime - now);
     }
 
@@ -298,9 +306,13 @@ contract Jackpot is VRFConsumerBase {
         return address(this).balance;
     }
 
+    function getJackpotStatus() external view returns (uint256) {
+        return uint256(currentJackpotStatus);
+    }
+
     //CHAINLINK VRF FUNCTIONS BELOW
 
-    function get_path() internal returns (address[] memory _path) {
+    function get_path() internal pure returns (address[] memory _path) {
         address[] memory path = new address[](3);
         path[0] = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270; //WMatic
         path[1] = 0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619; //WETH
