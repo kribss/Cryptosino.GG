@@ -42,6 +42,11 @@ contract JackpotGame is VRFConsumerBase {
     event NewJackpot(uint256 index, uint256 blockstamp, uint256 size);
     event PlayerJoin(uint256 bet, address player, uint256 size);
     event JackpotResult(address winner, uint256 jackpotSize);
+    event PickingWinner(
+        uint256 time,
+        uint256 jackpotSize,
+        uint256 numOfPlayers
+    );
 
     // chainlink vrf variables
     bytes32 internal keyHash;
@@ -59,20 +64,22 @@ contract JackpotGame is VRFConsumerBase {
     }
 
     // used to track game information
-    uint256 index;
-    address[] players;
-    mapping(uint256 => Jackpot) jackpotIndex;
+
     Jackpot currentJackpot;
+
     uint256[] playerTicketArray;
+    address[] players;
+    uint256 index;
     uint256 totalTickets;
-
-    // used to determine whether a jackpot can be created/joined
-    bool jackpotActive;
-
+    enum jackpotStatus {Active, Inactive, PickingWinner}
+    jackpotStatus currentJackpotStatus;
     address owner;
+    address payoutRecipient;
 
     mapping(uint256 => address) ticketToPlayer;
     mapping(address => uint256) playerBet;
+    mapping(uint256 => Jackpot) jackpotIndex;
+    mapping(bytes32 => Jackpot) requestIndex;
 
     // Routers for automated link oracle payment
     IUniswapV2Router02 UNIQuickSwap = IUniswapV2Router02(
@@ -114,16 +121,21 @@ contract JackpotGame is VRFConsumerBase {
             0x326C977E6efc84E512bB9C30f76E30c160eD06FB // Link Token Address
         )
     {
+        currentJackpotStatus = jackpotStatus.Inactive;
         keyHash = 0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4;
         fee = 0.0001 * 10**18;
         index = 0;
         owner = msg.sender;
+        payoutRecipient = msg.sender;
     }
 
     function newJackpot(uint256 _lengthInHours) public payable {
-        require(jackpotActive == false, "Jackpot already active");
+        require(
+            currentJackpotStatus == jackpotStatus.Inactive,
+            "Jackpot already active"
+        );
         require(_lengthInHours <= 24, "24 hour jackpot length max");
-        jackpotActive = true;
+        currentJackpotStatus = jackpotStatus.Active;
         currentJackpot = Jackpot(
             index,
             msg.value,
@@ -137,6 +149,7 @@ contract JackpotGame is VRFConsumerBase {
         playerBet[msg.sender] = msg.value;
 
         uint256 startingTicket = currentJackpot.ticketIndex;
+
         uint256 tickets = msg.value / (10**18);
 
         for (
@@ -150,7 +163,10 @@ contract JackpotGame is VRFConsumerBase {
     }
 
     function enterJackpot() public payable {
-        require(jackpotActive == true, "no active jackpot to join");
+        require(
+            currentJackpotStatus == jackpotStatus.Active,
+            "no active jackpot to join"
+        );
         currentJackpot.players.push(msg.sender);
         currentJackpot.size += msg.value;
         playerBet[msg.sender] = msg.value;
@@ -168,6 +184,14 @@ contract JackpotGame is VRFConsumerBase {
         emit PlayerJoin(msg.value, msg.sender, currentJackpot.size);
 
         if (now >= currentJackpot.jackpotEndTime) {
+            currentJackpotStatus = jackpotStatus.PickingWinner;
+
+            emit PickingWinner(
+                block.timestamp,
+                currentJackpot.size,
+                currentJackpot.players.length
+            );
+
             address[] memory path = get_path();
 
             /*Convert bets. MATIC => WETH => LINK (ERC-20) => LINK (ERC-621) */
@@ -198,19 +222,19 @@ contract JackpotGame is VRFConsumerBase {
         }
     }
 
-    function pickWinner(uint256 randomness) internal {
-        uint256 winningTicket = randomness % currentJackpot.ticketIndex;
-        currentJackpot.winner = payable(ticketToPlayer[winningTicket]);
-        currentJackpot.winner.transfer((currentJackpot.size * 99) / 100);
-        jackpotActive = false;
-        if (currentJackpot.index % 5 == 0) {
-            payable(owner).transfer(address(this).balance);
-        }
-        Jackpot memory indexableJackpot = currentJackpot;
-        jackpotIndex[index] = indexableJackpot;
-        index++;
-        emit JackpotResult(currentJackpot.winner, currentJackpot.size);
-    }
+    // function pickWinner(uint256 randomness) internal {
+    //     uint256 winningTicket = randomness % currentJackpot.ticketIndex;
+    //     currentJackpot.winner = payable(ticketToPlayer[winningTicket]);
+    //     currentJackpot.winner.transfer((currentJackpot.size * 99) / 100);
+    //     if (currentJackpot.index % 5 == 0) {
+    //         payable(owner).transfer(address(this).balance);
+    //     }
+    //     Jackpot memory indexableJackpot = currentJackpot;
+    //     jackpotIndex[index] = indexableJackpot;
+    //     index++;
+    //     emit JackpotResult(currentJackpot.winner, currentJackpot.size);
+    //     currentJackpotStatus = jackpotStatus.Inactive;
+    // }
 
     function ownerShipTransfer(address _newOwner) public onlyOwner {
         owner = _newOwner;
@@ -226,6 +250,10 @@ contract JackpotGame is VRFConsumerBase {
         returns (address)
     {
         return ticketToPlayer[ticketNumber];
+    }
+
+    function changePayoutRecipient(address newRecipient) public onlyOwner {
+        payoutRecipient = newRecipient;
     }
 
     function timeLeftOnCurrentJackpot() external view returns (uint256) {
@@ -299,6 +327,18 @@ contract JackpotGame is VRFConsumerBase {
         internal
         override
     {
-        pickWinner(randomness);
+        uint256 winningTicket = randomness % currentJackpot.ticketIndex;
+        currentJackpot.winner = payable(ticketToPlayer[winningTicket]);
+        currentJackpot.winner.transfer((currentJackpot.size * 99) / 100);
+        Jackpot memory indexableJackpot = currentJackpot;
+        jackpotIndex[index] = indexableJackpot;
+        requestIndex[requestId] = indexableJackpot;
+
+        if (currentJackpot.index % 5 == 0) {
+            payable(payoutRecipient).transfer(address(this).balance);
+        }
+        index++;
+        emit JackpotResult(currentJackpot.winner, currentJackpot.size);
+        currentJackpotStatus = jackpotStatus.Inactive;
     }
 }
