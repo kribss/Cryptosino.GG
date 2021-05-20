@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 //TO DO
 //DONE just take 1% cut from final jackpot dispersal
-//give tickets based on .1 matic per ticket
-//end ticket loop once winner is found
+//DONE give tickets based on .1 matic per ticket
 
 pragma solidity 0.6.6;
 
@@ -38,7 +37,7 @@ interface IERC20 {
 }
 
 //author => kribs.eth
-contract JackpotGame is VRFConsumerBase {
+contract Jackpot is VRFConsumerBase {
     event NewJackpot(uint256 index, uint256 blockstamp, uint256 size);
     event PlayerJoin(uint256 bet, address player, uint256 size);
     event JackpotResult(address winner, uint256 jackpotSize);
@@ -221,20 +220,6 @@ contract JackpotGame is VRFConsumerBase {
             );
         }
     }
-
-    // function pickWinner(uint256 randomness) internal {
-    //     uint256 winningTicket = randomness % currentJackpot.ticketIndex;
-    //     currentJackpot.winner = payable(ticketToPlayer[winningTicket]);
-    //     currentJackpot.winner.transfer((currentJackpot.size * 99) / 100);
-    //     if (currentJackpot.index % 5 == 0) {
-    //         payable(owner).transfer(address(this).balance);
-    //     }
-    //     Jackpot memory indexableJackpot = currentJackpot;
-    //     jackpotIndex[index] = indexableJackpot;
-    //     index++;
-    //     emit JackpotResult(currentJackpot.winner, currentJackpot.size);
-    //     currentJackpotStatus = jackpotStatus.Inactive;
-    // }
 
     function ownerShipTransfer(address _newOwner) public onlyOwner {
         owner = _newOwner;
