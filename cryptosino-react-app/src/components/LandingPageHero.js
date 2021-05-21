@@ -5,7 +5,7 @@ function LandingPageHero() {
     return (
         <div className="landingpagehero-section">
             <div className="landingpagehero-container">
-                <img alt="landing page background" src="images/PlaceholderBackground.jpg"></img>
+                <img alt="landing page background" src="./Images/PlaceholderBackground.jpg"></img>
             </div>
         </div>
     );
