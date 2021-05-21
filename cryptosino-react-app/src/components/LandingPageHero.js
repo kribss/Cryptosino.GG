@@ -5,8 +5,7 @@ function LandingPageHero() {
     return (
         <div className="landingpagehero-section">
             <div className="landingpagehero-container">
-                <img className="landingpagehero-background" src="images/moneybackground.jpg"></img>
-                <h1>CryptoSino.GG</h1>
+                <img className="landingpagehero-background" src="images/PlaceholderBackground.jpg"></img>
             </div>
         </div>
     );
