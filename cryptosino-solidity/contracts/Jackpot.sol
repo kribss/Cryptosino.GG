@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 //TO DO
-//DONE just take 1% cut from final jackpot dispersal
-//DONE give tickets based on .1 matic per ticket
+//FIX HOUSE CUT
 
 pragma solidity 0.6.6;
 
