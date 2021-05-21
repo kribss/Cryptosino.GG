@@ -169,7 +169,7 @@ contract Coinflip is VRFConsumerBase {
     }
 
     /*Routing path for computing price of 0.0001 LINK at time of bet*/
-    function get_path() internal returns (address[] memory _path) {
+    function get_path() internal pure returns (address[] memory _path) {
         address[] memory path = new address[](3);
         path[0] = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270; //WMatic
         path[1] = 0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619; //WETH

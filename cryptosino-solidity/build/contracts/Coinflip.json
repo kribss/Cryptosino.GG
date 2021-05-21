@@ -249,7 +249,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 586,
-        "sourceUnit": 1537,
+        "sourceUnit": 1609,
         "src": "57:59:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -879,10 +879,10 @@
               "id": 50,
               "name": "VRFConsumerBase",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1536,
+              "referencedDeclaration": 1608,
               "src": "760:15:4",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_VRFConsumerBase_$1536",
+                "typeIdentifier": "t_contract$_VRFConsumerBase_$1608",
                 "typeString": "contract VRFConsumerBase"
               }
             },
@@ -892,8 +892,8 @@
           }
         ],
         "contractDependencies": [
-          1536,
-          1586
+          1608,
+          1658
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -901,8 +901,8 @@
         "id": 585,
         "linearizedBaseContracts": [
           585,
-          1536,
-          1586
+          1608,
+          1658
         ],
         "name": "Coinflip",
         "nodeType": "ContractDefinition",
@@ -2813,10 +2813,10 @@
                   "name": "VRFConsumerBase",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1536,
+                  "referencedDeclaration": 1608,
                   "src": "2066:15:4",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_type$_t_contract$_VRFConsumerBase_$1536_$",
+                    "typeIdentifier": "t_type$_t_contract$_VRFConsumerBase_$1608_$",
                     "typeString": "type(contract VRFConsumerBase)"
                   }
                 },
@@ -2847,7 +2847,7 @@
           },
           {
             "baseFunctions": [
-              1432
+              1504
             ],
             "body": {
               "id": 281,
@@ -5906,10 +5906,10 @@
                             "name": "LINK",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1489,
+                            "referencedDeclaration": 1561,
                             "src": "4491:4:4",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_LinkTokenInterface_$1681",
+                              "typeIdentifier": "t_contract$_LinkTokenInterface_$1753",
                               "typeString": "contract LinkTokenInterface"
                             }
                           }
@@ -5917,7 +5917,7 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_LinkTokenInterface_$1681",
+                              "typeIdentifier": "t_contract$_LinkTokenInterface_$1753",
                               "typeString": "contract LinkTokenInterface"
                             }
                           ],
@@ -6394,7 +6394,7 @@
                       "name": "requestRandomness",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1487,
+                      "referencedDeclaration": 1559,
                       "src": "4721:17:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_bytes32_$_t_uint256_$_t_uint256_$returns$_t_bytes32_$",

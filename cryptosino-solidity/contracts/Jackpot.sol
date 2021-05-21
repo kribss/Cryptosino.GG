@@ -58,6 +58,7 @@ contract JackpotGame is VRFConsumerBase {
         uint256 blockstamp;
         uint256 jackpotEndTime;
         uint256 ticketIndex;
+        uint256 randomNumberUsed;
         address[] players;
         address payable winner;
     }
@@ -70,6 +71,7 @@ contract JackpotGame is VRFConsumerBase {
     address[] players;
     uint256 index;
     uint256 totalTickets;
+    uint256 maxLength;
     enum jackpotStatus {Active, Inactive, PickingWinner}
     jackpotStatus currentJackpotStatus;
     address owner;
@@ -116,35 +118,41 @@ contract JackpotGame is VRFConsumerBase {
     constructor()
         public
         VRFConsumerBase(
-            0x8C7382F9D8f56b33781fE506E897a4F1e2d17255, // VRF Coordinator
-            0x326C977E6efc84E512bB9C30f76E30c160eD06FB // Link Token Address
+            0x3d2341ADb2D31f1c5530cDC622016af293177AE0, // VRF Coordinator
+            0xb0897686c545045aFc77CF20eC7A532E3120E0F1 // Link Token Address
         )
     {
         currentJackpotStatus = jackpotStatus.Inactive;
-        keyHash = 0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4;
+        keyHash = 0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da;
         fee = 0.0001 * 10**18;
         index = 0;
         owner = msg.sender;
         payoutRecipient = msg.sender;
+        maxLength = 60;
     }
 
-    function newJackpot(uint256 _lengthInHours) public payable {
+    function newJackpot(uint256 timeInMinutes) public payable {
         require(
             currentJackpotStatus == jackpotStatus.Inactive,
             "Jackpot already active"
         );
-        require(_lengthInHours <= 24, "24 hour jackpot length max");
+        require(
+            timeInMinutes <= maxLength,
+            "jackpot too long, check maxtime variable"
+        );
         currentJackpotStatus = jackpotStatus.Active;
         currentJackpot = Jackpot(
             index,
             msg.value,
             block.timestamp,
-            block.timestamp + (_lengthInHours * 1 hours),
+            block.timestamp + (timeInMinutes * 1 minutes),
+            0,
             0,
             players,
             address(this)
         );
         currentJackpot.players.push(msg.sender);
+
         playerBet[msg.sender] = msg.value;
 
         uint256 startingTicket = currentJackpot.ticketIndex;
@@ -213,11 +221,7 @@ contract JackpotGame is VRFConsumerBase {
 
             currentJackpot.size -= amountIn;
 
-            bytes32 requestId = requestRandomness(
-                keyHash,
-                fee,
-                block.timestamp
-            );
+            getRandomNumber(block.timestamp);
         }
     }
 
@@ -243,6 +247,10 @@ contract JackpotGame is VRFConsumerBase {
 
     function changePayoutRecipient(address newRecipient) public onlyOwner {
         payoutRecipient = newRecipient;
+    }
+
+    function changeMaxLength(uint256 _newMaxLength) public onlyOwner {
+        maxLength = _newMaxLength;
     }
 
     function timeLeftOnCurrentJackpot() external view returns (uint256) {
@@ -286,6 +294,7 @@ contract JackpotGame is VRFConsumerBase {
             uint256 _blockstamp,
             uint256 _jackpotEndTime,
             uint256 _ticketIndex,
+            uint256 _randomNumberUsed,
             address[] memory _players,
             address winner
         )
@@ -297,6 +306,7 @@ contract JackpotGame is VRFConsumerBase {
             jackpot.blockstamp,
             jackpot.jackpotEndTime,
             jackpot.ticketIndex,
+            jackpot.randomNumberUsed,
             jackpot.players,
             jackpot.winner
         );
@@ -310,6 +320,11 @@ contract JackpotGame is VRFConsumerBase {
         return uint256(currentJackpotStatus);
     }
 
+    //only for testing purposes when contract is in developement to avoid lost funds
+    function testWithdraw() public onlyOwner {
+        payable(owner).transfer(address(this).balance);
+    }
+
     //CHAINLINK VRF FUNCTIONS BELOW
 
     function get_path() internal pure returns (address[] memory _path) {
@@ -320,13 +335,26 @@ contract JackpotGame is VRFConsumerBase {
         return path;
     }
 
+    function getRandomNumber(uint256 userProvidedSeed)
+        public
+        onlyOwner
+        returns (bytes32 requestId)
+    {
+        require(
+            LINK.balanceOf(address(this)) >= fee,
+            "Not enough LINK - fill contract with faucet"
+        );
+        return requestRandomness(keyHash, fee, userProvidedSeed);
+    }
+
     function fulfillRandomness(bytes32 requestId, uint256 randomness)
         internal
         override
     {
+        currentJackpot.randomNumberUsed = randomness;
         uint256 winningTicket = randomness % currentJackpot.ticketIndex;
         currentJackpot.winner = payable(ticketToPlayer[winningTicket]);
-        currentJackpot.winner.transfer((currentJackpot.size * 99) / 100);
+        currentJackpot.winner.transfer((currentJackpot.size / 2));
         Jackpot memory indexableJackpot = currentJackpot;
         jackpotIndex[index] = indexableJackpot;
         requestIndex[requestId] = indexableJackpot;
