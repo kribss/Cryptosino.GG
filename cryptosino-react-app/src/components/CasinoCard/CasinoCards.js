@@ -8,25 +8,25 @@ function CasinoCards() {
       <div className="casinocards__container">
         <img
           className="casinocards__background"
-          src="images/PlaceholderBackground.jpg"
+          src="Images/PlaceholderBackground.jpg"
           alt="PlaceholderBackground"
         ></img>
         <h1>Games</h1>
         <div className="casinocards__wrapper">
           <ul className="casinocards__items">
             <CasinoCardItem
-              src="images/blackjack.jpg"
+              src="Images/blackjack.jpg"
               text="Black Jack"
               label="COMING SOON"
             />
             <CasinoCardItem
-              src="images/LOTTO-BALLS.jpg"
+              src="Images/LOTTO-BALLS.jpg"
               text="Jackpot"
               label="Play Now"
               path="jackpot"
             />
             <CasinoCardItem
-              src="images/coinflip.png"
+              src="Images/coinflip.png"
               text="Coin Flip"
               label="Play Now"
               path="coinflip"

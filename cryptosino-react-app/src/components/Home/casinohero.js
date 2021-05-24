@@ -5,7 +5,7 @@ import "./casinohero.css";
 function CasinoHero() {
   return (
     <div className="casinohero-container">
-      <video src="/videos/CasinoHome.mp4" autoPlay loop muted />
+      <video src="/Videos/CasinoHome.mp4" autoPlay loop muted />
       <h1 className="welcome">Welcome To The</h1><br></br><h1 className="crypto">CryptoSino</h1>
       <div className="hero-btns">
         <Button
