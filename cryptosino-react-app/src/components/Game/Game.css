@@ -1,0 +1,30 @@
+.game {
+  border-style: outset;
+  border-color: Black;
+  background-color: white;
+  margin: 24px;
+  z-index: -1;
+}
+
+.game-info {
+  display: flex;
+}
+
+.game-info p {
+  margin: 10px;
+  padding: 20px;
+  margin: 5px;
+}
+
+.game-info button {
+  padding: 10px;
+  margin: 10px;
+  border-style: outset;
+  background-color: Black;
+  color: white;
+}
+
+.winner-announce {
+  padding-left: 35%;
+  text-align: center;
+}

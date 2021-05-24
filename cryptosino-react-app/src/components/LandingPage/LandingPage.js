@@ -1,7 +1,7 @@
-import React from "react";
-import "./LandingPageHero.css";
+import React from 'react';
+import "./LandingPage.css";
 
-function LandingPageHero() {
+function LandingPage() {
     return (
         <div className="landingpagehero-section">
             <div className="landingpagehero-container">
@@ -11,4 +11,4 @@ function LandingPageHero() {
     );
 }
 
-export default LandingPageHero;
+export default LandingPage
