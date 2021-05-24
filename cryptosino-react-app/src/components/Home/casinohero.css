@@ -1,0 +1,95 @@
+video {
+  object-fit: cover;
+  width: 100%;
+  height: 120%;
+  position: fixed;
+  z-index: -1;
+}
+.casinohero-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+  object-fit: contain;
+}
+.cryptosino-about-container {
+  max-width: 1000px;
+  text-align: center;
+  color: white;
+}
+.cryptosino-about-container > h1 {
+  padding-top: 4rem;
+  text-decoration: underline;     
+}
+.cryptosino-about-container > p {
+  font-size: 24px;    
+}
+.cryptosino-about-container a {
+  text-decoration: underline;
+}
+
+.cryptosino-about-container a:visited {
+  color: White;
+}
+.welcome {
+  color: whitesmoke;
+  font-size: 100px;
+  margin-top: -100px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.crypto{
+    font-size: 100px;
+  margin-top: -30px;
+  margin-bottom: 10px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  color: gold;
+}
+
+.casinohero-container > p {
+  margin-top: 32px;
+  color: #242424;
+  font-size: 10px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.hero-btns {
+  margin-top: 0px;
+}
+
+.hero-btns .btn {
+  margin: 6px;
+}
+
+.fa-play-circles {
+  margin-left: 4px;
+}
+
+@media screen and (max-width: 960) {
+  .casinohero-container > h1 {
+    font-size: 70px;
+    margin-top: -150px;
+  }
+}
+
+@media screen and (max-width: 768) {
+  .casinohero-container > h1 {
+    font-size: 50px;
+    margin-top: -100px;
+  }
+  .casinohero-container > p {
+    font-size: 30px;
+  }
+  .btn-mobile {
+    display: block;
+    text-decoration: none;
+  }
+  .btn {
+    width: 100%;
+  }
+}

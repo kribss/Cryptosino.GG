@@ -114,10 +114,10 @@ class Coinflip extends React.Component {
         <div className="game-footer">
           <ul>
             <li>
-              <a href="https://github.com/kribss/Cryptosino.GG/blob/master/cryptosino-solidity/contracts/Coinflip.sol">Github</a>
+              <a href="https://github.com/kribss/Cryptosino.GG/blob/master/cryptosino-solidity/contracts/Coinflip.sol" target="_blank">Github</a>
             </li>
             <li>
-              <a href="https://explorer-mainnet.maticvigil.com/address/0x08B4c25ca730A449BD1A01D96380608e97124098/transactions">
+              <a href="https://explorer-mainnet.maticvigil.com/address/0x08B4c25ca730A449BD1A01D96380608e97124098/transactions" target="_blank">
                 Matic Explorer
               </a>
             </li>

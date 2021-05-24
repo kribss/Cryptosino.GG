@@ -1,7 +1,5 @@
 .coinflip {
-  border-style: inset;
-  border-color: gold;
-  border-width: 15px;
+
 }
  img {
   object-fit: cover;
@@ -20,6 +18,7 @@
 }
 
 .coinflip-header {
+  padding-top: 4rem;
   color: #fff;
   text-align: center;
   font-size: 32px;

@@ -2,17 +2,20 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./components/LandingPage/LandingPage";
-import Coinflip from "./components/Coinflip/Coinflip";
-import Jackpot from "./components/Jackpot/Jackpot.js";
+import CoinflipPage from "./components/Pages/CoinflipPage";
+import JackpotPage from "./components/Pages/JackpotPage";
+import HomePage from "./components/Pages/HomePage";
+import CasinoPage from "./components/Pages/CasinoPage";
 
 function App() {
   return (
     <>
       <Router>
         <Switch>
-          <Route path="/" exact component={LandingPage} />
-          <Route path="/Coinflip" exact component={Coinflip} />
-          <Route path="/Jackpot" exact component={Jackpot} />
+          <Route path="/" exact component={HomePage} />
+          <Route path="/Coinflip" exact component={CoinflipPage} />
+          <Route path="/Jackpot" exact component={JackpotPage} />
+          <Route path="/Casino" exact component={CasinoPage} />
 
 
         </Switch>
