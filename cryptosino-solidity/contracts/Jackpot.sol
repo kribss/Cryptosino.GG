@@ -73,8 +73,10 @@ contract JackpotGame is VRFConsumerBase {
     uint256 maxLength;
     enum jackpotStatus {Active, Inactive, PickingWinner}
     jackpotStatus currentJackpotStatus;
-    address owner;
-    address payoutRecipient;
+    address public owner;
+    address public payoutRecipient;
+    uint256 public feePercent;
+    uint256 public sendAmmount;
 
     mapping(uint256 => address) ticketToPlayer;
     mapping(address => uint256) playerBet;
@@ -128,6 +130,7 @@ contract JackpotGame is VRFConsumerBase {
         owner = msg.sender;
         payoutRecipient = msg.sender;
         maxLength = 60;
+        feePercent = 2;
     }
 
     function newJackpot(uint256 timeInMinutes) public payable {
@@ -315,13 +318,21 @@ contract JackpotGame is VRFConsumerBase {
         return address(this).balance;
     }
 
-    function getJackpotStatus() external view returns (uint256) {
-        return uint256(currentJackpotStatus);
+    function getJackpotStatus() external view returns (string memory) {
+        if (currentJackpotStatus == jackpotStatus.Active) {
+            return "Active";
+        }
+        if (currentJackpotStatus == jackpotStatus.Inactive) {
+            return "Inactive";
+        }
+        if (currentJackpotStatus == jackpotStatus.PickingWinner) {
+            return "Picking Winner";
+        }
     }
 
-    //only for testing purposes when contract is in developement to avoid lost funds
-    function testWithdraw() public onlyOwner {
-        payable(owner).transfer(address(this).balance);
+    function changeFeePercent(uint256 newFeePercent) public onlyOwner {
+        require(newFeePercent <= 5, "new fee cannot be more than 5%");
+        feePercent = newFeePercent;
     }
 
     //CHAINLINK VRF FUNCTIONS BELOW
@@ -350,10 +361,11 @@ contract JackpotGame is VRFConsumerBase {
         internal
         override
     {
+        sendAmmount = (((currentJackpot.size) * (100 - feePercent)) / 100);
         currentJackpot.randomNumberUsed = randomness;
         uint256 winningTicket = randomness % currentJackpot.ticketIndex;
         currentJackpot.winner = payable(ticketToPlayer[winningTicket]);
-        currentJackpot.winner.transfer((currentJackpot.size / 2));
+        currentJackpot.winner.transfer(sendAmmount);
         Jackpot memory indexableJackpot = currentJackpot;
         jackpotIndex[index] = indexableJackpot;
         requestIndex[requestId] = indexableJackpot;

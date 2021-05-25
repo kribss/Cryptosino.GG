@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import Web3 from "web3";
-import "../Coinflip/Coinflip.css";
+import "./Coinflip.css";
 import Game from "../Game/Game.js";
 import { ethers } from "ethers";
 
@@ -80,17 +80,15 @@ class Coinflip extends React.Component {
   render() {
     return (
       <div className="coinflip">
-        <img alt="landing page background" src="./Images/PlaceholderBackground.jpg"></img>
+        <img alt="landing page background" src="./Images/BlankBackground.jpg"></img>
         <h3 className="coinflip-header">Total Games: {this.state.index}</h3>
-        <input
-          className="coinflip-join-input"
+        <input className="coinflip-join-input"
           type="number"
-          placeholder="Enter MATIC Bet"
+          placeholder="MATIC"
           value={this.state.bet}
           onChange={this.handleChange}
         />
-        <button
-          className="coinflip-join-button"
+        <button className="coinflip-join-button"
           onClick={async () => {
             const tx = await this.state.coinflip.create_game({
               value: (this.state.bet * 10 ** 18).toString(),

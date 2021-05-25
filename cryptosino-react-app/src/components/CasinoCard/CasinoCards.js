@@ -8,7 +8,7 @@ function CasinoCards() {
       <div className="casinocards__container">
         <img
           className="casinocards__background"
-          src="Images/PlaceholderBackground.jpg"
+          src="Images/BlankBackground.jpg"
           alt="PlaceholderBackground"
         ></img>
         <h1>Games</h1>
