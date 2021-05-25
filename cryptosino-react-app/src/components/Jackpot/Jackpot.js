@@ -42,26 +42,454 @@
 //             window.alert("Please switch to Polygon Mainnet!");
 //         }
 
-//         const JACKPOT_CONTRACT = "0x08B4c25ca730A449BD1A01D96380608e97124098";
+//         const JACKPOT_CONTRACT = "0x8E7059761d25465046d4A8CbbC53c63E5Ac7C418";
 //         const JACKPOT_ABI = [
-//             "function get_game_count() external view returns(uint256)",
-//             "function create_game() public payable",
-//             "function join_game(uint256 _index) external payable",
-//             "function get_game_info(uint256 _index) external view returns(uint256 _i, address _player1, address _player2, uint256 _amount, address _winner, uint256 _timestamp)",
+//             {
+//                 "inputs": [],
+//                 "stateMutability": "nonpayable",
+//                 "type": "constructor"
+//             },
+//             {
+//                 "anonymous": false,
+//                 "inputs": [
+//                     {
+//                         "indexed": false,
+//                         "internalType": "address",
+//                         "name": "winner",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "indexed": false,
+//                         "internalType": "uint256",
+//                         "name": "jackpotSize",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "name": "JackpotResult",
+//                 "type": "event"
+//             },
+//             {
+//                 "anonymous": false,
+//                 "inputs": [
+//                     {
+//                         "indexed": false,
+//                         "internalType": "uint256",
+//                         "name": "index",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "indexed": false,
+//                         "internalType": "uint256",
+//                         "name": "blockstamp",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "indexed": false,
+//                         "internalType": "uint256",
+//                         "name": "size",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "name": "NewJackpot",
+//                 "type": "event"
+//             },
+//             {
+//                 "anonymous": false,
+//                 "inputs": [
+//                     {
+//                         "indexed": false,
+//                         "internalType": "uint256",
+//                         "name": "time",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "indexed": false,
+//                         "internalType": "uint256",
+//                         "name": "jackpotSize",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "indexed": false,
+//                         "internalType": "uint256",
+//                         "name": "numOfPlayers",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "name": "PickingWinner",
+//                 "type": "event"
+//             },
+//             {
+//                 "anonymous": false,
+//                 "inputs": [
+//                     {
+//                         "indexed": false,
+//                         "internalType": "uint256",
+//                         "name": "bet",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "indexed": false,
+//                         "internalType": "address",
+//                         "name": "player",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "indexed": false,
+//                         "internalType": "uint256",
+//                         "name": "size",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "name": "PlayerJoin",
+//                 "type": "event"
+//             },
+//             {
+//                 "inputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "newFeePercent",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "name": "changeFeePercent",
+//                 "outputs": [],
+//                 "stateMutability": "nonpayable",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_newMaxLength",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "name": "changeMaxLength",
+//                 "outputs": [],
+//                 "stateMutability": "nonpayable",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [
+//                     {
+//                         "internalType": "address",
+//                         "name": "newRecipient",
+//                         "type": "address"
+//                     }
+//                 ],
+//                 "name": "changePayoutRecipient",
+//                 "outputs": [],
+//                 "stateMutability": "nonpayable",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [],
+//                 "name": "enterJackpot",
+//                 "outputs": [],
+//                 "stateMutability": "payable",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [],
+//                 "name": "feePercent",
+//                 "outputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "stateMutability": "view",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [],
+//                 "name": "getContractBalance",
+//                 "outputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "stateMutability": "view",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [],
+//                 "name": "getCurrentJackpotInfo",
+//                 "outputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_index",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_size",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_blockstamp",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_jackpotEndTime",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_ticketIndex",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address[]",
+//                         "name": "_players",
+//                         "type": "address[]"
+//                     },
+//                     {
+//                         "internalType": "address",
+//                         "name": "winner",
+//                         "type": "address"
+//                     }
+//                 ],
+//                 "stateMutability": "view",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [],
+//                 "name": "getJackpotCount",
+//                 "outputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "stateMutability": "view",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [],
+//                 "name": "getJackpotStatus",
+//                 "outputs": [
+//                     {
+//                         "internalType": "string",
+//                         "name": "",
+//                         "type": "string"
+//                     }
+//                 ],
+//                 "stateMutability": "view",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_i",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "name": "getPriorJackpotInfo",
+//                 "outputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_index",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_size",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_blockstamp",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_jackpotEndTime",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_ticketIndex",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "_randomNumberUsed",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address[]",
+//                         "name": "_players",
+//                         "type": "address[]"
+//                     },
+//                     {
+//                         "internalType": "address",
+//                         "name": "winner",
+//                         "type": "address"
+//                     }
+//                 ],
+//                 "stateMutability": "view",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "userProvidedSeed",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "name": "getRandomNumber",
+//                 "outputs": [
+//                     {
+//                         "internalType": "bytes32",
+//                         "name": "requestId",
+//                         "type": "bytes32"
+//                     }
+//                 ],
+//                 "stateMutability": "nonpayable",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "ticketNumber",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "name": "getTicketOwner",
+//                 "outputs": [
+//                     {
+//                         "internalType": "address",
+//                         "name": "",
+//                         "type": "address"
+//                     }
+//                 ],
+//                 "stateMutability": "view",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "timeInMinutes",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "name": "newJackpot",
+//                 "outputs": [],
+//                 "stateMutability": "payable",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [],
+//                 "name": "owner",
+//                 "outputs": [
+//                     {
+//                         "internalType": "address",
+//                         "name": "",
+//                         "type": "address"
+//                     }
+//                 ],
+//                 "stateMutability": "view",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [
+//                     {
+//                         "internalType": "address",
+//                         "name": "_newOwner",
+//                         "type": "address"
+//                     }
+//                 ],
+//                 "name": "ownerShipTransfer",
+//                 "outputs": [],
+//                 "stateMutability": "nonpayable",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [],
+//                 "name": "payoutRecipient",
+//                 "outputs": [
+//                     {
+//                         "internalType": "address",
+//                         "name": "",
+//                         "type": "address"
+//                     }
+//                 ],
+//                 "stateMutability": "view",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [
+//                     {
+//                         "internalType": "bytes32",
+//                         "name": "requestId",
+//                         "type": "bytes32"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "randomness",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "name": "rawFulfillRandomness",
+//                 "outputs": [],
+//                 "stateMutability": "nonpayable",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [],
+//                 "name": "sendAmmount",
+//                 "outputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "stateMutability": "view",
+//                 "type": "function"
+//             },
+//             {
+//                 "inputs": [],
+//                 "name": "timeLeftOnCurrentJackpot",
+//                 "outputs": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "",
+//                         "type": "uint256"
+//                     }
+//                 ],
+//                 "stateMutability": "view",
+//                 "type": "function"
+//             },
+//             {
+//                 "stateMutability": "payable",
+//                 "type": "receive"
+//             }
 //         ];
 
 //         const provider = new ethers.providers.Web3Provider(window.ethereum);
 //         const signer = provider.getSigner();
-//         const COINFLIP = new ethers.Contract(
-//             COINFLIP_CONTRACT,
-//             COINFLIP_ABI,
+//         const JACKPOT = new ethers.Contract(
+//             JACKPOT_CONTRACT,
+//             JACKPOT_ABI,
 //             signer
 //         );
 
 //         this.setState({
 //             provider: provider,
-//             coinflip: COINFLIP,
-//             index: JSON.parse(await COINFLIP.get_game_count()),
+//             jackpot: JACKPOT,
+//             index: JSON.parse(await JACKPOT.getJackpotCount()),
 //         });
 //         this.setState({
 //             list: Array.from(Array(this.state.index).keys()).reverse(),
@@ -79,9 +507,9 @@
 
 //     render() {
 //         return (
-//             <div className="coinflip">
+//             <div className="jackpot">
 //                 <img alt="landing page background" src="./Images/BlankBackground.jpg"></img>
-//                 <h3 className="coinflip-header">Total Games: {this.state.index}</h3>
+//                 <h3 className="jackpot-header">Current Jackpot Size: {this.state.index}</h3>
 //                 <input
 //                     type="number"
 //                     placeholder="MATIC"

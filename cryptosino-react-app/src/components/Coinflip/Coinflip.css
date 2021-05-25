@@ -1,4 +1,6 @@
+.coinflip {
 
+}
  img {
   object-fit: cover;
   width: 100%;
@@ -21,14 +23,14 @@
   text-align: center;
   font-size: 32px;
 }
-.coinflip-join-button {
+.coinflip-create-button {
   margin: 0 auto;
   display: block;
   text-align: center;
   font-size: 20px;
   width: 230px;
 }
-.coinflip-join-input {
+.coinflip-create-input {
   font-size: 20px;
   margin: 0 auto;
   display: block;

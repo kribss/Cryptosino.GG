@@ -1,5 +1,5 @@
-import React, { Component, useState } from 'react';
-import './Game.css';
+import React, { Component, useState } from 'react'
+import './Game.css'
 class Game extends React.Component {
 
   constructor(props) {

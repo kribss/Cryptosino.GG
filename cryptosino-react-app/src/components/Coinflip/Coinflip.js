@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import Web3 from "web3";
-import "./Coinflip.css";
+import "../Coinflip/Coinflip.css";
 import Game from "../Game/Game.js";
 import { ethers } from "ethers";
 
@@ -42,12 +42,240 @@ class Coinflip extends React.Component {
       window.alert("Please switch to Polygon Mainnet!");
     }
 
-    const COINFLIP_CONTRACT = "0x08B4c25ca730A449BD1A01D96380608e97124098";
+    const COINFLIP_CONTRACT = "0xbC3edBCde35A0994EC8704261A0Ac94Fe7eB0624";
     const COINFLIP_ABI = [
-      "function get_game_count() external view returns(uint256)",
-      "function create_game() public payable",
-      "function join_game(uint256 _index) external payable",
-      "function get_game_info(uint256 _index) external view returns(uint256 _i, address _player1, address _player2, uint256 _amount, address _winner, uint256 _timestamp)",
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "newFeePercent",
+            "type": "uint256"
+          }
+        ],
+        "name": "changeFeePercent",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newRecipient",
+            "type": "address"
+          }
+        ],
+        "name": "changePayoutRecipient",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "create_game",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "player",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "GameCreated",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "player",
+            "type": "address"
+          }
+        ],
+        "name": "GameJoined",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "winner",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "GameResult",
+        "type": "event"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_index",
+            "type": "uint256"
+          }
+        ],
+        "name": "join_game",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "ownerShipTransfer",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "requestId",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint256",
+            "name": "randomness",
+            "type": "uint256"
+          }
+        ],
+        "name": "rawFulfillRandomness",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "stateMutability": "payable",
+        "type": "receive"
+      },
+      {
+        "inputs": [],
+        "name": "feePercent",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "get_game_count",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_index",
+            "type": "uint256"
+          }
+        ],
+        "name": "get_game_info",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "_i",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "_player1",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "_player2",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "_winner",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_timestamp",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getContractBalance",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      }
     ];
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -82,13 +310,15 @@ class Coinflip extends React.Component {
       <div className="coinflip">
         <img alt="landing page background" src="./Images/BlankBackground.jpg"></img>
         <h3 className="coinflip-header">Total Games: {this.state.index}</h3>
-        <input className="coinflip-join-input"
+        <input
+          className="coinflip-create-input"
           type="number"
-          placeholder="MATIC"
+          placeholder="Enter MATIC Bet"
           value={this.state.bet}
           onChange={this.handleChange}
         />
-        <button className="coinflip-join-button"
+        <button
+          className="coinflip-create-button"
           onClick={async () => {
             const tx = await this.state.coinflip.create_game({
               value: (this.state.bet * 10 ** 18).toString(),

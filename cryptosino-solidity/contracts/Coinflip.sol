@@ -1,8 +1,12 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: NONE
+
+//deployed at 0xbC3edBCde35A0994EC8704261A0Ac94Fe7eB0624
 
 pragma solidity 0.6.6;
 
 import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
+
+//import "https://raw.githubusercontent.com/smartcontractkit/chainlink/master/evm-contracts/src/v0.6/VRFConsumerBase.sol";
 
 interface Router {
     function swapETHForExactTokens(
@@ -30,13 +34,12 @@ interface IERC20 {
     function approve(address spender, uint256 amount) external returns (bool);
 }
 
-/*author => owen.eth*/
 contract Coinflip is VRFConsumerBase {
     event GameCreated(address player, uint256 amount);
     event GameJoined(uint256 index, address player);
     event GameResult(uint256 index, address winner, uint256 amount);
 
-    /*Chainlink setup*/
+    /*Chainlink VRF Variables*/
     bytes32 internal keyHash;
     uint256 internal fee;
 
@@ -50,7 +53,9 @@ contract Coinflip is VRFConsumerBase {
         uint256 blockstamp;
     }
 
-    uint256 dispersalInterval;
+    uint256 public feePercent;
+
+    uint256 sendAmmount;
 
     address payoutRecipient;
 
@@ -58,13 +63,11 @@ contract Coinflip is VRFConsumerBase {
         require(msg.sender == owner, "Function only callable by owner");
         _;
     }
-
-    /*Info indexing and Chainlink randomness indexing*/
+    //Game info vars/mappings
     uint256 index;
     mapping(uint256 => Game) gameIndex;
     mapping(bytes32 => Game) requestIndex;
 
-    /*Routers used*/
     Router QuickSwap = Router(0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff);
     IPegSwap PegSwap = IPegSwap(0xAA1DC356dc4B18f30C347798FD5379F3D77ABC5b);
 
@@ -90,31 +93,11 @@ contract Coinflip is VRFConsumerBase {
         fee = 0.0001 * 10**18; // 0.0001 LINK
         index = 0;
         owner = msg.sender;
-        dispersalInterval = 10;
-        payoutRecipient = msg.sender;
+        payoutRecipient = 0x94e5149AC7B8B1249069f6D9DFCBb2590d641dDC;
+        feePercent = 2;
     }
 
-    /* Callback for VRF Oracle, decides winner and distributes winnings*/
-    function fulfillRandomness(bytes32 requestId, uint256 randomness)
-        internal
-        override
-    {
-        Game memory game = requestIndex[requestId];
-        if (randomness % 2 == 0) {
-            game.winner = game.player1;
-        } else {
-            game.winner = game.player2;
-        }
-        gameIndex[game.index] = game;
-        payable(game.winner).transfer((game.amount * 99) / 100);
-
-        if (game.index % dispersalInterval == 0) {
-            payable(payoutRecipient).transfer(address(this).balance);
-        }
-        emit GameResult(game.index, game.winner, game.amount);
-    }
-
-    /*Create a new game*/
+    //Game Functions
     function create_game() public payable {
         Game memory newGame = Game(
             index,
@@ -129,7 +112,6 @@ contract Coinflip is VRFConsumerBase {
         emit GameCreated(msg.sender, msg.value);
     }
 
-    /*Join a game given a valid index*/
     function join_game(uint256 _index) external payable {
         Game memory game = gameIndex[_index];
         address[] memory path = get_path();
@@ -168,18 +150,7 @@ contract Coinflip is VRFConsumerBase {
         emit GameJoined(_index, msg.sender);
     }
 
-    /*Routing path for computing price of 0.0001 LINK at time of bet*/
-    function get_path() internal pure returns (address[] memory _path) {
-        address[] memory path = new address[](3);
-        path[0] = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270; //WMatic
-        path[1] = 0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619; //WETH
-        path[2] = 0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39; //LINK
-        return path;
-    }
-
-    function changeDispersalInterval(uint256 newInterval) public onlyOwner {
-        dispersalInterval = newInterval;
-    }
+    //getter/helper functions
 
     function changePayoutRecipient(address newRecipient) public onlyOwner {
         payoutRecipient = newRecipient;
@@ -189,12 +160,19 @@ contract Coinflip is VRFConsumerBase {
         owner = _newOwner;
     }
 
-    /*returns total amount of games*/
+    function getContractBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
+
+    function changeFeePercent(uint256 newFeePercent) public onlyOwner {
+        require(newFeePercent <= 5, "new fee cannot be more than 5%");
+        feePercent = newFeePercent;
+    }
+
     function get_game_count() external view returns (uint256) {
         return index;
     }
 
-    /*return info about a game given valid index*/
     function get_game_info(uint256 _index)
         external
         view
@@ -216,5 +194,35 @@ contract Coinflip is VRFConsumerBase {
             game.winner,
             game.blockstamp
         );
+    }
+
+    //Chainlink VRF Functions/Helpers
+
+    function fulfillRandomness(bytes32 requestId, uint256 randomness)
+        internal
+        override
+    {
+        Game memory game = requestIndex[requestId];
+        if (randomness % 2 == 0) {
+            game.winner = game.player1;
+        } else {
+            game.winner = game.player2;
+        }
+        uint256 payoutPercent = 100 - feePercent;
+        gameIndex[game.index] = game;
+        uint256 winnings = ((game.amount * payoutPercent) / 100);
+        uint256 houseFee = ((game.amount * feePercent) / 100);
+        payable(payoutRecipient).transfer(houseFee);
+        payable(game.winner).transfer(winnings);
+
+        emit GameResult(game.index, game.winner, game.amount);
+    }
+
+    function get_path() internal pure returns (address[] memory _path) {
+        address[] memory path = new address[](3);
+        path[0] = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270; //WMatic
+        path[1] = 0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619; //WETH
+        path[2] = 0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39; //LINK
+        return path;
     }
 }
