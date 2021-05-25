@@ -1,6 +1,6 @@
-// SPDX-License-Identifier: MIT
-//TO DO
-//FIX HOUSE CUT
+// SPDX-License-Identifier: NONE
+
+//currently deployed on Matic Mainnet at 0x8E7059761d25465046d4A8CbbC53c63E5Ac7C418
 
 pragma solidity 0.6.6;
 
