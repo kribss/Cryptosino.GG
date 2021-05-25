@@ -345,7 +345,7 @@ class Coinflip extends React.Component {
               <a href="https://github.com/kribss/Cryptosino.GG/blob/master/cryptosino-solidity/contracts/Coinflip.sol" target="_blank">Github</a>
             </li>
             <li>
-              <a href="https://explorer-mainnet.maticvigil.com/address/0x08B4c25ca730A449BD1A01D96380608e97124098/transactions" target="_blank">
+              <a href="https://explorer-mainnet.maticvigil.com/address/0xbC3edBCde35A0994EC8704261A0Ac94Fe7eB0624" target="_blank">
                 Matic Explorer
               </a>
             </li>
