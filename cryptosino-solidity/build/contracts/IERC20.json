@@ -63,7 +63,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 586,
-        "sourceUnit": 1609,
+        "sourceUnit": 1648,
         "src": "57:59:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -693,10 +693,10 @@
               "id": 50,
               "name": "VRFConsumerBase",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1608,
+              "referencedDeclaration": 1647,
               "src": "760:15:4",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_VRFConsumerBase_$1608",
+                "typeIdentifier": "t_contract$_VRFConsumerBase_$1647",
                 "typeString": "contract VRFConsumerBase"
               }
             },
@@ -706,8 +706,8 @@
           }
         ],
         "contractDependencies": [
-          1608,
-          1658
+          1647,
+          1697
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -715,8 +715,8 @@
         "id": 585,
         "linearizedBaseContracts": [
           585,
-          1608,
-          1658
+          1647,
+          1697
         ],
         "name": "Coinflip",
         "nodeType": "ContractDefinition",
@@ -2627,10 +2627,10 @@
                   "name": "VRFConsumerBase",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1608,
+                  "referencedDeclaration": 1647,
                   "src": "2066:15:4",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_type$_t_contract$_VRFConsumerBase_$1608_$",
+                    "typeIdentifier": "t_type$_t_contract$_VRFConsumerBase_$1647_$",
                     "typeString": "type(contract VRFConsumerBase)"
                   }
                 },
@@ -2661,7 +2661,7 @@
           },
           {
             "baseFunctions": [
-              1504
+              1543
             ],
             "body": {
               "id": 281,
@@ -4572,8 +4572,8 @@
                       "referencedDeclaration": 503,
                       "src": "3732:8:4",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_nonpayable$__$returns$_t_array$_t_address_$dyn_memory_ptr_$",
-                        "typeString": "function () returns (address[] memory)"
+                        "typeIdentifier": "t_function_internal_pure$__$returns$_t_array$_t_address_$dyn_memory_ptr_$",
+                        "typeString": "function () pure returns (address[] memory)"
                       }
                     },
                     "id": 339,
@@ -5720,10 +5720,10 @@
                             "name": "LINK",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1561,
+                            "referencedDeclaration": 1600,
                             "src": "4491:4:4",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_LinkTokenInterface_$1753",
+                              "typeIdentifier": "t_contract$_LinkTokenInterface_$1792",
                               "typeString": "contract LinkTokenInterface"
                             }
                           }
@@ -5731,7 +5731,7 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_LinkTokenInterface_$1753",
+                              "typeIdentifier": "t_contract$_LinkTokenInterface_$1792",
                               "typeString": "contract LinkTokenInterface"
                             }
                           ],
@@ -6208,7 +6208,7 @@
                       "name": "requestRandomness",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1559,
+                      "referencedDeclaration": 1598,
                       "src": "4721:17:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_bytes32_$_t_uint256_$_t_uint256_$returns$_t_bytes32_$",
@@ -6456,7 +6456,7 @@
             "body": {
               "id": 502,
               "nodeType": "Block",
-              "src": "5001:287:4",
+              "src": "5006:287:4",
               "statements": [
                 {
                   "assignments": [
@@ -6471,7 +6471,7 @@
                       "nodeType": "VariableDeclaration",
                       "overrides": null,
                       "scope": 502,
-                      "src": "5011:21:4",
+                      "src": "5016:21:4",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
@@ -6483,7 +6483,7 @@
                           "id": 473,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "5011:7:4",
+                          "src": "5016:7:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -6492,7 +6492,7 @@
                         "id": 474,
                         "length": null,
                         "nodeType": "ArrayTypeName",
-                        "src": "5011:9:4",
+                        "src": "5016:9:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                           "typeString": "address[]"
@@ -6516,7 +6516,7 @@
                         "kind": "number",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "5049:1:4",
+                        "src": "5054:1:4",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_rational_3_by_1",
@@ -6538,7 +6538,7 @@
                       "isPure": true,
                       "lValueRequested": false,
                       "nodeType": "NewExpression",
-                      "src": "5035:13:4",
+                      "src": "5040:13:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_address_$dyn_memory_ptr_$",
                         "typeString": "function (uint256) pure returns (address[] memory)"
@@ -6548,7 +6548,7 @@
                           "id": 476,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "5039:7:4",
+                          "src": "5044:7:4",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -6558,7 +6558,7 @@
                         "id": 477,
                         "length": null,
                         "nodeType": "ArrayTypeName",
-                        "src": "5039:9:4",
+                        "src": "5044:9:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                           "typeString": "address[]"
@@ -6573,7 +6573,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "5035:16:4",
+                    "src": "5040:16:4",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
@@ -6581,7 +6581,7 @@
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "5011:40:4"
+                  "src": "5016:40:4"
                 },
                 {
                   "expression": {
@@ -6600,7 +6600,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 475,
-                        "src": "5061:4:4",
+                        "src": "5066:4:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                           "typeString": "address[] memory"
@@ -6617,7 +6617,7 @@
                         "kind": "number",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "5066:1:4",
+                        "src": "5071:1:4",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_rational_0_by_1",
@@ -6630,7 +6630,7 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
-                      "src": "5061:7:4",
+                      "src": "5066:7:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -6648,7 +6648,7 @@
                       "kind": "number",
                       "lValueRequested": false,
                       "nodeType": "Literal",
-                      "src": "5071:42:4",
+                      "src": "5076:42:4",
                       "subdenomination": null,
                       "typeDescriptions": {
                         "typeIdentifier": "t_address_payable",
@@ -6656,7 +6656,7 @@
                       },
                       "value": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270"
                     },
-                    "src": "5061:52:4",
+                    "src": "5066:52:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -6664,7 +6664,7 @@
                   },
                   "id": 487,
                   "nodeType": "ExpressionStatement",
-                  "src": "5061:52:4"
+                  "src": "5066:52:4"
                 },
                 {
                   "expression": {
@@ -6683,7 +6683,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 475,
-                        "src": "5132:4:4",
+                        "src": "5137:4:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                           "typeString": "address[] memory"
@@ -6700,7 +6700,7 @@
                         "kind": "number",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "5137:1:4",
+                        "src": "5142:1:4",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_rational_1_by_1",
@@ -6713,7 +6713,7 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
-                      "src": "5132:7:4",
+                      "src": "5137:7:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -6731,7 +6731,7 @@
                       "kind": "number",
                       "lValueRequested": false,
                       "nodeType": "Literal",
-                      "src": "5142:42:4",
+                      "src": "5147:42:4",
                       "subdenomination": null,
                       "typeDescriptions": {
                         "typeIdentifier": "t_address_payable",
@@ -6739,7 +6739,7 @@
                       },
                       "value": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"
                     },
-                    "src": "5132:52:4",
+                    "src": "5137:52:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -6747,7 +6747,7 @@
                   },
                   "id": 493,
                   "nodeType": "ExpressionStatement",
-                  "src": "5132:52:4"
+                  "src": "5137:52:4"
                 },
                 {
                   "expression": {
@@ -6766,7 +6766,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 475,
-                        "src": "5201:4:4",
+                        "src": "5206:4:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                           "typeString": "address[] memory"
@@ -6783,7 +6783,7 @@
                         "kind": "number",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "5206:1:4",
+                        "src": "5211:1:4",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_rational_2_by_1",
@@ -6796,7 +6796,7 @@
                       "isPure": false,
                       "lValueRequested": true,
                       "nodeType": "IndexAccess",
-                      "src": "5201:7:4",
+                      "src": "5206:7:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -6814,7 +6814,7 @@
                       "kind": "number",
                       "lValueRequested": false,
                       "nodeType": "Literal",
-                      "src": "5211:42:4",
+                      "src": "5216:42:4",
                       "subdenomination": null,
                       "typeDescriptions": {
                         "typeIdentifier": "t_address_payable",
@@ -6822,7 +6822,7 @@
                       },
                       "value": "0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39"
                     },
-                    "src": "5201:52:4",
+                    "src": "5206:52:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -6830,7 +6830,7 @@
                   },
                   "id": 499,
                   "nodeType": "ExpressionStatement",
-                  "src": "5201:52:4"
+                  "src": "5206:52:4"
                 },
                 {
                   "expression": {
@@ -6840,7 +6840,7 @@
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
                     "referencedDeclaration": 475,
-                    "src": "5277:4:4",
+                    "src": "5282:4:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                       "typeString": "address[] memory"
@@ -6849,7 +6849,7 @@
                   "functionReturnParameters": 470,
                   "id": 501,
                   "nodeType": "Return",
-                  "src": "5270:11:4"
+                  "src": "5275:11:4"
                 }
               ]
             },
@@ -6879,7 +6879,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 503,
-                  "src": "4977:22:4",
+                  "src": "4982:22:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -6891,7 +6891,7 @@
                       "id": 467,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "4977:7:4",
+                      "src": "4982:7:4",
                       "stateMutability": "nonpayable",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -6901,7 +6901,7 @@
                     "id": 468,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "4977:9:4",
+                    "src": "4982:9:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -6911,11 +6911,11 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "4976:24:4"
+              "src": "4981:24:4"
             },
             "scope": 585,
-            "src": "4939:349:4",
-            "stateMutability": "nonpayable",
+            "src": "4939:354:4",
+            "stateMutability": "pure",
             "virtual": false,
             "visibility": "internal"
           },
@@ -6923,7 +6923,7 @@
             "body": {
               "id": 514,
               "nodeType": "Block",
-              "src": "5365:48:4",
+              "src": "5370:48:4",
               "statements": [
                 {
                   "expression": {
@@ -6940,7 +6940,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 90,
-                      "src": "5375:17:4",
+                      "src": "5380:17:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -6955,13 +6955,13 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 505,
-                      "src": "5395:11:4",
+                      "src": "5400:11:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "5375:31:4",
+                    "src": "5380:31:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -6969,7 +6969,7 @@
                   },
                   "id": 513,
                   "nodeType": "ExpressionStatement",
-                  "src": "5375:31:4"
+                  "src": "5380:31:4"
                 }
               ]
             },
@@ -6989,14 +6989,14 @@
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
                   "referencedDeclaration": 104,
-                  "src": "5355:9:4",
+                  "src": "5360:9:4",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
                     "typeString": "modifier ()"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "5355:9:4"
+                "src": "5360:9:4"
               }
             ],
             "name": "changeDispersalInterval",
@@ -7014,7 +7014,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 515,
-                  "src": "5327:19:4",
+                  "src": "5332:19:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -7025,7 +7025,7 @@
                     "id": 504,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "5327:7:4",
+                    "src": "5332:7:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -7035,16 +7035,16 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "5326:21:4"
+              "src": "5331:21:4"
             },
             "returnParameters": {
               "id": 509,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "5365:0:4"
+              "src": "5370:0:4"
             },
             "scope": 585,
-            "src": "5294:119:4",
+            "src": "5299:119:4",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
@@ -7053,7 +7053,7 @@
             "body": {
               "id": 526,
               "nodeType": "Block",
-              "src": "5489:47:4",
+              "src": "5494:47:4",
               "statements": [
                 {
                   "expression": {
@@ -7070,7 +7070,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 92,
-                      "src": "5499:15:4",
+                      "src": "5504:15:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -7085,13 +7085,13 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 517,
-                      "src": "5517:12:4",
+                      "src": "5522:12:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "5499:30:4",
+                    "src": "5504:30:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -7099,7 +7099,7 @@
                   },
                   "id": 525,
                   "nodeType": "ExpressionStatement",
-                  "src": "5499:30:4"
+                  "src": "5504:30:4"
                 }
               ]
             },
@@ -7119,14 +7119,14 @@
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
                   "referencedDeclaration": 104,
-                  "src": "5479:9:4",
+                  "src": "5484:9:4",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
                     "typeString": "modifier ()"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "5479:9:4"
+                "src": "5484:9:4"
               }
             ],
             "name": "changePayoutRecipient",
@@ -7144,7 +7144,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 527,
-                  "src": "5450:20:4",
+                  "src": "5455:20:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -7155,7 +7155,7 @@
                     "id": 516,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "5450:7:4",
+                    "src": "5455:7:4",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -7166,16 +7166,16 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "5449:22:4"
+              "src": "5454:22:4"
             },
             "returnParameters": {
               "id": 521,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "5489:0:4"
+              "src": "5494:0:4"
             },
             "scope": 585,
-            "src": "5419:117:4",
+            "src": "5424:117:4",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
@@ -7184,7 +7184,7 @@
             "body": {
               "id": 538,
               "nodeType": "Block",
-              "src": "5605:34:4",
+              "src": "5610:34:4",
               "statements": [
                 {
                   "expression": {
@@ -7201,7 +7201,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 156,
-                      "src": "5615:5:4",
+                      "src": "5620:5:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -7216,13 +7216,13 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 529,
-                      "src": "5623:9:4",
+                      "src": "5628:9:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "5615:17:4",
+                    "src": "5620:17:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -7230,7 +7230,7 @@
                   },
                   "id": 537,
                   "nodeType": "ExpressionStatement",
-                  "src": "5615:17:4"
+                  "src": "5620:17:4"
                 }
               ]
             },
@@ -7250,14 +7250,14 @@
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
                   "referencedDeclaration": 104,
-                  "src": "5595:9:4",
+                  "src": "5600:9:4",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
                     "typeString": "modifier ()"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "5595:9:4"
+                "src": "5600:9:4"
               }
             ],
             "name": "ownerShipTransfer",
@@ -7275,7 +7275,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 539,
-                  "src": "5569:17:4",
+                  "src": "5574:17:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -7286,7 +7286,7 @@
                     "id": 528,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "5569:7:4",
+                    "src": "5574:7:4",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -7297,16 +7297,16 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "5568:19:4"
+              "src": "5573:19:4"
             },
             "returnParameters": {
               "id": 533,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "5605:0:4"
+              "src": "5610:0:4"
             },
             "scope": 585,
-            "src": "5542:97:4",
+            "src": "5547:97:4",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
@@ -7315,7 +7315,7 @@
             "body": {
               "id": 546,
               "nodeType": "Block",
-              "src": "5741:29:4",
+              "src": "5746:29:4",
               "statements": [
                 {
                   "expression": {
@@ -7325,7 +7325,7 @@
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
                     "referencedDeclaration": 106,
-                    "src": "5758:5:4",
+                    "src": "5763:5:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -7334,7 +7334,7 @@
                   "functionReturnParameters": 543,
                   "id": 545,
                   "nodeType": "Return",
-                  "src": "5751:12:4"
+                  "src": "5756:12:4"
                 }
               ]
             },
@@ -7351,7 +7351,7 @@
               "id": 540,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "5706:2:4"
+              "src": "5711:2:4"
             },
             "returnParameters": {
               "id": 543,
@@ -7365,7 +7365,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 547,
-                  "src": "5732:7:4",
+                  "src": "5737:7:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -7376,7 +7376,7 @@
                     "id": 541,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "5732:7:4",
+                    "src": "5737:7:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -7386,10 +7386,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "5731:9:4"
+              "src": "5736:9:4"
             },
             "scope": 585,
-            "src": "5683:87:4",
+            "src": "5688:87:4",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
@@ -7398,7 +7398,7 @@
             "body": {
               "id": 583,
               "nodeType": "Block",
-              "src": "6101:231:4",
+              "src": "6106:231:4",
               "statements": [
                 {
                   "assignments": [
@@ -7413,7 +7413,7 @@
                       "nodeType": "VariableDeclaration",
                       "overrides": null,
                       "scope": 583,
-                      "src": "6111:16:4",
+                      "src": "6116:16:4",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
@@ -7426,7 +7426,7 @@
                         "name": "Game",
                         "nodeType": "UserDefinedTypeName",
                         "referencedDeclaration": 88,
-                        "src": "6111:4:4",
+                        "src": "6116:4:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Game_$88_storage_ptr",
                           "typeString": "struct Coinflip.Game"
@@ -7446,7 +7446,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 110,
-                      "src": "6130:9:4",
+                      "src": "6135:9:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Game_$88_storage_$",
                         "typeString": "mapping(uint256 => struct Coinflip.Game storage ref)"
@@ -7460,7 +7460,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 549,
-                      "src": "6140:6:4",
+                      "src": "6145:6:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -7471,14 +7471,14 @@
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "IndexAccess",
-                    "src": "6130:17:4",
+                    "src": "6135:17:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Game_$88_storage",
                       "typeString": "struct Coinflip.Game storage ref"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "6111:36:4"
+                  "src": "6116:36:4"
                 },
                 {
                   "expression": {
@@ -7491,7 +7491,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 549,
-                        "src": "6178:6:4",
+                        "src": "6183:6:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -7506,7 +7506,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 565,
-                          "src": "6198:4:4",
+                          "src": "6203:4:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Game_$88_memory_ptr",
                             "typeString": "struct Coinflip.Game memory"
@@ -7520,7 +7520,7 @@
                         "memberName": "player1",
                         "nodeType": "MemberAccess",
                         "referencedDeclaration": 79,
-                        "src": "6198:12:4",
+                        "src": "6203:12:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -7535,7 +7535,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 565,
-                          "src": "6224:4:4",
+                          "src": "6229:4:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Game_$88_memory_ptr",
                             "typeString": "struct Coinflip.Game memory"
@@ -7549,7 +7549,7 @@
                         "memberName": "player2",
                         "nodeType": "MemberAccess",
                         "referencedDeclaration": 81,
-                        "src": "6224:12:4",
+                        "src": "6229:12:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -7564,7 +7564,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 565,
-                          "src": "6250:4:4",
+                          "src": "6255:4:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Game_$88_memory_ptr",
                             "typeString": "struct Coinflip.Game memory"
@@ -7578,7 +7578,7 @@
                         "memberName": "amount",
                         "nodeType": "MemberAccess",
                         "referencedDeclaration": 83,
-                        "src": "6250:11:4",
+                        "src": "6255:11:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -7593,7 +7593,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 565,
-                          "src": "6275:4:4",
+                          "src": "6280:4:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Game_$88_memory_ptr",
                             "typeString": "struct Coinflip.Game memory"
@@ -7607,7 +7607,7 @@
                         "memberName": "winner",
                         "nodeType": "MemberAccess",
                         "referencedDeclaration": 85,
-                        "src": "6275:11:4",
+                        "src": "6280:11:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -7622,7 +7622,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 565,
-                          "src": "6300:4:4",
+                          "src": "6305:4:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Game_$88_memory_ptr",
                             "typeString": "struct Coinflip.Game memory"
@@ -7636,7 +7636,7 @@
                         "memberName": "blockstamp",
                         "nodeType": "MemberAccess",
                         "referencedDeclaration": 87,
-                        "src": "6300:15:4",
+                        "src": "6305:15:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -7650,7 +7650,7 @@
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "TupleExpression",
-                    "src": "6164:161:4",
+                    "src": "6169:161:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$_t_uint256_$_t_address_$_t_address_$_t_uint256_$_t_address_$_t_uint256_$",
                       "typeString": "tuple(uint256,address,address,uint256,address,uint256)"
@@ -7659,7 +7659,7 @@
                   "functionReturnParameters": 563,
                   "id": 582,
                   "nodeType": "Return",
-                  "src": "6157:168:4"
+                  "src": "6162:168:4"
                 }
               ]
             },
@@ -7684,7 +7684,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 584,
-                  "src": "5850:14:4",
+                  "src": "5855:14:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -7695,7 +7695,7 @@
                     "id": 548,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "5850:7:4",
+                    "src": "5855:7:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -7705,7 +7705,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "5849:16:4"
+              "src": "5854:16:4"
             },
             "returnParameters": {
               "id": 563,
@@ -7719,7 +7719,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 584,
-                  "src": "5926:10:4",
+                  "src": "5931:10:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -7730,7 +7730,7 @@
                     "id": 551,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "5926:7:4",
+                    "src": "5931:7:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -7747,7 +7747,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 584,
-                  "src": "5950:16:4",
+                  "src": "5955:16:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -7758,7 +7758,7 @@
                     "id": 553,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "5950:7:4",
+                    "src": "5955:7:4",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -7776,7 +7776,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 584,
-                  "src": "5980:16:4",
+                  "src": "5985:16:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -7787,7 +7787,7 @@
                     "id": 555,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "5980:7:4",
+                    "src": "5985:7:4",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -7805,7 +7805,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 584,
-                  "src": "6010:15:4",
+                  "src": "6015:15:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -7816,7 +7816,7 @@
                     "id": 557,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "6010:7:4",
+                    "src": "6015:7:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -7833,7 +7833,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 584,
-                  "src": "6039:15:4",
+                  "src": "6044:15:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -7844,7 +7844,7 @@
                     "id": 559,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "6039:7:4",
+                    "src": "6044:7:4",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -7862,7 +7862,7 @@
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
                   "scope": 584,
-                  "src": "6068:18:4",
+                  "src": "6073:18:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -7873,7 +7873,7 @@
                     "id": 561,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "6068:7:4",
+                    "src": "6073:7:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -7883,20 +7883,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "5912:184:4"
+              "src": "5917:184:4"
             },
             "scope": 585,
-            "src": "5827:505:4",
+            "src": "5832:505:4",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
         "scope": 586,
-        "src": "739:5595:4"
+        "src": "739:5600:4"
       }
     ],
-    "src": "33:6302:4"
+    "src": "33:6307:4"
   },
   "bytecode": "",
   "bytecodeSha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -7926,8 +7926,8 @@
   ],
   "opcodes": "",
   "pcMap": {},
-  "sha1": "d1bf58be59d2dd82385f52ab37dceebcbf051e86",
-  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity 0.6.6;\n\nimport \"@chainlink/contracts/src/v0.6/VRFConsumerBase.sol\";\n\ninterface Router {\n    function swapETHForExactTokens(\n        uint256 amountOut,\n        address[] calldata path,\n        address to,\n        uint256 deadline\n    ) external payable returns (uint256[] memory amounts);\n\n    function getAmountsIn(uint256 amountOut, address[] calldata path)\n        external\n        view\n        returns (uint256[] memory amounts);\n}\n\ninterface IPegSwap {\n    function swap(\n        uint256 amount,\n        address source,\n        address target\n    ) external;\n}\n\ninterface IERC20 {\n    function approve(address spender, uint256 amount) external returns (bool);\n}\n\n/*author => owen.eth*/\ncontract Coinflip is VRFConsumerBase {\n    event GameCreated(address player, uint256 amount);\n    event GameJoined(uint256 index, address player);\n    event GameResult(uint256 index, address winner, uint256 amount);\n\n    /*Chainlink setup*/\n    bytes32 internal keyHash;\n    uint256 internal fee;\n\n    /*Game information and variables*/\n    struct Game {\n        uint256 index;\n        address player1;\n        address player2;\n        uint256 amount;\n        address winner;\n        uint256 blockstamp;\n    }\n\n    uint256 dispersalInterval;\n\n    address payoutRecipient;\n\n    modifier onlyOwner() {\n        require(msg.sender == owner, \"Function only callable by owner\");\n        _;\n    }\n\n    /*Info indexing and Chainlink randomness indexing*/\n    uint256 index;\n    mapping(uint256 => Game) gameIndex;\n    mapping(bytes32 => Game) requestIndex;\n\n    /*Routers used*/\n    Router QuickSwap = Router(0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff);\n    IPegSwap PegSwap = IPegSwap(0xAA1DC356dc4B18f30C347798FD5379F3D77ABC5b);\n\n    receive() external payable {\n        if (\n            msg.sender != address(QuickSwap) && msg.sender != address(PegSwap)\n        ) {\n            /* Donations welcomed :) */\n            payable(owner).transfer(msg.value);\n        }\n    }\n\n    address owner;\n\n    constructor()\n        public\n        VRFConsumerBase(\n            0x3d2341ADb2D31f1c5530cDC622016af293177AE0, // VRF Coordinator\n            0xb0897686c545045aFc77CF20eC7A532E3120E0F1 // LINK Token\n        )\n    {\n        keyHash = 0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da;\n        fee = 0.0001 * 10**18; // 0.0001 LINK\n        index = 0;\n        owner = msg.sender;\n        dispersalInterval = 10;\n        payoutRecipient = msg.sender;\n    }\n\n    /* Callback for VRF Oracle, decides winner and distributes winnings*/\n    function fulfillRandomness(bytes32 requestId, uint256 randomness)\n        internal\n        override\n    {\n        Game memory game = requestIndex[requestId];\n        if (randomness % 2 == 0) {\n            game.winner = game.player1;\n        } else {\n            game.winner = game.player2;\n        }\n        gameIndex[game.index] = game;\n        payable(game.winner).transfer((game.amount * 99) / 100);\n\n        if (game.index % dispersalInterval == 0) {\n            payable(payoutRecipient).transfer(address(this).balance);\n        }\n        emit GameResult(game.index, game.winner, game.amount);\n    }\n\n    /*Create a new game*/\n    function create_game() public payable {\n        Game memory newGame = Game(\n            index,\n            msg.sender,\n            address(this),\n            msg.value,\n            address(this),\n            block.timestamp\n        );\n        gameIndex[index] = newGame;\n        index++;\n        emit GameCreated(msg.sender, msg.value);\n    }\n\n    /*Join a game given a valid index*/\n    function join_game(uint256 _index) external payable {\n        Game memory game = gameIndex[_index];\n        address[] memory path = get_path();\n\n        require(msg.value == game.amount, \"Invalid bet!\");\n        require(game.player2 == address(this), \"Game already joined\");\n        require(game.winner == address(this), \"Game already played\");\n\n        /*Convert bets. MATIC => WETH => LINK (ERC-20) => LINK (ERC-621) */\n        uint256 amountIn = QuickSwap.getAmountsIn(fee, path)[0];\n        QuickSwap.swapETHForExactTokens{value: amountIn}(\n            fee,\n            path,\n            address(this),\n            block.timestamp + 15\n        );\n        IERC20(0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39).approve(\n            address(PegSwap),\n            fee\n        );\n        PegSwap.swap(\n            fee,\n            0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39,\n            address(LINK)\n        );\n\n        /*update game values*/\n        game.player2 = msg.sender;\n        game.amount += msg.value - amountIn;\n        gameIndex[_index] = game;\n\n        /*submit randomness request*/\n        bytes32 requestId = requestRandomness(keyHash, fee, block.timestamp);\n        requestIndex[requestId] = game;\n\n        emit GameJoined(_index, msg.sender);\n    }\n\n    /*Routing path for computing price of 0.0001 LINK at time of bet*/\n    function get_path() internal returns (address[] memory _path) {\n        address[] memory path = new address[](3);\n        path[0] = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270; //WMatic\n        path[1] = 0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619; //WETH\n        path[2] = 0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39; //LINK\n        return path;\n    }\n\n    function changeDispersalInterval(uint256 newInterval) public onlyOwner {\n        dispersalInterval = newInterval;\n    }\n\n    function changePayoutRecipient(address newRecipient) public onlyOwner {\n        payoutRecipient = newRecipient;\n    }\n\n    function ownerShipTransfer(address _newOwner) public onlyOwner {\n        owner = _newOwner;\n    }\n\n    /*returns total amount of games*/\n    function get_game_count() external view returns (uint256) {\n        return index;\n    }\n\n    /*return info about a game given valid index*/\n    function get_game_info(uint256 _index)\n        external\n        view\n        returns (\n            uint256 _i,\n            address _player1,\n            address _player2,\n            uint256 _amount,\n            address _winner,\n            uint256 _timestamp\n        )\n    {\n        Game memory game = gameIndex[_index];\n        return (\n            _index,\n            game.player1,\n            game.player2,\n            game.amount,\n            game.winner,\n            game.blockstamp\n        );\n    }\n}\n",
+  "sha1": "f85b3eb15884b10d6ccafbcbbceded026b358813",
+  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity 0.6.6;\n\nimport \"@chainlink/contracts/src/v0.6/VRFConsumerBase.sol\";\n\ninterface Router {\n    function swapETHForExactTokens(\n        uint256 amountOut,\n        address[] calldata path,\n        address to,\n        uint256 deadline\n    ) external payable returns (uint256[] memory amounts);\n\n    function getAmountsIn(uint256 amountOut, address[] calldata path)\n        external\n        view\n        returns (uint256[] memory amounts);\n}\n\ninterface IPegSwap {\n    function swap(\n        uint256 amount,\n        address source,\n        address target\n    ) external;\n}\n\ninterface IERC20 {\n    function approve(address spender, uint256 amount) external returns (bool);\n}\n\n/*author => owen.eth*/\ncontract Coinflip is VRFConsumerBase {\n    event GameCreated(address player, uint256 amount);\n    event GameJoined(uint256 index, address player);\n    event GameResult(uint256 index, address winner, uint256 amount);\n\n    /*Chainlink setup*/\n    bytes32 internal keyHash;\n    uint256 internal fee;\n\n    /*Game information and variables*/\n    struct Game {\n        uint256 index;\n        address player1;\n        address player2;\n        uint256 amount;\n        address winner;\n        uint256 blockstamp;\n    }\n\n    uint256 dispersalInterval;\n\n    address payoutRecipient;\n\n    modifier onlyOwner() {\n        require(msg.sender == owner, \"Function only callable by owner\");\n        _;\n    }\n\n    /*Info indexing and Chainlink randomness indexing*/\n    uint256 index;\n    mapping(uint256 => Game) gameIndex;\n    mapping(bytes32 => Game) requestIndex;\n\n    /*Routers used*/\n    Router QuickSwap = Router(0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff);\n    IPegSwap PegSwap = IPegSwap(0xAA1DC356dc4B18f30C347798FD5379F3D77ABC5b);\n\n    receive() external payable {\n        if (\n            msg.sender != address(QuickSwap) && msg.sender != address(PegSwap)\n        ) {\n            /* Donations welcomed :) */\n            payable(owner).transfer(msg.value);\n        }\n    }\n\n    address owner;\n\n    constructor()\n        public\n        VRFConsumerBase(\n            0x3d2341ADb2D31f1c5530cDC622016af293177AE0, // VRF Coordinator\n            0xb0897686c545045aFc77CF20eC7A532E3120E0F1 // LINK Token\n        )\n    {\n        keyHash = 0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da;\n        fee = 0.0001 * 10**18; // 0.0001 LINK\n        index = 0;\n        owner = msg.sender;\n        dispersalInterval = 10;\n        payoutRecipient = msg.sender;\n    }\n\n    /* Callback for VRF Oracle, decides winner and distributes winnings*/\n    function fulfillRandomness(bytes32 requestId, uint256 randomness)\n        internal\n        override\n    {\n        Game memory game = requestIndex[requestId];\n        if (randomness % 2 == 0) {\n            game.winner = game.player1;\n        } else {\n            game.winner = game.player2;\n        }\n        gameIndex[game.index] = game;\n        payable(game.winner).transfer((game.amount * 99) / 100);\n\n        if (game.index % dispersalInterval == 0) {\n            payable(payoutRecipient).transfer(address(this).balance);\n        }\n        emit GameResult(game.index, game.winner, game.amount);\n    }\n\n    /*Create a new game*/\n    function create_game() public payable {\n        Game memory newGame = Game(\n            index,\n            msg.sender,\n            address(this),\n            msg.value,\n            address(this),\n            block.timestamp\n        );\n        gameIndex[index] = newGame;\n        index++;\n        emit GameCreated(msg.sender, msg.value);\n    }\n\n    /*Join a game given a valid index*/\n    function join_game(uint256 _index) external payable {\n        Game memory game = gameIndex[_index];\n        address[] memory path = get_path();\n\n        require(msg.value == game.amount, \"Invalid bet!\");\n        require(game.player2 == address(this), \"Game already joined\");\n        require(game.winner == address(this), \"Game already played\");\n\n        /*Convert bets. MATIC => WETH => LINK (ERC-20) => LINK (ERC-621) */\n        uint256 amountIn = QuickSwap.getAmountsIn(fee, path)[0];\n        QuickSwap.swapETHForExactTokens{value: amountIn}(\n            fee,\n            path,\n            address(this),\n            block.timestamp + 15\n        );\n        IERC20(0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39).approve(\n            address(PegSwap),\n            fee\n        );\n        PegSwap.swap(\n            fee,\n            0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39,\n            address(LINK)\n        );\n\n        /*update game values*/\n        game.player2 = msg.sender;\n        game.amount += msg.value - amountIn;\n        gameIndex[_index] = game;\n\n        /*submit randomness request*/\n        bytes32 requestId = requestRandomness(keyHash, fee, block.timestamp);\n        requestIndex[requestId] = game;\n\n        emit GameJoined(_index, msg.sender);\n    }\n\n    /*Routing path for computing price of 0.0001 LINK at time of bet*/\n    function get_path() internal pure returns (address[] memory _path) {\n        address[] memory path = new address[](3);\n        path[0] = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270; //WMatic\n        path[1] = 0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619; //WETH\n        path[2] = 0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39; //LINK\n        return path;\n    }\n\n    function changeDispersalInterval(uint256 newInterval) public onlyOwner {\n        dispersalInterval = newInterval;\n    }\n\n    function changePayoutRecipient(address newRecipient) public onlyOwner {\n        payoutRecipient = newRecipient;\n    }\n\n    function ownerShipTransfer(address _newOwner) public onlyOwner {\n        owner = _newOwner;\n    }\n\n    /*returns total amount of games*/\n    function get_game_count() external view returns (uint256) {\n        return index;\n    }\n\n    /*return info about a game given valid index*/\n    function get_game_info(uint256 _index)\n        external\n        view\n        returns (\n            uint256 _i,\n            address _player1,\n            address _player2,\n            uint256 _amount,\n            address _winner,\n            uint256 _timestamp\n        )\n    {\n        Game memory game = gameIndex[_index];\n        return (\n            _index,\n            game.player1,\n            game.player2,\n            game.amount,\n            game.winner,\n            game.blockstamp\n        );\n    }\n}\n",
   "sourceMap": "",
   "sourcePath": "contracts/Coinflip.sol",
   "type": "interface"
