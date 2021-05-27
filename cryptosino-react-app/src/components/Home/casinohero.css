@@ -6,6 +6,8 @@ video {
   z-index: -1;
 }
 .casinohero-container {
+
+  background-color: transparent;
   height: 100vh;
   width: 100%;
   display: flex;
@@ -15,23 +17,35 @@ video {
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
   object-fit: contain;
 }
+.logo {
+  font-family: monospace;
+  position: relative;
+  color: white;
+  font-size: 150px;
+  padding-top: 20px;
+}
 .cryptosino-about-container {
   max-width: 1000px;
   text-align: center;
   color: white;
 }
 .cryptosino-about-container > h1 {
+  font-size: 25px;
+  position: relative;
   padding-top: 4rem;
   text-decoration: underline;     
 }
 .cryptosino-about-container > p {
+  position: relative;
   font-size: 24px;    
 }
 .cryptosino-about-container a {
+  position: fixed !important;
   text-decoration: underline;
 }
 
 .cryptosino-about-container a:visited {
+    position: fixed !important;
   color: White;
 }
 .welcome {
@@ -52,14 +66,15 @@ video {
 
 .casinohero-container > p {
   margin-top: 32px;
-  color: #242424;
+  color: whitesmoke;
   font-size: 10px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
 
 .hero-btns {
-  margin-top: 400px;
+  position: relative !important;
+  margin-top: 150px;
 }
 
 .hero-btns .btn {

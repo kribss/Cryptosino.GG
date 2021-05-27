@@ -6,11 +6,14 @@ import JackpotPage from "./components/Pages/JackpotPage";
 import HomePage from "./components/Pages/HomePage";
 import CasinoPage from "./components/Pages/CasinoPage";
 // import Clock from "./components/Clock/Clock";
+import Particles from 'react-particles-js';
+
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
+
         {/* <Clock /> */}
         <Router>
           <Switch>

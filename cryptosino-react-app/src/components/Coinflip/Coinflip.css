@@ -13,6 +13,7 @@
   text-align: center;
 }
 .coinflip li {
+  position: relative;
   list-style: none;
 }
 
@@ -22,12 +23,14 @@
 }
 
 .coinflip-header {
+  position: relative;
   padding-top: 4rem;
   color: #fff;
   text-align: center;
   font-size: 32px;
 }
 .coinflip-create-button {
+  position: relative;
   margin: 0 auto;
   display: block;
   text-align: center;
@@ -35,6 +38,7 @@
   width: 230px;
 }
 .coinflip-create-input {
+  position: relative;
   width: 230px;
   font-size: 20px;
   margin: 0 auto;

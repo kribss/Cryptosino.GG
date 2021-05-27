@@ -3,6 +3,8 @@ import Web3 from "web3";
 import "../Coinflip/Coinflip.css";
 import Game from "../Game/Game.js";
 import { ethers } from "ethers";
+import Particles from 'react-particles-js';
+
 
 class Coinflip extends React.Component {
   constructor(props) {
@@ -307,51 +309,164 @@ class Coinflip extends React.Component {
 
   render() {
     return (
-      <div className="coinflip">
-        <img alt="landing page background" src="./Images/BlankBackground.jpg"></img>
-        <h3 className="coinflip-header">Total Games: {this.state.index}</h3>
-        <input
-          className="coinflip-create-input"
-          type="number"
-          placeholder="Enter MATIC Bet > 1"
-          value={this.state.bet}
-          onChange={this.handleChange}
+      <div className="particles-matic">
+        <Particles className="particles-js" params={{
+          "particles": {
+            "number": {
+              "value": 80,
+              "density": {
+                "enable": true,
+                "value_area": 800
+              }
+            },
+            "color": {
+              "value": "#ffffff"
+            },
+            "shape": {
+              "type": "image",
+              "stroke": {
+                "width": 0,
+                "color": "#000000"
+              },
+              "polygon": {
+                "nb_sides": 5
+              },
+              "image": {
+                "src": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcrypto.com%2Fprice%2Fcoin-data%2Ficon%2FMATIC%2Fcolor_icon.png&f=1&nofb=1",
+                "width": 100,
+                "height": 100
+              }
+            },
+            "opacity": {
+              "value": 0.5,
+              "random": false,
+              "anim": {
+                "enable": false,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+              }
+            },
+            "size": {
+              "value": 31.565905665290902,
+              "random": true,
+              "anim": {
+                "enable": false,
+                "speed": 40,
+                "size_min": 0.1,
+                "sync": false
+              }
+            },
+            "line_linked": {
+              "enable": false,
+              "distance": 150,
+              "color": "#ffffff",
+              "opacity": 0.4,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 1.5,
+              "direction": "none",
+              "random": false,
+              "straight": false,
+              "out_mode": "out",
+              "bounce": false,
+              "attract": {
+                "enable": false,
+                "rotateX": 600,
+                "rotateY": 1200
+              }
+            }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "repulse"
+              },
+              "onclick": {
+                "enable": true,
+                "mode": "push"
+              },
+              "resize": true
+            },
+            "modes": {
+              "grab": {
+                "distance": 400,
+                "line_linked": {
+                  "opacity": 1
+                }
+              },
+              "bubble": {
+                "distance": 400,
+                "size": 40,
+                "duration": 2,
+                "opacity": 8,
+                "speed": 3
+              },
+              "repulse": {
+                "distance": 200,
+                "duration": 0.4
+              },
+              "push": {
+                "particles_nb": 4
+              },
+              "remove": {
+                "particles_nb": 2
+              }
+            }
+          },
+          "retina_detect": true
+        }}
         />
-        <button
-          className="coinflip-create-button"
-          onClick={async () => {
-            const tx = await this.state.coinflip.create_game({
-              value: (this.state.bet * 10 ** 18).toString(),
-            });
-            console.log(tx.hash);
-          }}
-        >
-          Create Game
+        <div className="coinflip">
+          {/* <img alt="landing page background" src="./Images/BlankBackground.jpg"></img> */}
+          <h3 className="coinflip-header">Total Games: {this.state.index}</h3>
+          <input
+            className="coinflip-create-input"
+            type="number"
+            placeholder="Enter MATIC Bet > 1"
+            value={this.state.bet}
+            onChange={this.handleChange}
+          />
+          <button
+            className="coinflip-create-button"
+            onClick={async () => {
+              const tx = await this.state.coinflip.create_game({
+                value: (this.state.bet * 10 ** 18).toString(),
+              });
+              console.log(tx.hash);
+            }}
+          >
+            Create Game
         </button>
-        <br></br>
-        <p>*1% House Fee Taken On All Coinflips*</p>
-        <ul>
-          {this.state.list.map((index) => (
-            <li key={index}>
-              <Game
-                index={index}
-                contract={this.state.coinflip}
-                account={this.state.account}
-              />
-            </li>
-          ))}
-        </ul>
-        <div className="game-footer">
+          <br></br>
+          <p>*1% House Fee Taken On All Coinflips*</p>
           <ul>
-            <li>
-              <a href="https://github.com/kribss/Cryptosino.GG/blob/master/cryptosino-solidity/contracts/Coinflip.sol" target="_blank">Github</a>
-            </li>
-            <li>
-              <a href="https://explorer-mainnet.maticvigil.com/address/0xbC3edBCde35A0994EC8704261A0Ac94Fe7eB0624" target="_blank">
-                Matic Explorer
-              </a>
-            </li>
+            {this.state.list.map((index) => (
+              <li key={index}>
+                <Game
+                  index={index}
+                  contract={this.state.coinflip}
+                  account={this.state.account}
+                />
+              </li>
+            ))}
           </ul>
+          <div className="game-footer">
+            <ul>
+              <li>
+                <a href="https://github.com/kribss/Cryptosino.GG/blob/master/cryptosino-solidity/contracts/Coinflip.sol" target="_blank">Github</a>
+              </li>
+              <li>
+                <a href="https://explorer-mainnet.maticvigil.com/address/0xbC3edBCde35A0994EC8704261A0Ac94Fe7eB0624" target="_blank">
+                  Matic Explorer
+              </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     );

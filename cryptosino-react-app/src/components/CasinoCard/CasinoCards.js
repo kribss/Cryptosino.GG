@@ -2,6 +2,8 @@ import React from "react";
 import Web3 from "web3";
 import CasinoCardItem from "./CasinoCardItem";
 import "./CasinoCards.css";
+import Particles from 'react-particles-js';
+
 
 class CasinoCards extends React.Component {
   async loadWeb3() {
@@ -35,35 +37,148 @@ class CasinoCards extends React.Component {
 
   render() {
     return (
-      <div className="casinocards">
-        <div className="casinocards__container">
-          <img
-            className="casinocards__background"
-            src="Images/BlankBackground.jpg"
-            alt="PlaceholderBackground"
-          ></img>
-          <h1>Games</h1>
-          <div className="casinocards__wrapper">
-            <ul className="casinocards__items">
-              <CasinoCardItem
-                src="Images/blackjack.jpg"
-                text="Black Jack"
-                label="COMING SOON"
-              />
-              <CasinoCardItem
-                src="Images/LOTTO-BALLS.jpg"
-                text="Jackpot"
-                label="Play Now"
-                path="jackpot"
-              />
-              <CasinoCardItem
-                src="Images/coinflip.png"
-                text="Coin Flip"
-                label="Play Now"
-                path="coinflip"
-              />
+      <div className="particles-matic">
+        <Particles className="particles-js" params={{
+          "particles": {
+            "number": {
+              "value": 80,
+              "density": {
+                "enable": true,
+                "value_area": 800
+              }
+            },
+            "color": {
+              "value": "#ffffff"
+            },
+            "shape": {
+              "type": "image",
+              "stroke": {
+                "width": 0,
+                "color": "#000000"
+              },
+              "polygon": {
+                "nb_sides": 5
+              },
+              "image": {
+                "src": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcrypto.com%2Fprice%2Fcoin-data%2Ficon%2FMATIC%2Fcolor_icon.png&f=1&nofb=1",
+                "width": 100,
+                "height": 100
+              }
+            },
+            "opacity": {
+              "value": 0.5,
+              "random": false,
+              "anim": {
+                "enable": false,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+              }
+            },
+            "size": {
+              "value": 31.565905665290902,
+              "random": true,
+              "anim": {
+                "enable": false,
+                "speed": 40,
+                "size_min": 0.1,
+                "sync": false
+              }
+            },
+            "line_linked": {
+              "enable": false,
+              "distance": 150,
+              "color": "#ffffff",
+              "opacity": 0.4,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 1.5,
+              "direction": "none",
+              "random": false,
+              "straight": false,
+              "out_mode": "out",
+              "bounce": false,
+              "attract": {
+                "enable": false,
+                "rotateX": 600,
+                "rotateY": 1200
+              }
+            }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "repulse"
+              },
+              "onclick": {
+                "enable": true,
+                "mode": "push"
+              },
+              "resize": true
+            },
+            "modes": {
+              "grab": {
+                "distance": 400,
+                "line_linked": {
+                  "opacity": 1
+                }
+              },
+              "bubble": {
+                "distance": 400,
+                "size": 40,
+                "duration": 2,
+                "opacity": 8,
+                "speed": 3
+              },
+              "repulse": {
+                "distance": 200,
+                "duration": 0.4
+              },
+              "push": {
+                "particles_nb": 4
+              },
+              "remove": {
+                "particles_nb": 2
+              }
+            }
+          },
+          "retina_detect": true
+        }}
+        />
+        <div className="casinocards">
+          <div className="casinocards__container">
+            <img
+              className="casinocards__background"
+              src="Images/BlankBackground.jpg"
+              alt="PlaceholderBackground"
+            ></img>
+            <h1 className="games">Games</h1>
+            <div className="casinocards__wrapper">
+              <ul className="casinocards__items">
+                <CasinoCardItem
+                  src="Images/blackjack.jpg"
+                  text="Black Jack"
+                  label="COMING SOON"
+                />
+                <CasinoCardItem
+                  src="Images/LOTTO-BALLS.jpg"
+                  text="Jackpot"
+                  label="Play Now"
+                  path="jackpot"
+                />
+                <CasinoCardItem
+                  src="Images/coinflip.png"
+                  text="Coin Flip"
+                  label="Play Now"
+                  path="coinflip"
+                />
 
-            </ul>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

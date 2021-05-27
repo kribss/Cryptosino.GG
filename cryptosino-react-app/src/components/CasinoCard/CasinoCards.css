@@ -2,6 +2,15 @@
   padding: 8rem;
 }
 
+.games{
+    font-family: monospace;
+    position: relative;
+    border: 5px solid white;
+    padding-left: 2rem;
+        padding-right: 2rem;
+
+}
+
 .casinocards__background {
   object-fit: cover;
   width: 100%;
@@ -11,6 +20,7 @@
 }
 
 .casinocards__container {
+  padding-top: 2rem;
   height: 100%;
   width: 100%;
   display: flex;
@@ -36,6 +46,7 @@ text-shadow:
 }
 
 .casinocards__items {
+  padding-top: 2rem;
   margin-bottom: 100px;
 }
 
@@ -71,6 +82,7 @@ text-shadow:
 }
 
 .casinocards__item__pic-wrap::after {
+    font-family: monospace;
   content: attr(data-category);
   position: absolute;
   bottom: 0;
@@ -80,7 +92,7 @@ text-shadow:
   font-size: 15px;
   font-weight: 700;
   color: #fff;
-  background-color: #1f98f4;
+  background-color: #005fa7;
   box-sizing: border-box;
 }
 
@@ -111,6 +123,7 @@ text-shadow:
 }
 
 .casinocards__item__text {
+    font-family: monospace;
   color: #252e48;
   font-size: 24px;
   line-height: 24px;
