@@ -151,11 +151,11 @@ class CasinoCards extends React.Component {
         />
         <div className="casinocards">
           <div className="casinocards__container">
-            <img
+            {/* <img
               className="casinocards__background"
               src="Images/BlankBackground.jpg"
               alt="PlaceholderBackground"
-            ></img>
+            ></img> */}
             <h1 className="games">Games</h1>
             <div className="casinocards__wrapper">
               <ul className="casinocards__items">
