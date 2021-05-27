@@ -8,6 +8,10 @@
   position: fixed;
   z-index: -1;
 } 
+
+.coinflip p {
+  text-align: center;
+}
 .coinflip li {
   list-style: none;
 }
@@ -31,6 +35,7 @@
   width: 230px;
 }
 .coinflip-create-input {
+  width: 230px;
   font-size: 20px;
   margin: 0 auto;
   display: block;

@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import Web3 from "web3";
 import "../Coinflip/Coinflip.css";
 import Game from "../Game/Game.js";
@@ -13,7 +13,7 @@ class Coinflip extends React.Component {
       list: [],
       account: null,
       signer: null,
-      bet: 0,
+      bet: null,
       provider: null,
     };
   }
@@ -313,7 +313,7 @@ class Coinflip extends React.Component {
         <input
           className="coinflip-create-input"
           type="number"
-          placeholder="Enter MATIC Bet"
+          placeholder="Enter MATIC Bet > 1"
           value={this.state.bet}
           onChange={this.handleChange}
         />
@@ -328,6 +328,8 @@ class Coinflip extends React.Component {
         >
           Create Game
         </button>
+        <br></br>
+        <p>*1% House Fee Taken On All Coinflips*</p>
         <ul>
           {this.state.list.map((index) => (
             <li key={index}>

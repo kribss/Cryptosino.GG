@@ -11,8 +11,7 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1",
-    "web3": "^1.3.6"
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
     "deploy-production": "react-scripts build && scp -r ./build/* kribs@149.28.127.171:/var/www/cryptosino.gg/html",
