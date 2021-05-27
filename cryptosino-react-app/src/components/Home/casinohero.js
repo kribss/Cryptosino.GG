@@ -123,7 +123,7 @@ class CasinoHero extends React.Component {
         />
         <div className="casinohero-container">
           {/* <img src="/Images/bg_text_up.jpg" autoPlay loop muted /> */}
-          <h1 className="logo">Cryptosino.GG</h1>
+          <h1 className="cryptosino-logo">Cryptosino.GG</h1>
           <div className="hero-btns">
             <Button
               className="btns"
