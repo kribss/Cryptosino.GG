@@ -160,11 +160,6 @@ class CasinoCards extends React.Component {
         </Button>
         <div className="casinocards">
           <div className="casinocards__container">
-            {/* <img
-              className="casinocards__background"
-              src="Images/BlankBackground.jpg"
-              alt="PlaceholderBackground"
-            ></img> */}
             <h1 className="games">G a m e s</h1>
             <div className="casinocards__wrapper">
               <ul className="casinocards__items">
@@ -176,13 +171,13 @@ class CasinoCards extends React.Component {
                 <CasinoCardItem
                   src="Images/LOTTO-BALLS.jpg"
                   text="Jackpot"
-                  label="Play Now"
+                  label="COMING SOON"
                   path="jackpot"
                 />
                 <CasinoCardItem
                   src="Images/coinflip.png"
                   text="Coin Flip"
-                  label="Play Now"
+                  label="PLAY NOW"
                   path="coinflip"
                 />
 

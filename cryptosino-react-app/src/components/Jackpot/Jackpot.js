@@ -3,6 +3,7 @@ import { Button } from "../Button/Button";
 import Web3 from "web3";
 import "../Jackpot/Jackpot.css";
 import { ethers } from "ethers";
+import Particles from 'react-particles-js';
 
 class Jackpot extends React.Component {
     constructor(props) {
@@ -580,7 +581,118 @@ class Jackpot extends React.Component {
 
     render() {
         return (
-            <div className="jackpot-container">
+            <div className="jackpot">
+                <Particles className="particles-js" params={{
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#ffffff"
+                        },
+                        "shape": {
+                            "type": "image",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                            "polygon": {
+                                "nb_sides": 5
+                            },
+                            "image": {
+                                "src": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcryptologos.cc%2Flogos%2Fchainlink-link-logo.png&f=1&nofb=1",
+                                "width": 100,
+                                "height": 100
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": false,
+                            "anim": {
+                                "enable": false,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 31.565905665290902,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 40,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": false,
+                            "distance": 150,
+                            "color": "#ffffff",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 1.5,
+                            "direction": "none",
+                            "random": false,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": false,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "repulse"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 400,
+                                "line_linked": {
+                                    "opacity": 1
+                                }
+                            },
+                            "bubble": {
+                                "distance": 400,
+                                "size": 40,
+                                "duration": 2,
+                                "opacity": 8,
+                                "speed": 3
+                            },
+                            "repulse": {
+                                "distance": 200,
+                                "duration": 0.4
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            },
+                            "remove": {
+                                "particles_nb": 2
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                }}
+                />
                 <Button
                     className="btns"
                     buttonStyle="btn--outline"
@@ -589,10 +701,12 @@ class Jackpot extends React.Component {
                 >
                     Back To Games
         </Button>
-                <img alt="landing page background" src="./Images/BlankBackground.jpg"></img>
-                <h1>Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
-                <h3 className="current-jackpot-bets">Current Players: <br></br> <ul className="pla">{this.state.players.map(player => <li key={player}> {player} Bet {parseFloat((this.state.jackpot.playerBet(player)) / 10 ** 18).toFixed(2)} Matic</li>)}</ul></h3>
-            </div>
+                <div className="jackpot-container">
+                    <img alt="landing page background" src="./Images/BlankBackground.jpg"></img>
+                    <h1>Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
+                    <h3 className="current-jackpot-bets">Current Players: <br></br> <ul className="pla">{this.state.players.map(player => <li key={player}> {player} Bet {parseFloat((this.state.jackpot.playerBet(player)) / 10 ** 18).toFixed(2)} Matic</li>)}</ul></h3>
+                </div>
+            </div >
         )
     }
 }
