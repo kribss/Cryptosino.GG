@@ -112,7 +112,7 @@
 }
 
 .casinocards__item__img:hover {
-  transform: scale(1.1);
+  transform: scale(1.2 );
 }
 
 .casinocards__item__img {
@@ -129,6 +129,8 @@
   object-fit: cover;
   transition: all 0.2s linear;
 }
+
+
 
 .casinocards__item__info {
   padding: 20px 75px 30px;

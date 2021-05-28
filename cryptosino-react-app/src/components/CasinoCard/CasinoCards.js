@@ -164,8 +164,8 @@ class CasinoCards extends React.Component {
             <div className="casinocards__wrapper">
               <ul className="casinocards__items">
                 <CasinoCardItem
-                  src="Images/blackjack.jpg"
-                  text="Black Jack"
+                  src="Images/diceLogoSmall.jpg"
+                  text="Dice"
                   label="COMING SOON"
                 />
                 <CasinoCardItem
