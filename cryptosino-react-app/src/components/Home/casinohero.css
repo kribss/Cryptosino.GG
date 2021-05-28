@@ -5,8 +5,8 @@ video {
   position: fixed;
   z-index: -1;
 }
-.casinohero-container {
 
+.casinohero-container {
   background-color: transparent;
   height: 100vh;
   width: 100%;
@@ -35,9 +35,9 @@ video {
   padding-top: 4rem;
   text-decoration: underline;     
 }
-.cryptosino-about-container > p {
+.cryptosino-about-paragraph{
   position: relative;
-  font-size: 24px;    
+  font-size: 20px;    
 }
 .cryptosino-about-container a {
   position: fixed !important;
@@ -50,7 +50,7 @@ video {
 }
 
 
-.casinohero-container > p {
+.web3-wallet-warning {
   margin-top: 32px;
   color: whitesmoke;
   font-size: 10px;

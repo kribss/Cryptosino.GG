@@ -9,6 +9,12 @@
     color: gold;
     text-align: center;
 }
+.btn {
+  position: relative !important;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-bottom: 0px;
+}
 .player-list {
     color:white;
     text-align: center;

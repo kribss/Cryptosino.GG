@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import { Button } from "../Button/Button";
 import Web3 from "web3";
 import "../Jackpot/Jackpot.css";
 import { ethers } from "ethers";
@@ -580,6 +581,14 @@ class Jackpot extends React.Component {
     render() {
         return (
             <div className="jackpot-container">
+                <Button
+                    className="btns"
+                    buttonStyle="btn--outline"
+                    buttonSize="btn--medium"
+                    path="/casino"
+                >
+                    Back To Games
+        </Button>
                 <img alt="landing page background" src="./Images/BlankBackground.jpg"></img>
                 <h1>Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
                 <h3 className="current-jackpot-bets">Current Players: <br></br> <ul className="pla">{this.state.players.map(player => <li key={player}> {player} Bet {parseFloat((this.state.jackpot.playerBet(player)) / 10 ** 18).toFixed(2)} Matic</li>)}</ul></h3>

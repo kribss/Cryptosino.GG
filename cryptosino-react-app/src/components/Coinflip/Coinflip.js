@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Web3 from "web3";
+import { Button } from "../Button/Button";
 import "../Coinflip/Coinflip.css";
 import Game from "../Game/Game.js";
 import { ethers } from "ethers";
@@ -421,8 +422,15 @@ class Coinflip extends React.Component {
           "retina_detect": true
         }}
         />
+        <Button
+          className="btns"
+          buttonStyle="btn--outline"
+          buttonSize="btn--medium"
+          path="/casino"
+        >
+          Back To Games
+        </Button>
         <div className="coinflip">
-          {/* <img alt="landing page background" src="./Images/BlankBackground.jpg"></img> */}
           <h3 className="coinflip-header">Total Games: {this.state.index}</h3>
           <input
             className="coinflip-create-input"
@@ -443,7 +451,7 @@ class Coinflip extends React.Component {
             Create Game
         </button>
           <br></br>
-          <p>*1% House Fee Taken On All Coinflips*</p>
+          <p className="fee-announce">*1% House Fee Taken On All Coinflips*</p>
           <ul>
             {this.state.list.map((index) => (
               <li key={index}>

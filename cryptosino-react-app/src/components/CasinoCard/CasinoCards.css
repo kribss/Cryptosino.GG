@@ -1,26 +1,50 @@
-.casinocards {
-  padding: 8rem;
+:root {
+  --shadow-color:rgb(53, 136, 224);
+  --shadow-color-light:white;
 }
 
+.casinocards {
+  padding: 6rem;
+}
 .games{
     font-family: monospace;
-    position: relative;
-    border: 5px solid white;
-    padding-left: 2rem;
-        padding-right: 2rem;
+position: relative;
+  font-size: 120px;
+  text-transform: uppercase;
+  font-weight: normal;
+  display: block;
+  height: auto;
+  text-align: center;
+  border: 5px solid;
+  border-color: (53, 136, 224);
+  padding-right: 20px;
+  padding-left: 20px;
+  box-shadow:-1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color);
+  
 
+}
+
+.games {
+    color: rgb(53, 136, 224);
+  text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color), -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color);
 }
 
 .casinocards__background {
   object-fit: cover;
   width: 100%;
-  height: 110%;
+  height: 100%;
   position: fixed;
   z-index: -1;
 }
 
 .casinocards__container {
-  padding-top: 2rem;
+
   height: 100%;
   width: 100%;
   display: flex;
@@ -30,15 +54,6 @@
   object-fit: cover;
 }
 
-.casinocards__container > h1 {
-  color: #fff;
-  font-size: 100px;
-text-shadow:
-		-1px -1px 0 #000,
-		1px -1px 0 #000,
-		-1px 1px 0 #000,
-		1px 1px 0 #000;
-}
 
 .casinocards__wrapper {
   position: relative;
@@ -61,9 +76,9 @@ text-shadow:
   display: flex;
   flex-flow: column;
   width: 100%;
-  box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
-  -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
-  filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  box-shadow: 0 6px 20px rgba(53, 136, 224);
+  -webkit-filter: drop-shadow(0 6px 20px rgba(53, 136, 224));
+  filter: drop-shadow(0 6px 20px rgba(53, 136, 224));
   border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
@@ -71,7 +86,7 @@ text-shadow:
 
 .casinocards__item__pic-wrap {
   position: relative;
-  width: 400px;
+  width: 450px;
   padding-top: 67%;
   overflow: hidden;
 }

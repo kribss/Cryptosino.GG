@@ -1,5 +1,6 @@
-.coinflip {
-
+:root {
+  --shadow-color:rgb(53, 136, 224);
+  --shadow-color-light:white;
 }
  img {
   object-fit: cover;
@@ -10,7 +11,13 @@
 } 
 
 .coinflip p {
+  position: relative;
   text-align: center;
+  margin-bottom: -10px;
+}
+
+.fee-announce{
+  color: white;
 }
 .coinflip li {
   position: relative;
@@ -24,10 +31,16 @@
 
 .coinflip-header {
   position: relative;
-  padding-top: 4rem;
-  color: #fff;
+  padding-top: -15px;
+  padding-bottom: 10px;
   text-align: center;
   font-size: 32px;
+  color: rgb(53, 136, 224);
+  text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color), -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color);
 }
 .coinflip-create-button {
   position: relative;
@@ -67,4 +80,10 @@
 
 .game-footer a:visited {
   color: White;
+}
+.btn {
+  position: relative !important;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-bottom: 0px;
 }

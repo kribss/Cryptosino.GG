@@ -1,5 +1,6 @@
 import React from "react";
 import Web3 from "web3";
+import { Button } from "../Button/Button";
 import CasinoCardItem from "./CasinoCardItem";
 import "./CasinoCards.css";
 import Particles from 'react-particles-js';
@@ -149,6 +150,14 @@ class CasinoCards extends React.Component {
           "retina_detect": true
         }}
         />
+        <Button
+          className="btns"
+          buttonStyle="btn--outline"
+          buttonSize="btn--medium"
+          path="/"
+        >
+          Back To Home
+        </Button>
         <div className="casinocards">
           <div className="casinocards__container">
             {/* <img
@@ -156,7 +165,7 @@ class CasinoCards extends React.Component {
               src="Images/BlankBackground.jpg"
               alt="PlaceholderBackground"
             ></img> */}
-            <h1 className="games">Games</h1>
+            <h1 className="games">G a m e s</h1>
             <div className="casinocards__wrapper">
               <ul className="casinocards__items">
                 <CasinoCardItem
