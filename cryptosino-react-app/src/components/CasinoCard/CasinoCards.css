@@ -4,11 +4,11 @@
 }
 
 .casinocards {
-  padding: 6rem;
+  padding-top: 6rem;
 }
 .games{
-    font-family: monospace;
-position: relative;
+  font-family: monospace;
+  position: relative;
   font-size: 120px;
   text-transform: uppercase;
   font-weight: normal;
@@ -107,7 +107,7 @@ position: relative;
   font-size: 15px;
   font-weight: 700;
   color: #fff;
-  background-color: #005fa7;
+  background-color:rgba(53, 136, 224);
   box-sizing: border-box;
 }
 
