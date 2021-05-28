@@ -16,6 +16,8 @@ class Jackpot extends React.Component {
             account: null,
             signer: null,
             bet: 0,
+            playerBets: null,
+            betsArray: [],
             provider: null,
         };
     }
@@ -44,7 +46,7 @@ class Jackpot extends React.Component {
             window.alert("Please switch to Polygon Mainnet!");
         }
 
-        const JACKPOT_CONTRACT = "0xC6d5deE20183498c63d828ae13dDC3276Ba882D9";
+        const JACKPOT_CONTRACT = "0x57CFB61378755EEE34d6eBcD7378f4F949b605AE";
         const JACKPOT_ABI = [
             {
                 "inputs": [
@@ -556,18 +558,13 @@ class Jackpot extends React.Component {
             provider: provider,
             jackpot: JACKPOT,
             index: JSON.parse(await JACKPOT.getJackpotCount()),
-        });
-        this.setState({
-            size: JSON.parse(await JACKPOT.getContractBalance()) / 10 ** 18
-        });
-        this.setState({
-            players: await JACKPOT.getCurrentPlayers()
-        });
-        this.setState({
-            betsArray: await JACKPOT.currentBetsArray()
+            size: JSON.parse(await JACKPOT.getContractBalance()) / 10 ** 18,
+            players: await JACKPOT.getCurrentPlayers(),
+            betsArray: await JACKPOT.currentBetsArray(),
         });
 
     }
+
 
     async componentDidMount() {
         await this.loadWeb3();
@@ -702,9 +699,27 @@ class Jackpot extends React.Component {
                     Back To Games
         </Button>
                 <div className="jackpot-container">
-                    <img alt="landing page background" src="./Images/BlankBackground.jpg"></img>
                     <h1>Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
-                    <h3 className="current-jackpot-bets">Current Players: <br></br> <ul className="pla">{this.state.players.map(player => <li key={player}> {player} Bet {parseFloat((this.state.jackpot.playerBet(player)) / 10 ** 18).toFixed(2)} Matic</li>)}</ul></h3>
+                    <h3 className="current-jackpot-bets">Current Players: <br></br>
+                        {/* <table className="players-table">
+                            <tr>
+                                <th>Address</th>
+                                <th>Bet</th>
+
+                            </tr>
+                            <tr>
+                                <td>{this.state.players.map(player => <tr><td key={player}> {player}</td></tr>)}</td>
+                                <td>{this.state.betsArray.map(bet => <tr><td key={bet}> {bet}</td></tr>)}</td>
+                            </tr>
+
+                        </table> */}
+                        <ul className="players">{this.state.players.map(player => <li key={player}> {player} Bets</li>)}</ul>
+
+                        {/* <ul className="bets">{parseInt(this.state.betsArray.map(bet => <li key={bet}> {bet}</li>) / 10 ** 18).toFixed(2)}</ul> */}
+
+
+                        {/* Bet {parseInt((this.state.jackpot.playerBet(player)) / 10 ** 18).toFixed(2)} */}
+                    </h3>
                 </div>
             </div >
         )
