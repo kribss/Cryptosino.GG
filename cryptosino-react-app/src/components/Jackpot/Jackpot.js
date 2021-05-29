@@ -10,15 +10,16 @@ class Jackpot extends React.Component {
         super(props);
         this.state = {
             index: 0,
-            size: null,
+            size: 0,
             jackpot: null,
             players: [],
             account: null,
             signer: null,
-            bet: 0,
+            bet: null,
             playerBets: null,
             betsArray: [],
             provider: null,
+            jackpotStatus: "Inactive"
         };
     }
 
@@ -46,7 +47,7 @@ class Jackpot extends React.Component {
             window.alert("Please switch to Polygon Mainnet!");
         }
 
-        const JACKPOT_CONTRACT = "0x57CFB61378755EEE34d6eBcD7378f4F949b605AE";
+        const JACKPOT_CONTRACT = "0x78Ee062B167312EaF7c87bDc69a2be46a8CC0605";
         const JACKPOT_ABI = [
             {
                 "inputs": [
@@ -65,11 +66,11 @@ class Jackpot extends React.Component {
                 "inputs": [
                     {
                         "internalType": "uint256",
-                        "name": "_newMaxLength",
+                        "name": "_newJackpotLength",
                         "type": "uint256"
                     }
                 ],
-                "name": "changeMaxLength",
+                "name": "changeJackpotLength",
                 "outputs": [],
                 "stateMutability": "nonpayable",
                 "type": "function"
@@ -114,13 +115,7 @@ class Jackpot extends React.Component {
                 "type": "function"
             },
             {
-                "inputs": [
-                    {
-                        "internalType": "uint256",
-                        "name": "timeInMinutes",
-                        "type": "uint256"
-                    }
-                ],
+                "inputs": [],
                 "name": "newJackpot",
                 "outputs": [],
                 "stateMutability": "payable",
@@ -561,6 +556,7 @@ class Jackpot extends React.Component {
             size: JSON.parse(await JACKPOT.getContractBalance()) / 10 ** 18,
             players: await JACKPOT.getCurrentPlayers(),
             betsArray: await JACKPOT.currentBetsArray(),
+            jackpotStatus: await JACKPOT.getJackpotStatus()
         });
 
     }
@@ -699,21 +695,38 @@ class Jackpot extends React.Component {
                     Back To Games
         </Button>
                 <div className="jackpot-container">
-                    <h1>Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
+                    <h1 className="jackpot-header">Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
+
+                    <input
+                        className="jackpot-input"
+                        type="number"
+                        placeholder="Enter MATIC Bet > 1"
+                        value={this.state.bet}
+                        onChange={this.handleChange}
+                    />
+                    <button
+                        className="jackpot-join-button"
+                        onClick={async () => {
+                            if (this.state.jackpotStatus == "Active") {
+                                var buttonName = "Join Jackpot"
+                                const tx = await this.state.jackpot.enterJackpot({
+                                    value: (this.state.bet * 10 ** 18).toString(),
+                                });
+                                console.log(tx.hash);
+                            } else if (this.state.jackpotStatus == "Inactive") {
+                                var buttonName = "Create Jackpot"
+                                const tx = await this.state.jackpot.newJackpot({
+                                    value: (this.state.bet * 10 ** 18).toString(),
+                                });
+                                console.log(tx.hash);
+                            }
+                        }}
+                    >
+                        buttonName
+        </button>
+                    <br></br>
                     <h3 className="current-jackpot-bets">Current Players: <br></br>
-                        {/* <table className="players-table">
-                            <tr>
-                                <th>Address</th>
-                                <th>Bet</th>
-
-                            </tr>
-                            <tr>
-                                <td>{this.state.players.map(player => <tr><td key={player}> {player}</td></tr>)}</td>
-                                <td>{this.state.betsArray.map(bet => <tr><td key={bet}> {bet}</td></tr>)}</td>
-                            </tr>
-
-                        </table> */}
-                        <ul className="players">{this.state.players.map(player => <li key={player}> {player} Bets</li>)}</ul>
+                        <ul className="players">{this.state.players.map(player => <li key={player}> {player} Bet {async () => { parseInt((await this.state.jackpot.playerBet(player)) / 10 ** 18).toFixed(2) }}</li>)}</ul>
 
                         {/* <ul className="bets">{parseInt(this.state.betsArray.map(bet => <li key={bet}> {bet}</li>) / 10 ** 18).toFixed(2)}</ul> */}
 

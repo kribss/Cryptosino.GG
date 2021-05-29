@@ -1,6 +1,20 @@
 .jackpot-container {
     position: relative !important;
 }
+.jackpot-header {
+      position: relative;
+          padding-top: 4rem;
+    padding-bottom: 4rem;
+
+  text-align: center;
+  font-size: 50px;
+  color: rgb(53, 136, 224);
+  text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color), -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color);
+}
 .players-table{
         width:300px;
     height:300px;
@@ -10,13 +24,23 @@
     position: relative;
     text-align: center;
 }
-.jackpot-container h1 {
-    font-size: 50px;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    text-align: center;
-    color: white;
+.jackpot-join-button {
+  position: relative;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  width: 230px;
 }
+.jackpot-input {
+  position: relative;
+  width: 230px;
+  font-size: 20px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
 
 .current-jackpot-bets {
     font-size: 30px;
