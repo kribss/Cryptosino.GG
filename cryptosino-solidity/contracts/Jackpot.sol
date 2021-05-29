@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: NONE
 
-
 pragma solidity 0.6.6;
 
 import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
@@ -68,23 +67,22 @@ contract JackpotGame is VRFConsumerBase {
 
     uint256[] playerTicketArray;
     address[] players;
-    
+
     uint256[] bets;
     uint256 index;
     uint256 totalTickets;
-    uint256 maxLength;
+    uint256 jackpotLength;
     enum jackpotStatus {Active, Inactive, PickingWinner}
     jackpotStatus currentJackpotStatus;
     address public owner;
     address public payoutRecipient;
-    uint public feePercent;
-    uint public sendAmmount;
+    uint256 public feePercent;
+    uint256 public sendAmmount;
 
     mapping(uint256 => address) ticketToPlayer;
     mapping(address => uint256) public playerBet;
     mapping(uint256 => Jackpot) jackpotIndex;
     mapping(bytes32 => Jackpot) requestIndex;
-
 
     // Routers for automated link oracle payment
     IUniswapV2Router02 UNIQuickSwap = IUniswapV2Router02(
@@ -132,25 +130,21 @@ contract JackpotGame is VRFConsumerBase {
         index = 0;
         owner = msg.sender;
         payoutRecipient = msg.sender;
-        maxLength = 60;
+        jackpotLength = 60;
         feePercent = 1;
     }
 
-    function newJackpot(uint256 timeInMinutes) public payable {
+    function newJackpot() public payable {
         require(
             currentJackpotStatus == jackpotStatus.Inactive,
             "Jackpot already active"
-        );
-        require(
-            timeInMinutes <= maxLength,
-            "jackpot too long, check maxtime variable"
         );
         currentJackpotStatus = jackpotStatus.Active;
         currentJackpot = Jackpot(
             index,
             msg.value,
             block.timestamp,
-            block.timestamp + (timeInMinutes * 1 minutes),
+            block.timestamp + (jackpotLength * 1 minutes),
             0,
             0,
             players,
@@ -158,8 +152,7 @@ contract JackpotGame is VRFConsumerBase {
             address(this)
         );
         currentJackpot.players.push(msg.sender);
-        currentJackpot.bets.push((msg.value)/10**18);
-        
+        currentJackpot.bets.push((msg.value) / 10**18);
 
         playerBet[msg.sender] = msg.value;
 
@@ -257,8 +250,8 @@ contract JackpotGame is VRFConsumerBase {
         payoutRecipient = newRecipient;
     }
 
-    function changeMaxLength(uint256 _newMaxLength) public onlyOwner {
-        maxLength = _newMaxLength;
+    function changeJackpotLength(uint256 _newJackpotLength) public onlyOwner {
+        jackpotLength = _newJackpotLength;
     }
 
     function timeLeftOnCurrentJackpot() external view returns (uint256) {
@@ -319,18 +312,20 @@ contract JackpotGame is VRFConsumerBase {
             jackpot.winner
         );
     }
-    function getCurrentPlayers() public view returns(address[] memory) {
+
+    function getCurrentPlayers() public view returns (address[] memory) {
         return currentJackpot.players;
     }
+
     function getContractBalance() external view returns (uint256) {
         return address(this).balance;
     }
-    
-    function getPlayerBet(address _player) public view returns (uint) {
-        return (playerBet[_player]/10**18);
+
+    function getPlayerBet(address _player) public view returns (uint256) {
+        return (playerBet[_player] / 10**18);
     }
-    
-    function currentBetsArray() public view returns(uint[] memory) {
+
+    function currentBetsArray() public view returns (uint256[] memory) {
         return currentJackpot.bets;
     }
 
@@ -345,9 +340,10 @@ contract JackpotGame is VRFConsumerBase {
             return "Picking Winner";
         }
     }
+
     function changeFeePercent(uint256 newFeePercent) public onlyOwner {
-        require(newFeePercent<=5, "new fee cannot be more than 5%");
-        feePercent=newFeePercent;
+        require(newFeePercent <= 5, "new fee cannot be more than 5%");
+        feePercent = newFeePercent;
     }
 
     //CHAINLINK VRF FUNCTIONS BELOW
@@ -378,7 +374,7 @@ contract JackpotGame is VRFConsumerBase {
     {
         uint256 payoutPercent = 100 - feePercent;
         uint256 winnings = ((currentJackpot.size * payoutPercent) / 100);
-        uint256 houseFee = ((currentJackpot.size* feePercent) / 100);
+        uint256 houseFee = ((currentJackpot.size * feePercent) / 100);
         uint256 winningTicket = randomness % currentJackpot.ticketIndex;
         currentJackpot.randomNumberUsed = randomness;
         currentJackpot.winner = payable(ticketToPlayer[winningTicket]);
