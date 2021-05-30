@@ -169,13 +169,13 @@ class CasinoCards extends React.Component {
                   label="COMING SOON"
                 />
                 <CasinoCardItem
-                  src="Images/LOTTO-BALLS.jpg"
+                  src="Images/jackpotSMALL.jpg"
                   text="Jackpot"
                   label="COMING SOON"
                   path="jackpot"
                 />
                 <CasinoCardItem
-                  src="Images/coinflip.png"
+                  src="Images/tossSMALL.jpg"
                   text="Coin Flip"
                   label="PLAY NOW"
                   path="coinflip"

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: NONE
-
+//CONTRACT ADAPTED WITH PERMISSION FROM OWEN.ETH
 //deployed at 0xbC3edBCde35A0994EC8704261A0Ac94Fe7eB0624
 
 pragma solidity 0.6.6;

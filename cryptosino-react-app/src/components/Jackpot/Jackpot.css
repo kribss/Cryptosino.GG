@@ -1,3 +1,9 @@
+ul { display: inline-block; }
+.fee-announce{
+  position: relative;
+  color: white;
+  text-align: center;
+}
 .jackpot-container {
     position: relative !important;
 }
@@ -15,14 +21,10 @@
     0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
     0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color);
 }
-.players-table{
-        width:300px;
-    height:300px;
-
-    position:fixed;
-
-    position: relative;
-    text-align: center;
+.jackpot-timer {
+  color: white;
+  text-align: center;
+  font-size: 30px;
 }
 .jackpot-join-button {
   position: relative;

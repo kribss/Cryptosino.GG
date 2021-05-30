@@ -18,6 +18,7 @@ class Coinflip extends React.Component {
       signer: null,
       bet: null,
       provider: null,
+      feePercent: null,
     };
   }
 
@@ -293,6 +294,7 @@ class Coinflip extends React.Component {
       provider: provider,
       coinflip: COINFLIP,
       index: JSON.parse(await COINFLIP.get_game_count()),
+      feePercent: JSON.parse(await COINFLIP.feePercent())
     });
     this.setState({
       list: Array.from(Array(this.state.index).keys()).reverse(),
@@ -451,7 +453,7 @@ class Coinflip extends React.Component {
             Create Game
         </button>
           <br></br>
-          <p className="fee-announce">*1% House Fee Taken On All Coinflips*</p>
+          <p className="fee-announce">*{this.state.feePercent}% Fee Taken to Support Cryptosino*</p>
           <ul>
             {this.state.list.map((index) => (
               <li key={index}>

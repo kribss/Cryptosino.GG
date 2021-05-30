@@ -16,10 +16,12 @@ class Jackpot extends React.Component {
             account: null,
             signer: null,
             bet: null,
+            timeLeft: 0,
             playerBets: null,
             betsArray: [],
             provider: null,
-            jackpotStatus: "Inactive"
+            jackpotStatus: "",
+            feePercent: null
         };
     }
 
@@ -47,7 +49,7 @@ class Jackpot extends React.Component {
             window.alert("Please switch to Polygon Mainnet!");
         }
 
-        const JACKPOT_CONTRACT = "0x78Ee062B167312EaF7c87bDc69a2be46a8CC0605";
+        const JACKPOT_CONTRACT = "0xC8889edb8f28848a07551474c91E220E6c078af5";
         const JACKPOT_ABI = [
             {
                 "inputs": [
@@ -556,7 +558,9 @@ class Jackpot extends React.Component {
             size: JSON.parse(await JACKPOT.getContractBalance()) / 10 ** 18,
             players: await JACKPOT.getCurrentPlayers(),
             betsArray: await JACKPOT.currentBetsArray(),
-            jackpotStatus: await JACKPOT.getJackpotStatus()
+            jackpotStatus: await JACKPOT.getJackpotStatus(),
+            timeLeft: JSON.parse(await JACKPOT.timeLeftOnCurrentJackpot()),
+            feePercent: JSON.parse(await JACKPOT.feePercent())
         });
 
     }
@@ -696,7 +700,8 @@ class Jackpot extends React.Component {
         </Button>
                 <div className="jackpot-container">
                     <h1 className="jackpot-header">Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
-
+                    <h2 className="jackpot-timer">Time Left on Jackpot: {this.state.timeLeft} Seconds</h2>
+                    <br></br>
                     <input
                         className="jackpot-input"
                         type="number"
@@ -704,29 +709,38 @@ class Jackpot extends React.Component {
                         value={this.state.bet}
                         onChange={this.handleChange}
                     />
+
                     <button
+                        id="joinbutton"
                         className="jackpot-join-button"
                         onClick={async () => {
                             if (this.state.jackpotStatus == "Active") {
-                                var buttonName = "Join Jackpot"
                                 const tx = await this.state.jackpot.enterJackpot({
                                     value: (this.state.bet * 10 ** 18).toString(),
                                 });
                                 console.log(tx.hash);
                             } else if (this.state.jackpotStatus == "Inactive") {
-                                var buttonName = "Create Jackpot"
                                 const tx = await this.state.jackpot.newJackpot({
                                     value: (this.state.bet * 10 ** 18).toString(),
                                 });
+
                                 console.log(tx.hash);
+                            } else if (this.state.jackpotStatus == "Picking Winner") {
+                                window.alert("Winner being picked now, wait to join/create next jackpot!");
                             }
                         }}
+
                     >
-                        buttonName
-        </button>
+                        Join Jackpot
+                    </button>
+                    <br></br>
+                    <p className="fee-announce">*{this.state.feePercent}% Fee Taken to Support Cryptosino*</p>
+
                     <br></br>
                     <h3 className="current-jackpot-bets">Current Players: <br></br>
-                        <ul className="players">{this.state.players.map(player => <li key={player}> {player} Bet {async () => { parseInt((await this.state.jackpot.playerBet(player)) / 10 ** 18).toFixed(2) }}</li>)}</ul>
+                        <ul className="players"> {this.state.players.map(player => <li key={player}> {player} Bet &nbsp;</li>)}</ul>
+                        <ul className="bets"> {this.state.betsArray.map(bet => <li key={bet}> {JSON.parse(bet) / 10 ** 18} Matic </li>)}</ul>
+
 
                         {/* <ul className="bets">{parseInt(this.state.betsArray.map(bet => <li key={bet}> {bet}</li>) / 10 ** 18).toFixed(2)}</ul> */}
 
