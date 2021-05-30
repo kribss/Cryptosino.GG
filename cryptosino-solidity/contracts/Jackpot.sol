@@ -130,7 +130,7 @@ contract JackpotGame is VRFConsumerBase {
         index = 0;
         owner = msg.sender;
         payoutRecipient = msg.sender;
-        jackpotLength = 60;
+        jackpotLength = 10;
         feePercent = 1;
     }
 
@@ -139,6 +139,8 @@ contract JackpotGame is VRFConsumerBase {
             currentJackpotStatus == jackpotStatus.Inactive,
             "Jackpot already active"
         );
+        require((msg.value % 10**18) == 0, "whole number bets only");
+        require(msg.value > 10**18, "bets greater than 1 only");
         currentJackpotStatus = jackpotStatus.Active;
         currentJackpot = Jackpot(
             index,
@@ -152,7 +154,7 @@ contract JackpotGame is VRFConsumerBase {
             address(this)
         );
         currentJackpot.players.push(msg.sender);
-        currentJackpot.bets.push((msg.value) / 10**18);
+        currentJackpot.bets.push(msg.value);
 
         playerBet[msg.sender] = msg.value;
 
@@ -175,7 +177,10 @@ contract JackpotGame is VRFConsumerBase {
             currentJackpotStatus == jackpotStatus.Active,
             "no active jackpot to join"
         );
+        require((msg.value % 10**18) == 0, "whole number bets only");
+        require(msg.value > 10**18, "bets greater than 1 only");
         currentJackpot.players.push(msg.sender);
+        currentJackpot.bets.push(msg.value);
         currentJackpot.size += msg.value;
         playerBet[msg.sender] = msg.value;
 
@@ -255,11 +260,12 @@ contract JackpotGame is VRFConsumerBase {
     }
 
     function timeLeftOnCurrentJackpot() external view returns (uint256) {
-        require(
-            currentJackpotStatus == jackpotStatus.Active,
-            " no active jackpot"
-        );
-        return (currentJackpot.jackpotEndTime - now);
+        if (currentJackpotStatus == jackpotStatus.Inactive) {
+            uint256 zero = 0;
+            return zero;
+        } else {
+            return (currentJackpot.jackpotEndTime - now);
+        }
     }
 
     function getCurrentJackpotInfo()
