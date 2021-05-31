@@ -38,6 +38,7 @@ class Jackpot extends React.Component {
         }
     }
 
+
     async loadBlockchainData() {
         const web3 = window.web3;
         const accounts = await web3.eth.getAccounts();
@@ -49,7 +50,7 @@ class Jackpot extends React.Component {
             window.alert("Please switch to Polygon Mainnet!");
         }
 
-        const JACKPOT_CONTRACT = "0xC8889edb8f28848a07551474c91E220E6c078af5";
+        const JACKPOT_CONTRACT = "0xFB80BFEb89f4e001a33A1dbf3C7bA8B2c0F88863";
         const JACKPOT_ABI = [
             {
                 "inputs": [
@@ -326,6 +327,11 @@ class Jackpot extends React.Component {
                         "type": "uint256"
                     },
                     {
+                        "internalType": "uint256",
+                        "name": "_winningTicket",
+                        "type": "uint256"
+                    },
+                    {
                         "internalType": "address[]",
                         "name": "_players",
                         "type": "address[]"
@@ -434,6 +440,11 @@ class Jackpot extends React.Component {
                     },
                     {
                         "internalType": "uint256",
+                        "name": "_winningTicket",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
                         "name": "_randomNumberUsed",
                         "type": "uint256"
                     },
@@ -453,6 +464,11 @@ class Jackpot extends React.Component {
             },
             {
                 "inputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "gameIndex",
+                        "type": "uint256"
+                    },
                     {
                         "internalType": "uint256",
                         "name": "ticketNumber",
@@ -564,6 +580,8 @@ class Jackpot extends React.Component {
         });
 
     }
+
+
 
 
     async componentDidMount() {
@@ -690,6 +708,9 @@ class Jackpot extends React.Component {
                     "retina_detect": true
                 }}
                 />
+                <script>
+
+                </script>
                 <Button
                     className="btns"
                     buttonStyle="btn--outline"
@@ -699,9 +720,13 @@ class Jackpot extends React.Component {
                     Back To Games
         </Button>
                 <div className="jackpot-container">
-                    <h1 className="jackpot-header">Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
-                    <h2 className="jackpot-timer">Time Left on Jackpot: {this.state.timeLeft} Seconds</h2>
                     <br></br>
+                    <p>WARNING: Contract is still in developement. Issues have occured with larger player counts wherein the contract runs out of gas while generating random number resulting in loss of funds. Do not play until resolved</p>
+                    <h1 className="jackpot-header">Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
+                    <h2 className="jackpot-timer">Time Left on Jackpot:  {this.state.timeLeft} Seconds</h2>
+
+                    <br></br>
+                    <p className="fee-announce">Only submit whole number bets greater than 1</p>
                     <input
                         className="jackpot-input"
                         type="number"
@@ -723,7 +748,25 @@ class Jackpot extends React.Component {
                                 const tx = await this.state.jackpot.newJackpot({
                                     value: (this.state.bet * 10 ** 18).toString(),
                                 });
+                                // var minutesLabel = document.getElementById("minutes");
+                                // var secondsLabel = document.getElementById("seconds");
+                                // var totalSeconds = 0;
+                                // setInterval(setTime, 1000);
 
+                                // function setTime() {
+                                //     ++totalSeconds;
+                                //     secondsLabel.innerHTML = pad(totalSeconds % 60);
+                                //     minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+                                // }
+
+                                // function pad(val) {
+                                //     var valString = val + "";
+                                //     if (valString.length < 2) {
+                                //         return "0" + valString;
+                                //     } else {
+                                //         return valString;
+                                //     }
+                                // }
                                 console.log(tx.hash);
                             } else if (this.state.jackpotStatus == "Picking Winner") {
                                 window.alert("Winner being picked now, wait to join/create next jackpot!");

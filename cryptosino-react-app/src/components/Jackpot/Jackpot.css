@@ -4,6 +4,12 @@ ul { display: inline-block; }
   color: white;
   text-align: center;
 }
+.jackpot-container p{
+  text-align: center;
+  color: white;
+  font-size: 20px;
+    position: relative !important;
+}
 .jackpot-container {
     position: relative !important;
 }
