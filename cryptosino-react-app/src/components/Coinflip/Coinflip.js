@@ -335,7 +335,7 @@ class Coinflip extends React.Component {
                 "nb_sides": 5
               },
               "image": {
-                "src": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcrypto.com%2Fprice%2Fcoin-data%2Ficon%2FMATIC%2Fcolor_icon.png&f=1&nofb=1",
+                "src": "https://i.imgur.com/hVDyEsm.png",
                 "width": 100,
                 "height": 100
               }

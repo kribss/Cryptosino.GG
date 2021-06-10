@@ -1,5 +1,4 @@
 import React from "react";
-import Web3 from "web3";
 import { Button } from "../Button/Button";
 import "./casinohero.css";
 import "./particles.css";
@@ -33,7 +32,7 @@ class CasinoHero extends React.Component {
                 "nb_sides": 5
               },
               "image": {
-                "src": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcryptologos.cc%2Flogos%2Fchainlink-link-logo.png&f=1&nofb=1",
+                "src": "https://i.imgur.com/hVDyEsm.png",
                 "width": 100,
                 "height": 100
               }
@@ -123,8 +122,7 @@ class CasinoHero extends React.Component {
         }}
         />
         <div className="casinohero-container">
-          {/* <img src="/Images/bg_text_up.jpg" autoPlay loop muted /> */}
-          <p class="logo-1">Cryptosino.GG</p>
+          <p class="logo-1">cryptosino.gg</p>
           <div className="hero-btns">
             <Button
               className="btns"
@@ -135,13 +133,42 @@ class CasinoHero extends React.Component {
               Enter The Casino
         </Button>
           </div>
-          <p className="web3-wallet-warning">*Entering Casino Requires a Connected Web3 Wallet *</p>
-          <div className="cryptosino-about-container">
-            <h1>About the CryptoSino</h1>
-            <p className="cryptosino-about-paragraph">The CryptoSino was started as an alternative to the typical centralized casino. CryptoSino is built upon the Ethereum Virtual Machine and secured using Chainlinks VRF. Furthermore, CryptoSino is entirely open source and can be viewed using the Github link below. Enjoy!</p>
-            <a href="https://github.com/kribss/Cryptosino.GG" target="_blank">Github</a>
-          </div>
+
         </div>
+        <div className="about-btns">
+          <Button
+            className="btns"
+            buttonStyle="btn--primary"
+            buttonSize="btn--large"
+            onClick={() => {
+              window.open('https://github.com/kribss/Cryptosino.GG');
+            }}
+          >
+            Github
+            </Button>
+          <Button
+            className="btns"
+            buttonStyle="btn--primary"
+            buttonSize="btn--large"
+            onClick={() => {
+              window.open('https://cryptosinogg.medium.com/cryptosino-gg-decentralized-gambling-118a3b990793');
+            }}
+          >
+            Medium
+          </Button>
+          <Button
+            className="btns"
+            buttonStyle="btn--primary"
+            buttonSize="btn--large"
+            onClick={() => {
+              window.open('https://twitter.com/CryptosinoGG');
+            }}
+
+          >
+            Twitter
+          </Button>
+        </div>
+
       </div>
     );
   }

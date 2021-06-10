@@ -45,6 +45,7 @@ ul { display: inline-block; }
   width: 230px;
   font-size: 20px;
   margin: 0 auto;
+  margin-top: 15rem;
   display: block;
   text-align: center;
 }
@@ -54,6 +55,9 @@ ul { display: inline-block; }
     font-size: 30px;
     color: gold;
     text-align: center;
+}
+.jackpot-timer{
+
 }
 .btn {
   position: relative !important;

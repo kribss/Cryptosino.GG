@@ -4,6 +4,8 @@ import Web3 from "web3";
 import "../Jackpot/Jackpot.css";
 import { ethers } from "ethers";
 import Particles from 'react-particles-js';
+import Countdown from "./Countdown";
+
 
 class Jackpot extends React.Component {
     constructor(props) {
@@ -50,7 +52,7 @@ class Jackpot extends React.Component {
             window.alert("Please switch to Polygon Mainnet!");
         }
 
-        const JACKPOT_CONTRACT = "0xFB80BFEb89f4e001a33A1dbf3C7bA8B2c0F88863";
+        const JACKPOT_CONTRACT = "0xae0cec90CE6717572a908545CdBdD0cFF96f16e6";
         const JACKPOT_ABI = [
             {
                 "inputs": [
@@ -81,7 +83,7 @@ class Jackpot extends React.Component {
             {
                 "inputs": [
                     {
-                        "internalType": "address",
+                        "internalType": "address payable",
                         "name": "newRecipient",
                         "type": "address"
                     }
@@ -194,7 +196,7 @@ class Jackpot extends React.Component {
             {
                 "inputs": [
                     {
-                        "internalType": "address",
+                        "internalType": "address payable",
                         "name": "_newOwner",
                         "type": "address"
                     }
@@ -255,6 +257,13 @@ class Jackpot extends React.Component {
                 "type": "event"
             },
             {
+                "inputs": [],
+                "name": "withdrawHouseFunds",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
                 "stateMutability": "payable",
                 "type": "receive"
             },
@@ -266,6 +275,19 @@ class Jackpot extends React.Component {
                         "internalType": "uint256[]",
                         "name": "",
                         "type": "uint256[]"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "currentJackpotSize",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
                     }
                 ],
                 "stateMutability": "view",
@@ -491,9 +513,22 @@ class Jackpot extends React.Component {
                 "name": "owner",
                 "outputs": [
                     {
-                        "internalType": "address",
+                        "internalType": "address payable",
                         "name": "",
                         "type": "address"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "payoutPercent",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
                     }
                 ],
                 "stateMutability": "view",
@@ -504,7 +539,7 @@ class Jackpot extends React.Component {
                 "name": "payoutRecipient",
                 "outputs": [
                     {
-                        "internalType": "address",
+                        "internalType": "address payable",
                         "name": "",
                         "type": "address"
                     }
@@ -556,6 +591,19 @@ class Jackpot extends React.Component {
                 ],
                 "stateMutability": "view",
                 "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "winnings",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
             }
         ];
 
@@ -571,16 +619,16 @@ class Jackpot extends React.Component {
             provider: provider,
             jackpot: JACKPOT,
             index: JSON.parse(await JACKPOT.getJackpotCount()),
-            size: JSON.parse(await JACKPOT.getContractBalance()) / 10 ** 18,
+            size: JSON.parse(await JACKPOT.currentJackpotSize()) / 10 ** 18,
             players: await JACKPOT.getCurrentPlayers(),
             betsArray: await JACKPOT.currentBetsArray(),
             jackpotStatus: await JACKPOT.getJackpotStatus(),
-            timeLeft: JSON.parse(await JACKPOT.timeLeftOnCurrentJackpot()),
             feePercent: JSON.parse(await JACKPOT.feePercent())
         });
 
-    }
 
+
+    }
 
 
 
@@ -619,7 +667,7 @@ class Jackpot extends React.Component {
                                 "nb_sides": 5
                             },
                             "image": {
-                                "src": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcryptologos.cc%2Flogos%2Fchainlink-link-logo.png&f=1&nofb=1",
+                                "src": "https://i.imgur.com/hVDyEsm.png",
                                 "width": 100,
                                 "height": 100
                             }
@@ -708,9 +756,7 @@ class Jackpot extends React.Component {
                     "retina_detect": true
                 }}
                 />
-                <script>
 
-                </script>
                 <Button
                     className="btns"
                     buttonStyle="btn--outline"
@@ -718,15 +764,15 @@ class Jackpot extends React.Component {
                     path="/casino"
                 >
                     Back To Games
-        </Button>
+                </Button>
                 <div className="jackpot-container">
                     <br></br>
-                    <p>WARNING: Contract is still in developement. Issues have occured with larger player counts wherein the contract runs out of gas while generating random number resulting in loss of funds. Do not play until resolved</p>
+
                     <h1 className="jackpot-header">Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
-                    <h2 className="jackpot-timer">Time Left on Jackpot:  {this.state.timeLeft} Seconds</h2>
+                    <div className="jackpot-timer"><Countdown /> </div>
 
                     <br></br>
-                    <p className="fee-announce">Only submit whole number bets greater than 1</p>
+                    {/* <p className="fee-announce">Only submit whole number bets greater than 1</p> */}
                     <input
                         className="jackpot-input"
                         type="number"
@@ -739,37 +785,25 @@ class Jackpot extends React.Component {
                         id="joinbutton"
                         className="jackpot-join-button"
                         onClick={async () => {
+
                             if (this.state.jackpotStatus == "Active") {
+
                                 const tx = await this.state.jackpot.enterJackpot({
                                     value: (this.state.bet * 10 ** 18).toString(),
                                 });
+
                                 console.log(tx.hash);
                             } else if (this.state.jackpotStatus == "Inactive") {
                                 const tx = await this.state.jackpot.newJackpot({
                                     value: (this.state.bet * 10 ** 18).toString(),
                                 });
-                                // var minutesLabel = document.getElementById("minutes");
-                                // var secondsLabel = document.getElementById("seconds");
-                                // var totalSeconds = 0;
-                                // setInterval(setTime, 1000);
-
-                                // function setTime() {
-                                //     ++totalSeconds;
-                                //     secondsLabel.innerHTML = pad(totalSeconds % 60);
-                                //     minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-                                // }
-
-                                // function pad(val) {
-                                //     var valString = val + "";
-                                //     if (valString.length < 2) {
-                                //         return "0" + valString;
-                                //     } else {
-                                //         return valString;
-                                //     }
-                                // }
                                 console.log(tx.hash);
-                            } else if (this.state.jackpotStatus == "Picking Winner") {
+                                Countdown.startTimer();
+                            }
+                            else if (this.state.jackpotStatus == "Picking Winner") {
+                                this.setState({ size: 0 });
                                 window.alert("Winner being picked now, wait to join/create next jackpot!");
+
                             }
                         }}
 
@@ -777,19 +811,26 @@ class Jackpot extends React.Component {
                         Join Jackpot
                     </button>
                     <br></br>
-                    <p className="fee-announce">*{this.state.feePercent}% Fee Taken to Support Cryptosino*</p>
+                    <p className="fee-announce">*{this.state.feePercent}% Fee Taken*</p>
 
                     <br></br>
                     <h3 className="current-jackpot-bets">Current Players: <br></br>
                         <ul className="players"> {this.state.players.map(player => <li key={player}> {player} Bet &nbsp;</li>)}</ul>
                         <ul className="bets"> {this.state.betsArray.map(bet => <li key={bet}> {JSON.parse(bet) / 10 ** 18} Matic </li>)}</ul>
 
-
-                        {/* <ul className="bets">{parseInt(this.state.betsArray.map(bet => <li key={bet}> {bet}</li>) / 10 ** 18).toFixed(2)}</ul> */}
-
-
-                        {/* Bet {parseInt((this.state.jackpot.playerBet(player)) / 10 ** 18).toFixed(2)} */}
                     </h3>
+                    <div className="game-footer">
+                        <ul>
+                            <li>
+                                <a href="https://github.com/kribss/Cryptosino.GG/blob/master/cryptosino-solidity/contracts/Jackpot.sol" target="_blank">Github</a>
+                            </li>
+                            <li>
+                                <a href="https://explorer-mainnet.maticvigil.com/address/0x4565b408C63d14A2a06F3eb11109935a03933705/transactions" target="_blank">
+                                    Matic Explorer
+              </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div >
         )

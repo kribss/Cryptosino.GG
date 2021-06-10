@@ -2,9 +2,9 @@
 
 pragma solidity 0.6.6;
 
-import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
+//import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 
-//import "https://raw.githubusercontent.com/smartcontractkit/chainlink/master/evm-contracts/src/v0.6/VRFConsumerBase.sol";
+import "https://raw.githubusercontent.com/smartcontractkit/chainlink/master/evm-contracts/src/v0.6/VRFConsumerBase.sol";
 
 interface IUniswapV2Router02 {
     function swapETHForExactTokens(
@@ -75,9 +75,10 @@ contract JackpotGame is VRFConsumerBase {
     uint256 jackpotLength;
     enum jackpotStatus {Active, Inactive, PickingWinner}
     jackpotStatus currentJackpotStatus;
-    address public owner;
-    address public payoutRecipient;
+    address payable public owner;
+    address payable public payoutRecipient;
     uint256 public feePercent;
+    uint256 public payoutPercent;
     uint256 public sendAmmount;
 
     mapping(address => uint256) public playerBet;
@@ -235,7 +236,7 @@ contract JackpotGame is VRFConsumerBase {
         }
     }
 
-    function ownerShipTransfer(address _newOwner) public onlyOwner {
+    function ownerShipTransfer(address payable _newOwner) public onlyOwner {
         owner = _newOwner;
     }
 
@@ -251,7 +252,10 @@ contract JackpotGame is VRFConsumerBase {
         return ticketToPlayerMASTER[gameIndex][ticketNumber];
     }
 
-    function changePayoutRecipient(address newRecipient) public onlyOwner {
+    function changePayoutRecipient(address payable newRecipient)
+        public
+        onlyOwner
+    {
         payoutRecipient = newRecipient;
     }
 
@@ -292,6 +296,10 @@ contract JackpotGame is VRFConsumerBase {
             currentJackpot.players,
             currentJackpot.winner
         );
+    }
+
+    function currentJackpotSize() public view returns (uint256) {
+        return currentJackpot.size;
     }
 
     function getPriorJackpotInfo(uint256 _i)
@@ -354,6 +362,15 @@ contract JackpotGame is VRFConsumerBase {
     function changeFeePercent(uint256 newFeePercent) public onlyOwner {
         require(newFeePercent <= 5, "new fee cannot be more than 5%");
         feePercent = newFeePercent;
+        payoutPercent = (100 - newFeePercent);
+    }
+
+    function withdrawHouseFunds() public onlyOwner {
+        require(
+            currentJackpotStatus == jackpotStatus.Inactive,
+            "cannot withdraw funds while jackpot is active"
+        );
+        payoutRecipient.transfer(address(this).balance);
     }
 
     //CHAINLINK VRF FUNCTIONS BELOW
@@ -382,34 +399,17 @@ contract JackpotGame is VRFConsumerBase {
         internal
         override
     {
-        uint256 payoutPercent = 100 - feePercent;
         uint256 winnings = ((currentJackpot.size * payoutPercent) / 100);
-        uint256 houseFee = ((currentJackpot.size * feePercent) / 100);
         currentJackpot.winningTicket = randomness % currentJackpot.ticketIndex;
         currentJackpot.randomNumberUsed = randomness;
         currentJackpot.winner = payable(
             ticketToPlayerMASTER[currentJackpot.index][currentJackpot
                 .winningTicket]
         );
-        payable(payoutRecipient).transfer(houseFee);
         currentJackpot.winner.transfer(winnings);
-        Jackpot memory indexableJackpot = currentJackpot;
-        jackpotIndex[index] = indexableJackpot;
-        requestIndex[requestId] = indexableJackpot;
+        jackpotIndex[index] = currentJackpot;
         index++;
         emit JackpotResult(currentJackpot.winner, currentJackpot.size);
         currentJackpotStatus = jackpotStatus.Inactive;
-        currentJackpot = Jackpot(
-            index,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            players,
-            bets,
-            address(this)
-        );
     }
 }
