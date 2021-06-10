@@ -1,1 +1,1 @@
-Decentralized jackpot game based upon Ethereum block times and Chainlink VRF
+Coinflip code adapted with permission from the work of Owen.eth
