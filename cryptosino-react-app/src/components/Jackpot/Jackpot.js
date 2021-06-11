@@ -4,7 +4,7 @@ import Web3 from "web3";
 import "../Jackpot/Jackpot.css";
 import { ethers } from "ethers";
 import Particles from 'react-particles-js';
-import Countdown from "./Countdown";
+
 
 
 class Jackpot extends React.Component {
@@ -23,9 +23,27 @@ class Jackpot extends React.Component {
             betsArray: [],
             provider: null,
             jackpotStatus: "",
-            feePercent: null
+            feePercent: null,
+            timerOn: false,
+            timerStart: 10,
+            timerTime: 10,
+            balance: 0
+
         };
     }
+
+    startTimer() {
+        this.setState({
+            timerOn: true,
+            timerTime: this.state.timerTime,
+            timerStart: Date.now() - this.state.timerTime
+        });
+        this.timer = setInterval(() => {
+            this.setState({
+                timerTime: Date.now() - this.state.timerStart
+            });
+        }, 10);
+    };
 
     async loadWeb3() {
         if (window.ethereum) {
@@ -52,7 +70,7 @@ class Jackpot extends React.Component {
             window.alert("Please switch to Polygon Mainnet!");
         }
 
-        const JACKPOT_CONTRACT = "0xae0cec90CE6717572a908545CdBdD0cFF96f16e6";
+        const JACKPOT_CONTRACT = "0x63CC8f952611BfaE4CC30E1d8459c5143fda27A2";
         const JACKPOT_ABI = [
             {
                 "inputs": [
@@ -608,12 +626,14 @@ class Jackpot extends React.Component {
         ];
 
         const provider = new ethers.providers.Web3Provider(window.ethereum);
+
         const signer = provider.getSigner();
         const JACKPOT = new ethers.Contract(
             JACKPOT_CONTRACT,
             JACKPOT_ABI,
             signer
         );
+
 
         this.setState({
             provider: provider,
@@ -623,7 +643,8 @@ class Jackpot extends React.Component {
             players: await JACKPOT.getCurrentPlayers(),
             betsArray: await JACKPOT.currentBetsArray(),
             jackpotStatus: await JACKPOT.getJackpotStatus(),
-            feePercent: JSON.parse(await JACKPOT.feePercent())
+            feePercent: JSON.parse(await JACKPOT.feePercent()),
+            balance: await web3.eth.getBalance(this.state.account)
         });
 
 
@@ -642,7 +663,14 @@ class Jackpot extends React.Component {
     };
 
 
+
     render() {
+
+        const { timerTime } = this.state;
+
+        let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
+        let minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
+        let hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
         return (
             <div className="jackpot">
                 <Particles className="particles-js" params={{
@@ -767,12 +795,17 @@ class Jackpot extends React.Component {
                 </Button>
                 <div className="jackpot-container">
                     <br></br>
-
+                    <h1 className="balance-indicator"> Balance: {parseFloat((this.state.balance) / 10 ** 18).toFixed(2)} Matic</h1>
                     <h1 className="jackpot-header">Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
-                    <div className="jackpot-timer"><Countdown /> </div>
+
+                    <div className="Countdown">
+                        <div className="Countdown-header">Jackpot Timer</div>
+                        <div className="Countdown-time">
+                            {hours} : {minutes} : {seconds}
+                        </div>
+                    </div>
 
                     <br></br>
-                    {/* <p className="fee-announce">Only submit whole number bets greater than 1</p> */}
                     <input
                         className="jackpot-input"
                         type="number"
@@ -798,7 +831,8 @@ class Jackpot extends React.Component {
                                     value: (this.state.bet * 10 ** 18).toString(),
                                 });
                                 console.log(tx.hash);
-                                Countdown.startTimer();
+                                this.startTimer();
+
                             }
                             else if (this.state.jackpotStatus == "Picking Winner") {
                                 this.setState({ size: 0 });

@@ -14,10 +14,8 @@ ul { display: inline-block; }
     position: relative !important;
 }
 .jackpot-header {
-      position: relative;
-          padding-top: 4rem;
-    padding-bottom: 4rem;
-
+  position: relative;
+  padding-top: 4rem;
   text-align: center;
   font-size: 50px;
   color: rgb(53, 136, 224);
@@ -28,10 +26,102 @@ ul { display: inline-block; }
     0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color);
 }
 .jackpot-timer {
+  padding-top: -4rem;
   color: white;
   text-align: center;
   font-size: 30px;
 }
+
+.Timers {
+  display: flex;
+  justify-content: center;
+  
+}
+@media (max-width: 900px) {
+  .Timers {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.balance-indicator {
+  background-color:rgb(53, 136, 224); 
+  max-width: 250px;
+  border: 1px solid;
+  border-radius: 50px;
+    border-width: medium;
+  border-color: white;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+    margin-top: -60px;
+  margin-left: 80%;
+  margin-bottom: 0px;
+}
+
+.Countdown {
+  margin-top: -50px;
+  border: 2px solid grey;
+  border-radius: 4px;
+  width: 400px;
+  background-color: rgb(22, 27, 31);
+  box-shadow: 0 3px 6px rgb(12, 12, 12);
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.Countdown-header{
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+}
+
+button {
+  background-color: #202b33;
+  border: solid 1px transparent;
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: #ffffff;
+  font-size: 16px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #106ba3;
+}
+.Countdown-display {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  
+}
+.Countdown-display button {
+  margin: 0 15px;
+  border: solid 1px transparent;
+  border-radius: 2px;
+  padding: 4px 16px;
+  color: #ffffff;
+  font-size: 16px;
+}
+.Countdown-display button:hover {
+  background-color: #106ba3;
+}
+.Countdown-label {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  
+}
+.Countdown-time {
+  font-size: 36px;
+  margin: 5px 0;
+    color: white;
+
+}
+
 .jackpot-join-button {
   position: relative;
   margin: 0 auto;
@@ -56,9 +146,7 @@ ul { display: inline-block; }
     color: gold;
     text-align: center;
 }
-.jackpot-timer{
 
-}
 .btn {
   position: relative !important;
   margin-top: 30px;

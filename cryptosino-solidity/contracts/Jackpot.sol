@@ -80,6 +80,7 @@ contract JackpotGame is VRFConsumerBase {
     uint256 public feePercent;
     uint256 public payoutPercent;
     uint256 public sendAmmount;
+    uint256 public winnings;
 
     mapping(address => uint256) public playerBet;
     mapping(uint256 => Jackpot) jackpotIndex;
@@ -202,7 +203,7 @@ contract JackpotGame is VRFConsumerBase {
         emit PlayerJoin(msg.value, msg.sender, currentJackpot.size);
 
         if (now >= currentJackpot.jackpotEndTime) {
-            currentJackpotStatus = jackpotStatus.PickingWinner;
+            currentJackpotStatus = jackpotStatus.Inactive;
 
             emit PickingWinner(
                 block.timestamp,
@@ -399,9 +400,8 @@ contract JackpotGame is VRFConsumerBase {
         internal
         override
     {
-        uint256 winnings = ((currentJackpot.size * payoutPercent) / 100);
+        winnings = ((currentJackpot.size * payoutPercent) / 100);
         currentJackpot.winningTicket = randomness % currentJackpot.ticketIndex;
-        currentJackpot.randomNumberUsed = randomness;
         currentJackpot.winner = payable(
             ticketToPlayerMASTER[currentJackpot.index][currentJackpot
                 .winningTicket]
@@ -409,7 +409,6 @@ contract JackpotGame is VRFConsumerBase {
         currentJackpot.winner.transfer(winnings);
         jackpotIndex[index] = currentJackpot;
         index++;
-        emit JackpotResult(currentJackpot.winner, currentJackpot.size);
         currentJackpotStatus = jackpotStatus.Inactive;
     }
 }

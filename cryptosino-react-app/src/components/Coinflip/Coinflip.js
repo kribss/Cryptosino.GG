@@ -453,7 +453,7 @@ class Coinflip extends React.Component {
             Create Game
         </button>
           <br></br>
-          <p className="fee-announce">*{this.state.feePercent}% Fee Taken to Support Cryptosino*</p>
+          <p className="fee-announce">*{this.state.feePercent}% Fee Taken*</p>
           <ul>
             {this.state.list.map((index) => (
               <li key={index}>

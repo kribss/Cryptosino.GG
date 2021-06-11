@@ -2,6 +2,7 @@
 .Timers {
   display: flex;
   justify-content: center;
+  
 }
 @media (max-width: 900px) {
   .Timers {
@@ -12,6 +13,7 @@
 
 
 .Countdown {
+  margin-top: -50px;
   border: 2px solid grey;
   border-radius: 4px;
   width: 400px;
@@ -47,6 +49,7 @@ button:hover {
 .Countdown-display {
   margin-top: 5px;
   margin-bottom: 20px;
+  
 }
 .Countdown-display button {
   margin: 0 15px;
@@ -64,8 +67,10 @@ button:hover {
   font-size: 18px;
   margin-top: 5px;
   margin-bottom: 10px;
+  
 }
 .Countdown-time {
   font-size: 36px;
   margin: 5px 0;
+  
 }

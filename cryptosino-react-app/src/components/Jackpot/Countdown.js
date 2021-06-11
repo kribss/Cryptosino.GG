@@ -10,7 +10,7 @@ class Countdown extends Component {
         timerStart: 0,
         timerTime: 0
     };
-    startTimer = () => {
+    startTimer() {
         this.setState({
             timerOn: true,
             timerTime: this.state.timerTime,
@@ -22,7 +22,7 @@ class Countdown extends Component {
             });
         }, 10);
     };
-    stopTimer = () => {
+    stopTimer() {
         this.setState({ timerOn: false });
         clearInterval(this.timer);
     };
