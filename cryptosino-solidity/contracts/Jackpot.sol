@@ -86,6 +86,7 @@ contract JackpotGame is VRFConsumerBase {
     mapping(uint256 => Jackpot) jackpotIndex;
     mapping(bytes32 => Jackpot) requestIndex;
     mapping(uint256 => mapping(uint256 => address)) ticketToPlayerMASTER;
+    mapping(address => uint256) public winningsOf;
 
     // Routers for automated link oracle payment
     IUniswapV2Router02 UNIQuickSwap = IUniswapV2Router02(
@@ -135,6 +136,7 @@ contract JackpotGame is VRFConsumerBase {
         payoutRecipient = msg.sender;
         jackpotLength = 10;
         feePercent = 1;
+        payoutPercent = 99;
     }
 
     function newJackpot() public payable {
@@ -144,6 +146,7 @@ contract JackpotGame is VRFConsumerBase {
         );
         require((msg.value % 10**18) == 0, "whole number bets only");
         require(msg.value >= 10**18, "bets greater than 1 only");
+        index++;
         currentJackpotStatus = jackpotStatus.Active;
         currentJackpot = Jackpot(
             index,
@@ -237,6 +240,13 @@ contract JackpotGame is VRFConsumerBase {
         }
     }
 
+    function withdrawWinnings() public {
+        address payable winner = msg.sender;
+        winnings = winningsOf[msg.sender];
+        winner.transfer(winnings);
+        winningsOf[msg.sender] = 0;
+    }
+
     function ownerShipTransfer(address payable _newOwner) public onlyOwner {
         owner = _newOwner;
     }
@@ -300,7 +310,11 @@ contract JackpotGame is VRFConsumerBase {
     }
 
     function currentJackpotSize() public view returns (uint256) {
-        return currentJackpot.size;
+        if (currentJackpotStatus == jackpotStatus.Inactive) {
+            return 0;
+        } else {
+            return currentJackpot.size;
+        }
     }
 
     function getPriorJackpotInfo(uint256 _i)
@@ -333,7 +347,11 @@ contract JackpotGame is VRFConsumerBase {
     }
 
     function getCurrentPlayers() public view returns (address[] memory) {
-        return currentJackpot.players;
+        if (currentJackpotStatus == jackpotStatus.Inactive) {
+            return players;
+        } else {
+            return currentJackpot.players;
+        }
     }
 
     function getContractBalance() external view returns (uint256) {
@@ -345,7 +363,11 @@ contract JackpotGame is VRFConsumerBase {
     }
 
     function currentBetsArray() public view returns (uint256[] memory) {
-        return currentJackpot.bets;
+        if (currentJackpotStatus == jackpotStatus.Inactive) {
+            return bets;
+        } else {
+            return currentJackpot.bets;
+        }
     }
 
     function getJackpotStatus() external view returns (string memory) {
@@ -363,7 +385,7 @@ contract JackpotGame is VRFConsumerBase {
     function changeFeePercent(uint256 newFeePercent) public onlyOwner {
         require(newFeePercent <= 5, "new fee cannot be more than 5%");
         feePercent = newFeePercent;
-        payoutPercent = (100 - newFeePercent);
+        payoutPercent = 100 - newFeePercent;
     }
 
     function withdrawHouseFunds() public onlyOwner {
@@ -372,6 +394,10 @@ contract JackpotGame is VRFConsumerBase {
             "cannot withdraw funds while jackpot is active"
         );
         payoutRecipient.transfer(address(this).balance);
+    }
+
+    function getWinnings(address winner) public view returns (uint256) {
+        return winningsOf[winner];
     }
 
     //CHAINLINK VRF FUNCTIONS BELOW
@@ -400,15 +426,16 @@ contract JackpotGame is VRFConsumerBase {
         internal
         override
     {
-        winnings = ((currentJackpot.size * payoutPercent) / 100);
         currentJackpot.winningTicket = randomness % currentJackpot.ticketIndex;
         currentJackpot.winner = payable(
             ticketToPlayerMASTER[currentJackpot.index][currentJackpot
                 .winningTicket]
         );
-        currentJackpot.winner.transfer(winnings);
+        winningsOf[payoutRecipient] += ((currentJackpot.size * feePercent) /
+            100);
+        winningsOf[currentJackpot.winner] += ((currentJackpot.size *
+            payoutPercent) / 100);
         jackpotIndex[index] = currentJackpot;
-        index++;
         currentJackpotStatus = jackpotStatus.Inactive;
     }
 }

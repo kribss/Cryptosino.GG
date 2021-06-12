@@ -27,7 +27,8 @@ class Jackpot extends React.Component {
             timerOn: false,
             timerStart: 10,
             timerTime: 10,
-            balance: 0
+            balance: 0,
+            winnings: 0
 
         };
     }
@@ -70,7 +71,7 @@ class Jackpot extends React.Component {
             window.alert("Please switch to Polygon Mainnet!");
         }
 
-        const JACKPOT_CONTRACT = "0x63CC8f952611BfaE4CC30E1d8459c5143fda27A2";
+        const JACKPOT_CONTRACT = "0xC66c7a6C1d8Dd53f106312De5e49e0E4A575b552";
         const JACKPOT_ABI = [
             {
                 "inputs": [
@@ -147,6 +148,19 @@ class Jackpot extends React.Component {
             {
                 "inputs": [
                     {
+                        "internalType": "address payable",
+                        "name": "_newOwner",
+                        "type": "address"
+                    }
+                ],
+                "name": "ownerShipTransfer",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
                         "internalType": "bytes32",
                         "name": "requestId",
                         "type": "bytes32"
@@ -212,19 +226,6 @@ class Jackpot extends React.Component {
                 "type": "event"
             },
             {
-                "inputs": [
-                    {
-                        "internalType": "address payable",
-                        "name": "_newOwner",
-                        "type": "address"
-                    }
-                ],
-                "name": "ownerShipTransfer",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
                 "anonymous": false,
                 "inputs": [
                     {
@@ -277,6 +278,13 @@ class Jackpot extends React.Component {
             {
                 "inputs": [],
                 "name": "withdrawHouseFunds",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "withdrawWinnings",
                 "outputs": [],
                 "stateMutability": "nonpayable",
                 "type": "function"
@@ -527,6 +535,25 @@ class Jackpot extends React.Component {
                 "type": "function"
             },
             {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "winner",
+                        "type": "address"
+                    }
+                ],
+                "name": "getWinnings",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
                 "inputs": [],
                 "name": "owner",
                 "outputs": [
@@ -622,6 +649,25 @@ class Jackpot extends React.Component {
                 ],
                 "stateMutability": "view",
                 "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "name": "winningsOf",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
             }
         ];
 
@@ -644,7 +690,8 @@ class Jackpot extends React.Component {
             betsArray: await JACKPOT.currentBetsArray(),
             jackpotStatus: await JACKPOT.getJackpotStatus(),
             feePercent: JSON.parse(await JACKPOT.feePercent()),
-            balance: await web3.eth.getBalance(this.state.account)
+            balance: await web3.eth.getBalance(this.state.account),
+            winnings: await JACKPOT.getWinnings(this.state.account)
         });
 
 
@@ -795,7 +842,19 @@ class Jackpot extends React.Component {
                 </Button>
                 <div className="jackpot-container">
                     <br></br>
-                    <h1 className="balance-indicator"> Balance: {parseFloat((this.state.balance) / 10 ** 18).toFixed(2)} Matic</h1>
+                    <div className='balance-indicator'>
+                        <h1> Balance: {parseFloat((this.state.balance) / 10 ** 18).toFixed(2)} Matic</h1>
+                        <h1> Winnings: {parseFloat((this.state.winnings) / 10 ** 18).toFixed(2)} Matic</h1>
+                    </div>
+                    <button className="withdraw-button"
+                        onClick={async () => {
+                            const tx = await this.state.jackpot.withdrawWinnings();
+                            console.log(tx.hash);
+                        }
+                        }
+
+                    >Withdraw Winnings</button>
+                    <p>**JACKPOT STILL IN DEVELOPEMENT DO NOT PLAY**</p>
                     <h1 className="jackpot-header">Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
 
                     <div className="Countdown">
@@ -822,13 +881,13 @@ class Jackpot extends React.Component {
                             if (this.state.jackpotStatus == "Active") {
 
                                 const tx = await this.state.jackpot.enterJackpot({
-                                    value: (this.state.bet * 10 ** 18).toString(),
+                                    value: (this.state.bet * 10 ** 18).toString(), gasLimit: 1000000
                                 });
 
                                 console.log(tx.hash);
                             } else if (this.state.jackpotStatus == "Inactive") {
                                 const tx = await this.state.jackpot.newJackpot({
-                                    value: (this.state.bet * 10 ** 18).toString(),
+                                    value: (this.state.bet * 10 ** 18).toString(), gasLimit: 1000000
                                 });
                                 console.log(tx.hash);
                                 this.startTimer();
