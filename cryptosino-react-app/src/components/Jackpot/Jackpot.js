@@ -4,6 +4,7 @@ import Web3 from "web3";
 import "../Jackpot/Jackpot.css";
 import { ethers } from "ethers";
 import Particles from 'react-particles-js';
+import { parseBytes32String } from "ethers/lib/utils";
 
 
 
@@ -28,7 +29,9 @@ class Jackpot extends React.Component {
             timerStart: 10,
             timerTime: 10,
             balance: 0,
-            winnings: 0
+            winnings: 0,
+            mostRecentSize: 0,
+            mostRecentWinner: 0x000000
 
         };
     }
@@ -71,7 +74,7 @@ class Jackpot extends React.Component {
             window.alert("Please switch to Polygon Mainnet!");
         }
 
-        const JACKPOT_CONTRACT = "0xDE568d0334B7DF6e735D6a3C2B5123A6B73fe726";
+        const JACKPOT_CONTRACT = "0x21487d16A8480dd92e4368aa1EDa782cF0c413b4";
         const JACKPOT_ABI = [
             {
                 "inputs": [
@@ -140,44 +143,6 @@ class Jackpot extends React.Component {
             },
             {
                 "inputs": [],
-                "name": "newJackpot",
-                "outputs": [],
-                "stateMutability": "payable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                    {
-                        "internalType": "address payable",
-                        "name": "_newOwner",
-                        "type": "address"
-                    }
-                ],
-                "name": "ownerShipTransfer",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                    {
-                        "internalType": "bytes32",
-                        "name": "requestId",
-                        "type": "bytes32"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "randomness",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "rawFulfillRandomness",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [],
                 "stateMutability": "nonpayable",
                 "type": "constructor"
             },
@@ -199,6 +164,13 @@ class Jackpot extends React.Component {
                 ],
                 "name": "JackpotResult",
                 "type": "event"
+            },
+            {
+                "inputs": [],
+                "name": "newJackpot",
+                "outputs": [],
+                "stateMutability": "payable",
+                "type": "function"
             },
             {
                 "anonymous": false,
@@ -224,6 +196,19 @@ class Jackpot extends React.Component {
                 ],
                 "name": "NewJackpot",
                 "type": "event"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address payable",
+                        "name": "_newOwner",
+                        "type": "address"
+                    }
+                ],
+                "name": "ownerShipTransfer",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
             },
             {
                 "anonymous": false,
@@ -276,8 +261,19 @@ class Jackpot extends React.Component {
                 "type": "event"
             },
             {
-                "inputs": [],
-                "name": "withdrawHouseFunds",
+                "inputs": [
+                    {
+                        "internalType": "bytes32",
+                        "name": "requestId",
+                        "type": "bytes32"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "randomness",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "rawFulfillRandomness",
                 "outputs": [],
                 "stateMutability": "nonpayable",
                 "type": "function"
@@ -433,18 +429,25 @@ class Jackpot extends React.Component {
                 "type": "function"
             },
             {
-                "inputs": [
+                "inputs": [],
+                "name": "getMostRecentWinner",
+                "outputs": [
                     {
                         "internalType": "address",
-                        "name": "_player",
+                        "name": "mostRecentWinner_",
                         "type": "address"
                     }
                 ],
-                "name": "getPlayerBet",
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "getMostRecentWinSize",
                 "outputs": [
                     {
                         "internalType": "uint256",
-                        "name": "",
+                        "name": "mostRecentSize_",
                         "type": "uint256"
                     }
                 ],
@@ -548,6 +551,32 @@ class Jackpot extends React.Component {
                         "internalType": "uint256",
                         "name": "",
                         "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "mostRecentSize",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "mostRecentWinner",
+                "outputs": [
+                    {
+                        "internalType": "address",
+                        "name": "",
+                        "type": "address"
                     }
                 ],
                 "stateMutability": "view",
@@ -691,7 +720,9 @@ class Jackpot extends React.Component {
             jackpotStatus: await JACKPOT.getJackpotStatus(),
             feePercent: JSON.parse(await JACKPOT.feePercent()),
             balance: await web3.eth.getBalance(this.state.account),
-            winnings: await JACKPOT.getWinnings(this.state.account)
+            winnings: await JACKPOT.getWinnings(this.state.account),
+            mostRecentSize: await JACKPOT.getMostRecentWinSize(),
+            mostRecentWinner: await JACKPOT.getMostRecentWinner()
         });
 
 
@@ -858,7 +889,6 @@ class Jackpot extends React.Component {
                         }
 
                     >Withdraw Winnings</button>
-                    <p>**JACKPOT STILL IN DEVELOPEMENT DO NOT PLAY**</p>
                     <h1 className="jackpot-header">Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
 
                     <div className="Countdown">
@@ -909,7 +939,10 @@ class Jackpot extends React.Component {
                     </button>
                     <br></br>
                     <p className="fee-announce">*{this.state.feePercent}% Fee Taken*</p>
-
+                    <br></br>
+                    <div className="most-recent-info">
+                        <p> Congratulations {(this.state.mostRecentWinner).toString().substr(0, 7) + "\u2026"} on the most recent {parseFloat((this.state.mostRecentSize) / 10 ** 18).toFixed(2)} MATIC win!</p>
+                    </div>
                     <br></br>
                     <h3 className="current-jackpot-bets">Current Players: <br></br>
                         <ul className="players"> {this.state.players.map((player) => (<li key={player}> {player} Bet &nbsp;</li>))}</ul>
