@@ -71,7 +71,7 @@ class Jackpot extends React.Component {
             window.alert("Please switch to Polygon Mainnet!");
         }
 
-        const JACKPOT_CONTRACT = "0xC66c7a6C1d8Dd53f106312De5e49e0E4A575b552";
+        const JACKPOT_CONTRACT = "0xDE568d0334B7DF6e735D6a3C2B5123A6B73fe726";
         const JACKPOT_ABI = [
             {
                 "inputs": [
@@ -848,8 +848,12 @@ class Jackpot extends React.Component {
                     </div>
                     <button className="withdraw-button"
                         onClick={async () => {
-                            const tx = await this.state.jackpot.withdrawWinnings();
-                            console.log(tx.hash);
+                            if (this.state.winnings == 0) {
+                                window.alert("No winnings to withdraw");
+                            } else {
+                                const tx = await this.state.jackpot.withdrawWinnings();
+                                console.log(tx.hash);
+                            }
                         }
                         }
 
@@ -881,13 +885,13 @@ class Jackpot extends React.Component {
                             if (this.state.jackpotStatus == "Active") {
 
                                 const tx = await this.state.jackpot.enterJackpot({
-                                    value: (this.state.bet * 10 ** 18).toString(), gasLimit: 1000000
+                                    value: (this.state.bet * 10 ** 18).toString(), gasLimit: 9000000
                                 });
 
                                 console.log(tx.hash);
                             } else if (this.state.jackpotStatus == "Inactive") {
                                 const tx = await this.state.jackpot.newJackpot({
-                                    value: (this.state.bet * 10 ** 18).toString(), gasLimit: 1000000
+                                    value: (this.state.bet * 10 ** 18).toString(), gasLimit: 9000000
                                 });
                                 console.log(tx.hash);
                                 this.startTimer();
@@ -908,8 +912,8 @@ class Jackpot extends React.Component {
 
                     <br></br>
                     <h3 className="current-jackpot-bets">Current Players: <br></br>
-                        <ul className="players"> {this.state.players.map(player => <li key={player}> {player} Bet &nbsp;</li>)}</ul>
-                        <ul className="bets"> {this.state.betsArray.map(bet => <li key={bet}> {JSON.parse(bet) / 10 ** 18} Matic </li>)}</ul>
+                        <ul className="players"> {this.state.players.map((player) => (<li key={player}> {player} Bet &nbsp;</li>))}</ul>
+                        <ul className="bets"> {this.state.betsArray.map((bet) => (<li key={bet}> {JSON.parse(bet) / 10 ** 18} Matic </li>))}</ul>
 
                     </h3>
                     <div className="game-footer">

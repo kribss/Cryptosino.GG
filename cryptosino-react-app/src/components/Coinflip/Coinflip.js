@@ -19,6 +19,7 @@ class Coinflip extends React.Component {
       bet: null,
       provider: null,
       feePercent: null,
+      balance: 0
     };
   }
 
@@ -294,7 +295,9 @@ class Coinflip extends React.Component {
       provider: provider,
       coinflip: COINFLIP,
       index: JSON.parse(await COINFLIP.get_game_count()),
-      feePercent: JSON.parse(await COINFLIP.feePercent())
+      feePercent: JSON.parse(await COINFLIP.feePercent()),
+      balance: await web3.eth.getBalance(this.state.account)
+
     });
     this.setState({
       list: Array.from(Array(this.state.index).keys()).reverse(),
@@ -432,7 +435,13 @@ class Coinflip extends React.Component {
         >
           Back To Games
         </Button>
+        <br></br>
+        <br></br>
+        <br></br>
         <div className="coinflip">
+          <div className='balance-indicator'>
+            <h1> Balance: {parseFloat((this.state.balance) / 10 ** 18).toFixed(2)} Matic</h1>
+          </div>
           <h3 className="coinflip-header">Total Games: {this.state.index}</h3>
           <input
             className="coinflip-create-input"

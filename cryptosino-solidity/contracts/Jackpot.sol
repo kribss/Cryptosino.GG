@@ -2,9 +2,9 @@
 
 pragma solidity 0.6.6;
 
-//import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
+import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 
-import "https://raw.githubusercontent.com/smartcontractkit/chainlink/master/evm-contracts/src/v0.6/VRFConsumerBase.sol";
+//import "https://raw.githubusercontent.com/smartcontractkit/chainlink/master/evm-contracts/src/v0.6/VRFConsumerBase.sol";
 
 interface IUniswapV2Router02 {
     function swapETHForExactTokens(
@@ -146,6 +146,7 @@ contract JackpotGame is VRFConsumerBase {
         );
         require((msg.value % 10**18) == 0, "whole number bets only");
         require(msg.value >= 10**18, "bets greater than 1 only");
+        jackpotIndex[index] = currentJackpot;
         index++;
         currentJackpotStatus = jackpotStatus.Active;
         currentJackpot = Jackpot(
@@ -435,7 +436,6 @@ contract JackpotGame is VRFConsumerBase {
             100);
         winningsOf[currentJackpot.winner] += ((currentJackpot.size *
             payoutPercent) / 100);
-        jackpotIndex[index] = currentJackpot;
         currentJackpotStatus = jackpotStatus.Inactive;
     }
 }
