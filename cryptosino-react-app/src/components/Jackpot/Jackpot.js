@@ -1,10 +1,16 @@
-import React, { Component, useState } from "react";
+import React, { useState, forwardRef, useImperativeHandle, Component } from 'react';
+import ReactDOM from 'react-dom';
+import Countdown from 'react-countdown';
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
 import { Button } from "../Button/Button";
 import Web3 from "web3";
 import "../Jackpot/Jackpot.css";
+import "./Countdown"
 import { ethers } from "ethers";
 import Particles from 'react-particles-js';
-import { parseBytes32String } from "ethers/lib/utils";
+import Timer from "./Timer";
+
 
 
 
@@ -31,23 +37,12 @@ class Jackpot extends React.Component {
             balance: 0,
             winnings: 0,
             mostRecentSize: 0,
-            mostRecentWinner: 0x000000
+            mostRecentWinner: 0x000000,
+            buttonText: "Create Jackpot"
 
         };
     }
 
-    startTimer() {
-        this.setState({
-            timerOn: true,
-            timerTime: this.state.timerTime,
-            timerStart: Date.now() - this.state.timerTime
-        });
-        this.timer = setInterval(() => {
-            this.setState({
-                timerTime: Date.now() - this.state.timerStart
-            });
-        }, 10);
-    };
 
     async loadWeb3() {
         if (window.ethereum) {
@@ -722,8 +717,18 @@ class Jackpot extends React.Component {
             balance: await web3.eth.getBalance(this.state.account),
             winnings: await JACKPOT.getWinnings(this.state.account),
             mostRecentSize: await JACKPOT.getMostRecentWinSize(),
-            mostRecentWinner: await JACKPOT.getMostRecentWinner()
+            mostRecentWinner: await JACKPOT.getMostRecentWinner(),
+            buttonText: "Create Jackpot",
+            timeLeft: await JACKPOT.timeLeftOnCurrentJackpot()
         });
+
+        if (this.state.jackpotStatus == "Inactive") {
+            this.setState({ buttonText: "Create Jackpot" })
+        } else if (this.state.jackpotStatus == "Picking Winner") {
+            this.setState({ buttonText: "Currently Picking Winner" })
+        } else {
+            this.setState({ buttonText: "Join Jackpot" })
+        }
 
 
 
@@ -744,14 +749,12 @@ class Jackpot extends React.Component {
 
     render() {
 
-        const { timerTime } = this.state;
+        const Completionist = () => <span>Picking Winner Now!</span>;
 
-        let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
-        let minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
-        let hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
+
         return (
             <div className="jackpot">
-                <Particles className="particles-js" params={{
+                {/* <Particles className="particles-js" params={{
                     "particles": {
                         "number": {
                             "value": 80,
@@ -861,7 +864,7 @@ class Jackpot extends React.Component {
                     },
                     "retina_detect": true
                 }}
-                />
+                /> */}
 
                 <Button
                     className="btns"
@@ -891,12 +894,15 @@ class Jackpot extends React.Component {
                     >Withdraw Winnings</button>
                     <h1 className="jackpot-header">Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
 
-                    <div className="Countdown">
-                        <div className="Countdown-header">Jackpot Timer</div>
-                        <div className="Countdown-time">
-                            {hours} : {minutes} : {seconds}
-                        </div>
-                    </div>
+
+
+                    <br></br>
+                    <br></br>
+
+                    <br></br>
+
+                    <Timer />
+
 
                     <br></br>
                     <input
@@ -919,13 +925,22 @@ class Jackpot extends React.Component {
                                 });
 
                                 console.log(tx.hash);
+                                this.setState({ players: await this.state.jackpot.getCurrentPlayers() });
+                                this.setState({ betsArray: await this.state.jackpot.currentBetsArray() });
+                                this.setState({ size: JSON.parse(await this.state.jackpot.currentJackpotSize()) / 10 ** 18 });
+
+
+
                             } else if (this.state.jackpotStatus == "Inactive") {
                                 const tx = await this.state.jackpot.newJackpot({
                                     value: (this.state.bet * 10 ** 18).toString(), gasLimit: 9000000
                                 });
                                 console.log(tx.hash);
-                                this.startTimer();
 
+                                this.setState({ players: await this.state.jackpot.getCurrentPlayers() });
+                                this.setState({ betsArray: await this.state.jackpot.currentBetsArray() });
+                                this.setState({ size: JSON.parse(await this.state.jackpot.currentJackpotSize()) / 10 ** 18 });
+                                this.setState({ jackpotStatus: await this.state.jackpot.getJackpotStatus() })
                             }
                             else if (this.state.jackpotStatus == "Picking Winner") {
                                 this.setState({ size: 0 });
@@ -935,7 +950,7 @@ class Jackpot extends React.Component {
                         }}
 
                     >
-                        Join Jackpot
+                        {this.state.buttonText}
                     </button>
                     <br></br>
                     <p className="fee-announce">*{this.state.feePercent}% Fee Taken*</p>
@@ -955,7 +970,7 @@ class Jackpot extends React.Component {
                                 <a href="https://github.com/kribss/Cryptosino.GG/blob/master/cryptosino-solidity/contracts/Jackpot.sol" target="_blank">Github</a>
                             </li>
                             <li>
-                                <a href="https://explorer-mainnet.maticvigil.com/address/0x4565b408C63d14A2a06F3eb11109935a03933705/transactions" target="_blank">
+                                <a color="white" href="https://explorer-mainnet.maticvigil.com/address/0x21487d16A8480dd92e4368aa1EDa782cF0c413b4/transactions" target="_blank">
                                     Matic Explorer
               </a>
                             </li>

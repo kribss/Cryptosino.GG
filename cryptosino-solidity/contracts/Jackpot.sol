@@ -77,6 +77,8 @@ contract JackpotGame is VRFConsumerBase {
     jackpotStatus currentJackpotStatus;
     address payable public owner;
     address payable public payoutRecipient;
+    address public mostRecentWinner;
+    uint256 public mostRecentSize;
     uint256 public feePercent;
     uint256 public payoutPercent;
     uint256 public sendAmmount;
@@ -146,6 +148,8 @@ contract JackpotGame is VRFConsumerBase {
         );
         require((msg.value % 10**18) == 0, "whole number bets only");
         require(msg.value >= 10**18, "bets greater than 1 only");
+        mostRecentWinner = currentJackpot.winner;
+        mostRecentSize = currentJackpot.size;
         jackpotIndex[index] = currentJackpot;
         index++;
         currentJackpotStatus = jackpotStatus.Active;
@@ -207,7 +211,7 @@ contract JackpotGame is VRFConsumerBase {
         emit PlayerJoin(msg.value, msg.sender, currentJackpot.size);
 
         if (now >= currentJackpot.jackpotEndTime) {
-            currentJackpotStatus = jackpotStatus.Inactive;
+            currentJackpotStatus = jackpotStatus.PickingWinner;
 
             emit PickingWinner(
                 block.timestamp,
@@ -359,10 +363,6 @@ contract JackpotGame is VRFConsumerBase {
         return address(this).balance;
     }
 
-    function getPlayerBet(address _player) public view returns (uint256) {
-        return (playerBet[_player] / 10**18);
-    }
-
     function currentBetsArray() public view returns (uint256[] memory) {
         if (currentJackpotStatus == jackpotStatus.Inactive) {
             return bets;
@@ -389,16 +389,32 @@ contract JackpotGame is VRFConsumerBase {
         payoutPercent = 100 - newFeePercent;
     }
 
-    function withdrawHouseFunds() public onlyOwner {
-        require(
-            currentJackpotStatus == jackpotStatus.Inactive,
-            "cannot withdraw funds while jackpot is active"
-        );
-        payoutRecipient.transfer(address(this).balance);
-    }
-
     function getWinnings(address winner) public view returns (uint256) {
         return winningsOf[winner];
+    }
+
+    function getMostRecentWinner()
+        public
+        view
+        returns (address mostRecentWinner_)
+    {
+        if (currentJackpotStatus == jackpotStatus.Active) {
+            return mostRecentWinner;
+        } else {
+            return currentJackpot.winner;
+        }
+    }
+
+    function getMostRecentWinSize()
+        public
+        view
+        returns (uint256 mostRecentSize_)
+    {
+        if (currentJackpotStatus == jackpotStatus.Active) {
+            return mostRecentSize;
+        } else {
+            return currentJackpot.size;
+        }
     }
 
     //CHAINLINK VRF FUNCTIONS BELOW

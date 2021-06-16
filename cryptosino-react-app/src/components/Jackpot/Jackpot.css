@@ -158,3 +158,6 @@ button:hover {
     color:white;
     text-align: center;
 }
+.game-footer a{
+  color: white;
+}

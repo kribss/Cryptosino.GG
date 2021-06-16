@@ -150,11 +150,9 @@ class CasinoHero extends React.Component {
             className="btns"
             buttonStyle="btn--primary"
             buttonSize="btn--large"
-            onClick={() => {
-              window.open('https://cryptosinogg.medium.com/cryptosino-gg-decentralized-gambling-118a3b990793');
-            }}
+            path="/Litepaper"
           >
-            Medium
+            Litepaper
           </Button>
           <Button
             className="btns"

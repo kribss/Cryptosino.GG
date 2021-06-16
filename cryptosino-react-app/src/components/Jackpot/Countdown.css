@@ -1,26 +1,12 @@
-
-.Timers {
-  display: flex;
-  justify-content: center;
-  
-}
-@media (max-width: 900px) {
-  .Timers {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-
 .Countdown {
-  margin-top: -50px;
+  margin-top: 120px;
   border: 2px solid grey;
   border-radius: 4px;
   width: 400px;
   background-color: rgb(22, 27, 31);
   box-shadow: 0 3px 6px rgb(12, 12, 12);
   text-align: center;
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
   margin-right: -50%;
@@ -31,6 +17,7 @@
 .Countdown-header{
   font-size: 40px;
   font-weight: bold;
+  color: white;
 }
 
 button {
@@ -57,7 +44,6 @@ button:hover {
   border-radius: 2px;
   padding: 4px 16px;
   color: #ffffff;
-
   font-size: 16px;
 }
 .Countdown-display button:hover {
@@ -72,5 +58,6 @@ button:hover {
 .Countdown-time {
   font-size: 36px;
   margin: 5px 0;
-  
+    color: white;
+
 }
