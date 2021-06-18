@@ -20,20 +20,6 @@
   color: white;
 }
 
-.balance-indicator {
-  background-color:rgb(53, 136, 224); 
-  max-width: 250px;
-  border: 1px solid;
-  border-radius: 50px;
-  border-width: medium;
-  border-color: white;
-  color: white;
-  font-size: 20px;
-  text-align: center;
-  margin-left: 80%;
-  margin-bottom: 0px;
-  position: relative;
-}
 .coinflip li {
   position: relative;
   list-style: none;
@@ -46,7 +32,7 @@
 
 .coinflip-header {
   position: relative;
-  padding: 25px;
+  padding-top: 50px;
   text-align: center;
   font-size: 32px;
   color: rgb(53, 136, 224);

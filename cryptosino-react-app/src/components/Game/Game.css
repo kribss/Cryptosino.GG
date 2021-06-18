@@ -1,9 +1,14 @@
 .game {
   border-style: outset;
   border-color: gold;
-  background-color: white;
+  border-radius: 20px;
+  background-color: gray;
   margin: 24px;
   z-index: -1;
+  min-width: 100%;
+  flex-direction: column;
+  align-items: center;
+
 }
 
 .game-info {
@@ -13,18 +18,26 @@
 .game-info p {
   margin: 10px;
   padding: 20px;
-  margin: 5px;
+  font-size: 17px;
 }
 
 .game-info button {
+  border-radius: 10px;
+  border: solid;
+  border-color: black;
   padding: 10px;
   margin: 10px;
+  font-size: 14px;
   border-style: outset;
-  background-color: Black;
+  background-color: rgb(53, 136, 224);
   color: white;
 }
 
 .winner-announce {
   padding-left: 35%;
   text-align: center;
+  font-size: 24px;
+  text-shadow: -2px 2px 2px #000, 2px 2px 2px #000,
+				 2px -2px 2px #000;
+  color: rgb(53, 136, 224);
 }

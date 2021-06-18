@@ -1,0 +1,105 @@
+.navbar {
+  background: #15171c;
+  justify-content: space-between;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 997;
+}
+.navbar h3 {
+  margin-right: 15vh;
+  margin-bottom:30px;
+margin-left: 100px;
+
+}
+.sidebar-footer{
+  position: fixed;
+  bottom: 0;
+  color: white;
+  margin: 20px;
+}
+.nav-balance-indicator {
+  font-family: monospace;
+  /* background-color:rgb(53, 136, 224);  */
+  min-width: 300px;
+  border: 1px solid;
+  border-radius: 50px;
+  border-width: medium;
+  border-color: white;
+  color: rgb(53, 136, 224);
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 0px;
+  margin-right: 10px;
+
+  
+}
+.nav-balance-indicator h1{
+  font-family: monospace;
+  font-size: 20px;
+}
+.navbar-logo {
+font-size: 24px;
+color: rgb(53, 136, 224);
+font-family: monospace;
+text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color), -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color);
+}
+.navbar-logo:visited {
+color: rgb(53, 136, 224);
+font-family: monospace;
+
+}
+.navbar-container {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  max-width: 100%;
+  margin-left: 100px;
+}
+
+.fa {
+  padding: 15px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  color: rgb(53, 136, 224);
+}
+.fab {
+  padding: 15px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  color: rgb(53, 136, 224);
+}
+.sidebar-links{
+  font-size: 24px;
+  font-family: monospace;
+}
+.sidebar-links:visited {
+color: white;
+}
+/* Add a hover effect if you want */
+.fa:hover {
+  opacity: 0.7;
+}
+
+/* Set a specific color for each brand */
+
+
+@media screen and (max-width: 960px) {
+  .NavbarItems {
+    position: relative;
+  }
+
+
+}

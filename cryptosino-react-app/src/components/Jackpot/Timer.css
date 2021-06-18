@@ -10,7 +10,8 @@ h1 {
 }
 
 .timer {
-  font-family: "Montserrat";
+  font-family: monospace;
+  font-size:16px;
   display: flex;
   flex-direction: column;
   align-items: center;

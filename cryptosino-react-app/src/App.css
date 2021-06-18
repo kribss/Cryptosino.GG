@@ -5,11 +5,3 @@
   font-family: "PT Sans", sans-serif;
 }
 
-.home,
-.casino{
-  display: flex;
-  height: 90vh;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-}

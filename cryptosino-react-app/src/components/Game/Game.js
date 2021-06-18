@@ -37,12 +37,12 @@ class Game extends React.Component {
               }
             }
           }}>{this.state.buttonDisplay}</button>
-          <p><b>Player 1:</b> <code>{this.state.player1}</code></p>
-          <p><b>Player 2:</b> <code>{this.state.player2}</code></p>
+          <p><b>Player 1:</b> <br></br><code>{this.state.player1}</code></p>
+          <p><b>Player 2:</b> <br></br> <code>{this.state.player2}</code></p>
           <p><b>block created:</b> <code>{this.state.timestamp}</code></p>
 
         </div>
-        <h>Winner: <code><b>{this.state.winner}</b></code></h>
+        <h className="winner-announce">Winner: <code><b>{this.state.winner}</b></code></h>
       </div>
     )
   }

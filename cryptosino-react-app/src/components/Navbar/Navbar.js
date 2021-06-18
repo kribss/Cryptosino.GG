@@ -1,44 +1,23 @@
-import React, { useState, forwardRef, useImperativeHandle, Component } from 'react';
-import ReactDOM from 'react-dom';
-import Countdown from 'react-countdown';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./Navbar.css";
 import { Button } from "../Button/Button";
 import Web3 from "web3";
-import "../Jackpot/Jackpot.css";
-import "./Countdown"
-import { ethers } from "ethers";
-import Timer from './Timer';
+import { ethers } from "ethers"
 
 
 
 
 
-
-class Jackpot extends React.Component {
+class Navbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            index: 0,
-            size: 0,
             jackpot: null,
-            players: [],
             account: null,
             signer: null,
-            bet: null,
-            timeLeft: 0,
-            playerBets: null,
-            betsArray: [],
-            provider: null,
-            jackpotStatus: "",
-            feePercent: null,
-            timerOn: false,
-            timerStart: 10,
-            timerTime: 10,
             balance: 0,
             winnings: 0,
-            mostRecentSize: 0,
-            mostRecentWinner: 0x000000,
-            buttonText: "Create Jackpot"
-
         };
     }
 
@@ -706,35 +685,10 @@ class Jackpot extends React.Component {
         this.setState({
             provider: provider,
             jackpot: JACKPOT,
-            index: JSON.parse(await JACKPOT.getJackpotCount()),
-            size: JSON.parse(await JACKPOT.currentJackpotSize()) / 10 ** 18,
-            players: await JACKPOT.getCurrentPlayers(),
-            betsArray: await JACKPOT.currentBetsArray(),
-            jackpotStatus: await JACKPOT.getJackpotStatus(),
-            feePercent: JSON.parse(await JACKPOT.feePercent()),
             balance: await web3.eth.getBalance(this.state.account),
             winnings: await JACKPOT.getWinnings(this.state.account),
-            mostRecentSize: await JACKPOT.getMostRecentWinSize(),
-            mostRecentWinner: await JACKPOT.getMostRecentWinner(),
-            buttonText: "Create Jackpot",
-            timerText: null,
-            timeLeft: JSON.parse((await JACKPOT.timeLeftOnCurrentJackpot()))
 
         });
-
-
-        if (this.state.jackpotStatus == "Inactive") {
-            this.setState({ buttonText: "Create Jackpot" })
-            this.setState({ timerText: "Create Jackpot!" })
-        } else if (this.state.jackpotStatus == "Picking Winner") {
-            this.setState({ buttonText: "Currently Picking Winner" })
-            this.setState({ timerText: "Picking Winner Now!" })
-        } else {
-            this.setState({ buttonText: "Join Jackpot" })
-        }
-
-
-
     }
 
 
@@ -743,138 +697,28 @@ class Jackpot extends React.Component {
         await this.loadWeb3();
         await this.loadBlockchainData();
     }
-
-    handleChange = (event) => {
-        this.setState({ bet: event.target.value });
-    };
-
-
-
     render() {
-        const renderTime = ({ remainingTime }) => {
-            if (remainingTime === 0) {
-                return <div className="timer">{this.state.timerText}</div>;
-            }
-
-            return (
-                <div className="timer">
-                    <div className="text">Remaining</div>
-                    <div className="value">{remainingTime}</div>
-                    <div className="text">seconds</div>
-                </div>
-            );
-        };
-        const timeLeft = this.state.timeLeft;
         return (
-            <div className="jackpot">
-
-                <div className="jackpot-container">
-                    <br></br>
-                    <button className="withdraw-button"
-                        onClick={async () => {
-                            if (this.state.winnings == 0) {
-                                window.alert("No winnings to withdraw");
-                            } else {
-                                const tx = await this.state.jackpot.withdrawWinnings();
-                                console.log(tx.hash);
-                            }
-                        }
-                        }
-
-                    >Withdraw Winnings</button>
-                    <h1 className="jackpot-header">Current Jackpot Size: {parseFloat(this.state.size).toFixed(2)} Matic </h1>
-
-
-
-                    <br></br>
-                    <br></br>
-
-                    <br></br>
-                    <Timer timeLeft={this.state.timeLeft} />
-                    <br></br>
-                    <p>{JSON.parse(this.state.timeLeft)}</p>
-                    <input
-                        className="jackpot-input"
-                        type="number"
-                        placeholder="Enter MATIC Bet"
-                        value={this.state.bet}
-                        onChange={this.handleChange}
-                    />
-
-                    <button
-                        id="joinbutton"
-                        className="jackpot-join-button"
-                        onClick={async () => {
-
-                            if (this.state.jackpotStatus == "Active") {
-                                if ((this.state.bet % 1) != 0) {
-                                    window.alert("Whole Number Bets Only")
-                                } else {
-                                    const tx = await this.state.jackpot.enterJackpot({
-                                        value: (this.state.bet * 10 ** 18).toString(), gasLimit: 9000000
-                                    });
-
-                                    console.log(tx.hash);
-                                    this.setState({ players: await this.state.jackpot.getCurrentPlayers() });
-                                    this.setState({ betsArray: await this.state.jackpot.currentBetsArray() });
-                                    this.setState({ size: JSON.parse(await this.state.jackpot.currentJackpotSize()) / 10 ** 18 });
-
-                                }
-
-                            } else if (this.state.jackpotStatus == "Inactive") {
-                                if ((this.state.bet % 1) != 0) {
-                                    window.alert("Whole Number Bets Only")
-                                } else {
-                                    const tx = await this.state.jackpot.newJackpot({
-                                        value: (this.state.bet * 10 ** 18).toString(), gasLimit: 9000000
-                                    });
-                                    console.log(tx.hash);
-
-                                    this.setState({ players: await this.state.jackpot.getCurrentPlayers() });
-                                    this.setState({ betsArray: await this.state.jackpot.currentBetsArray() });
-                                    this.setState({ size: JSON.parse(await this.state.jackpot.currentJackpotSize()) / 10 ** 18 });
-                                    this.setState({ jackpotStatus: await this.state.jackpot.getJackpotStatus() })
-                                }
-                            }
-                            else if (this.state.jackpotStatus == "Picking Winner") {
-                                this.setState({ size: 0 });
-                                window.alert("Winner being picked now, wait to join/create next jackpot!");
-
-                            }
-                        }}
-
-                    >
-                        {this.state.buttonText}
-                    </button>
-                    <br></br>
-                    <p className="fee-announce">*{this.state.feePercent}% Fee Taken*</p>
-                    <br></br>
-                    <div className="most-recent-info">
-                        <p> Congratulations {(this.state.mostRecentWinner).toString().substr(0, 7) + "\u2026"} on the most recent {parseFloat((this.state.mostRecentSize) / 10 ** 18).toFixed(2)} MATIC win!</p>
-                    </div>
-                    <br></br>
-                    <br></br>
-                    <h3 className="current-jackpot-bets">Current Players: <br></br>
-                        <ul className="players"> {this.state.players.map((player) => (<li key={player}> {player} Bet &nbsp;</li>))}</ul>
-                        <ul className="bets"> {this.state.betsArray.map((bet) => (<li key={bet}> {JSON.parse(bet) / 10 ** 18} Matic </li>))}</ul>
-
-                    </h3>
-                    <div className="game-footer">
-                        <ul>
-                            <li>
-                                <a href="https://github.com/kribss/Cryptosino.GG/blob/master/cryptosino-solidity/contracts/Jackpot.sol" target="_blank">Github</a>
-                            </li>
-                            <li>
-                                <a color="white" href="https://explorer-mainnet.maticvigil.com/address/0x21487d16A8480dd92e4368aa1EDa782cF0c413b4/transactions" target="_blank">
-                                    Matic Explorer
-              </a>
-                            </li>
-                        </ul>
-                    </div>
+            <nav className="navbar" >
+                <Button
+                    className="btns"
+                    buttonStyle="btn--outline"
+                    buttonSize="btn--medium"
+                    path="/casino"
+                >
+                    Back
+                </Button>
+                <Link to="/" className="navbar-logo" >
+                    CryptoSino
+          {/* <i className="fab fa-ethereum"></i> */}
+                </Link>
+                <div className='nav-balance-indicator'>
+                    <h1 className="nav-balance"> Balance: {parseFloat((this.state.balance) / 10 ** 18).toFixed(2)} Matic</h1>
+                    <h1 className="nav-balance"> Winnings: {parseFloat((this.state.winnings) / 10 ** 18).toFixed(2)} Matic</h1>
                 </div>
-            </div >
-        )
+
+            </nav>
+        );
     }
 }
-export default Jackpot
-
+export default Navbar;

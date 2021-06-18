@@ -427,21 +427,9 @@ class Coinflip extends React.Component {
           "retina_detect": true
         }}
         />
-        <Button
-          className="btns"
-          buttonStyle="btn--outline"
-          buttonSize="btn--medium"
-          path="/casino"
-        >
-          Back To Games
-        </Button>
-        <br></br>
-        <br></br>
-        <br></br>
+
         <div className="coinflip">
-          <div className='balance-indicator'>
-            <h1> Balance: {parseFloat((this.state.balance) / 10 ** 18).toFixed(2)} Matic</h1>
-          </div>
+
           <h3 className="coinflip-header">Total Games: {this.state.index}</h3>
           <input
             className="coinflip-create-input"
@@ -463,7 +451,7 @@ class Coinflip extends React.Component {
         </button>
           <br></br>
           <p className="fee-announce">*{this.state.feePercent}% Fee Taken*</p>
-          <ul>
+          <ul className="gamelist">
             {this.state.list.map((index) => (
               <li key={index}>
                 <Game

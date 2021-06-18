@@ -18,7 +18,7 @@ const renderTime = ({ remainingTime }) => {
     );
 };
 
-function Timer() {
+function Timer(props) {
     return (
 
         <div className="Timer">
@@ -27,9 +27,9 @@ function Timer() {
                 <br></br>
                 <CountdownCircleTimer
                     isPlaying
-                    duration={60}
+                    duration={props.timeLeft}
                     colors={"#3589e1"}
-                    onComplete={() => [true, 1000]}
+                    onComplete={() => [false, 0]}
                 >
                     {renderTime}
                 </CountdownCircleTimer>
@@ -39,5 +39,5 @@ function Timer() {
 }
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<Timer />, rootElement);
+ReactDOM.render(<Timer timeLeft />, rootElement);
 export default Timer;
